@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "mastermaxis-vanilla-plus",
+	"version": "${version}",
+	"name": "MASTERmaxis vanilla plus",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"MASTERmaxiPL"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod",
+		"authors_github": "https://github.com/MASTERmaxiPL"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/mastermaxisvanillaplus/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus"
+		],
+		"fabric-datagen": [
+			"net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlusDataGenerator"
+		],
+		"client": [
+			"net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlusClient"
+		]
+	},
+	"mixins": [
+		"mastermaxisvanillaplus.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
