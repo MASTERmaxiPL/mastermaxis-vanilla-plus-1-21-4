@@ -2,8 +2,10 @@ package net.mastermaxi.mastermaxisvanillaplus;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.mastermaxi.mastermaxisvanillaplus.block.BlockInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
+import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.minecraft.util.Identifier;
@@ -25,6 +27,8 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		ItemInit.initialize();
 		LOGGER.info("trying to init entities");
 		EntityInit.initialize();
+		LOGGER.info("trying to register ostrich attributes");
+		FabricDefaultAttributeRegistry.register(EntityInit.OSTRICH, OstrichEntity.createAttributes());
 
 		LOGGER.info("Hello Fabric world!");
 	}

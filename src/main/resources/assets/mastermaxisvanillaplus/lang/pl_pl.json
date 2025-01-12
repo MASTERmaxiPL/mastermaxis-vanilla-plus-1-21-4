@@ -1,7 +1,9 @@
 {
   "item.mastermaxisvanillaplus.ostrich_feather" : "Strusie Pióro",
   "item.mastermaxisvanillaplus.mud_ball" : "Kula Błota",
+  "item.mastermaxisvanillaplus.mud_water_bucket": "Wiadro z Błotną Wodą",
+  "item.mastermaxisvanillaplus.ostrich_spawn_egg": "Jajko Przywołania Strusia",
 
-  "item.mastermaxisvanillaplus.mud_block" : "Blok Błota",
-  "item.mastermaxisvanillaplus.feather_ball" : "Blok Piór"
+  "block.mastermaxisvanillaplus.mud_block" : "Blok Błota",
+  "block.mastermaxisvanillaplus.feather_block" : "Blok Piór"
 }
