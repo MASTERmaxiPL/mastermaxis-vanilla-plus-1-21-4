@@ -7,6 +7,7 @@ import net.mastermaxi.mastermaxisvanillaplus.block.BlockInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
+import net.mastermaxi.mastermaxisvanillaplus.fluid.MudWaterFluidRenderHandler;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("trying to init fluids");
 		FluidInit.initialize();
+		MudWaterFluidRenderHandler.initialize();
 		LOGGER.info("trying to init blocks");
 		BlockInit.initialize();
 		LOGGER.info("trying to init items");
