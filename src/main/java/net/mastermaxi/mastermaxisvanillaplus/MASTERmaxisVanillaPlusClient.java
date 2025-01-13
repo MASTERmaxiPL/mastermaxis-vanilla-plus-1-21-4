@@ -24,7 +24,7 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         FluidRenderHandlerRegistry.INSTANCE.register(FluidInit.MUD_WATER_STILL, FluidInit.MUD_WATER_FLOWING, new SimpleFluidRenderHandler(
                 Identifier.of("minecraft:block/water_still"),
                 Identifier.of("minecraft:block/water_flow"),
-                0x4CC248
+                0x8B4513
         ));
         System.out.println("Mud Water renderer registered!");
 

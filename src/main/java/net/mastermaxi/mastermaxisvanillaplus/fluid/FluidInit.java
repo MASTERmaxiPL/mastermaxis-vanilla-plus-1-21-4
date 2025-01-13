@@ -66,7 +66,7 @@ public class FluidInit {
 
         MUD_WATER_BLOCK = registerFluidBlock(
                 "mud_water_block",
-                AbstractBlock.Settings.create().noCollision().strength(100.0F).dropsNothing(),
+                AbstractBlock.Settings.copy(Blocks.WATER),
                 MUD_WATER_STILL
         );
     }
