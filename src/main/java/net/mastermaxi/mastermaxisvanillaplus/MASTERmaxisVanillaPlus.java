@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.mastermaxi.mastermaxisvanillaplus.block.BlockInit;
+import net.mastermaxi.mastermaxisvanillaplus.block.Blocks;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
@@ -24,6 +25,7 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		FluidInit.initialize();
 		MudWaterFluidRenderHandler.initialize();
 		LOGGER.info("trying to init blocks");
+		Blocks.initialize();
 		BlockInit.initialize();
 		LOGGER.info("trying to init items");
 		ItemInit.initialize();

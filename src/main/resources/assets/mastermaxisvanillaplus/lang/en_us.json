@@ -4,6 +4,12 @@
   "item.mastermaxisvanillaplus.mud_water_bucket" : "Mud Water Bucket",
   "item.mastermaxisvanillaplus.ostrich_spawn_egg" : "Ostrich Spawn Egg",
 
-  "block.mastermaxisvanillaplus.mud_block" : "Mud Block",
-  "block.mastermaxisvanillaplus.feather_block" : "Feather Block"
+  "block.mastermaxisvanillaplus.mud_block" : "Block of Mud",
+  "block.mastermaxisvanillaplus.mudstone_block" : "Mudstone",
+  "block.mastermaxisvanillaplus.mudstone_brick" : "Mudstone Brick",
+  "block.mastermaxisvanillaplus.polished_mudstone" : "Polished Mudstone",
+  "block.mastermaxisvanillaplus.mudstone_coal_ore" : "Mudstone Coal Ore",
+  "block.mastermaxisvanillaplus.mudstone_iron_ore" : "Mudstone Iron Ore",
+  "block.mastermaxisvanillaplus.mudstone_flint_ore" : "Mudstone Flint Ore",
+  "block.mastermaxisvanillaplus.feather_block" : "Block of Feather"
 }

@@ -5,5 +5,11 @@
   "item.mastermaxisvanillaplus.ostrich_spawn_egg": "Jajko Przywołania Strusia",
 
   "block.mastermaxisvanillaplus.mud_block" : "Blok Błota",
+  "block.mastermaxisvanillaplus.mudstone_block" : "Blok Mułowca",
+  "block.mastermaxisvanillaplus.mudstone_brick" : "Cegła z Mułowca",
+  "block.mastermaxisvanillaplus.polished_mudstone" : "Wypolerowany Mułowiec",
+  "block.mastermaxisvanillaplus.mudstone_coal_ore" : "Mułowcowe Złoże Węgla",
+  "block.mastermaxisvanillaplus.mudstone_iron_ore" : "Mułowcowe Złoże Żelaza",
+  "block.mastermaxisvanillaplus.mudstone_flint_ore" : "Mułowcowe Złoże Krzemienia",
   "block.mastermaxisvanillaplus.feather_block" : "Blok Piór"
 }

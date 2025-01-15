@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "mastermaxisvanillaplus:mudstone_block",
+    "mastermaxisvanillaplus:mudstone_brick",
+    "mastermaxisvanillaplus:polished_mudstone",
+    "mastermaxisvanillaplus:mudstone_coal_ore",
+    "mastermaxisvanillaplus:mudstone_iron_ore",
+    "mastermaxisvanillaplus:mudstone_flint_ore"
+  ]
+}
