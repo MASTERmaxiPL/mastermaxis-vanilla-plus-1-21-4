@@ -199,9 +199,9 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
     }
 
     private void updateAnimations() {
-        MASTERmaxisVanillaPlus.LOGGER.info("idleAnimationCooldown: " + idlingAnimationState.isRunning());
-        MASTERmaxisVanillaPlus.LOGGER.info("getHitAnimationState: " + getHitAnimationState.isRunning());
-        MASTERmaxisVanillaPlus.LOGGER.info("walkingAnimationState: " + walkingAnimationState.isRunning());
+        //MASTERmaxisVanillaPlus.LOGGER.info("idleAnimationCooldown: " + idlingAnimationState.isRunning());
+        //MASTERmaxisVanillaPlus.LOGGER.info("getHitAnimationState: " + getHitAnimationState.isRunning());
+        //MASTERmaxisVanillaPlus.LOGGER.info("walkingAnimationState: " + walkingAnimationState.isRunning());
 
         if (this.getHitAnimationState.isRunning()) {
             idlingAnimationState.stop();

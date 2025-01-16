@@ -1,6 +1,8 @@
 package net.mastermaxi.mastermaxisvanillaplus.fluid;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
+import net.mastermaxi.mastermaxisvanillaplus.item.ItemGroupsInit;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
@@ -69,5 +71,9 @@ public class FluidInit {
                 AbstractBlock.Settings.copy(Blocks.WATER),
                 MUD_WATER_STILL
         );
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.MOD_ITEM_GROUP_KEY).register((entries) -> {
+            entries.add(MUD_WATER_BUCKET);
+        });
     }
 }

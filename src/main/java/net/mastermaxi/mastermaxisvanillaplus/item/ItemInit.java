@@ -33,6 +33,12 @@ public class ItemInit {
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering items for " + MASTERmaxisVanillaPlus.MOD_ID);
 
+        ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.MOD_ITEM_GROUP_KEY).register((entries) -> {
+            entries.add(OSTRICH_FEATHER);
+            entries.add(MUD_BALL);
+            entries.add(OSTRICH_SPAWN_EGG);
+        });
+
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((entries) -> {
             entries.add(OSTRICH_FEATHER);
         });
