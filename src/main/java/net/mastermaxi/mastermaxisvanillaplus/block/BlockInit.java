@@ -18,10 +18,18 @@ public class BlockInit {
 
     private static void modifyEntries(FabricItemGroupEntries entries) {
         entries.add(FEATHER_BLOCK);
+
         entries.add(MUD_BLOCK);
+
         entries.add(MUDSTONE_BLOCK);
+        entries.add(MUDSTONE_STAIRS);
+
         entries.add(MUDSTONE_BRICK);
+        entries.add(MUDSTONE_BRICK_STAIRS);
+
         entries.add(POLISHED_MUDSTONE);
+        entries.add(POLISHED_MUDSTONE_STAIRS);
+
         entries.add(MUDSTONE_COAL_ORE);
         entries.add(MUDSTONE_IRON_ORE);
         entries.add(MUDSTONE_FLINT_ORE);

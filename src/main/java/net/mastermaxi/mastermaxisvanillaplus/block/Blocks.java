@@ -5,6 +5,7 @@ import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ExperienceDroppingBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -47,6 +48,8 @@ public class Blocks {
                     .sounds(BlockSoundGroup.STONE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
+    public static final Block MUDSTONE_STAIRS = registerStairsBlock("mudstone_stairs", MUDSTONE_BLOCK);
+
     public static Block MUDSTONE_BRICK = register(
             "mudstone_brick",
             Block::new,
@@ -56,6 +59,9 @@ public class Blocks {
                     .sounds(BlockSoundGroup.STONE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
+    public static final Block MUDSTONE_BRICK_STAIRS = registerStairsBlock("mudstone_brick_stairs", MUDSTONE_BRICK);
+
+
     public static Block POLISHED_MUDSTONE = register(
             "polished_mudstone",
             Block::new,
@@ -65,6 +71,8 @@ public class Blocks {
                     .sounds(BlockSoundGroup.STONE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
+    public static final Block POLISHED_MUDSTONE_STAIRS = registerStairsBlock("polished_mudstone_stairs", POLISHED_MUDSTONE);
+
     public static Block MUDSTONE_COAL_ORE = register(
             "mudstone_coal_ore",
             settings -> new ExperienceDroppingBlock(UniformIntProvider.create(0, 2), settings),
@@ -108,6 +116,10 @@ public class Blocks {
         Items.register(block);
 
         return block;
+    }
+
+    private static Block registerStairsBlock(String id, Block base) {
+        return register(id, settings -> new StairsBlock(base.getDefaultState(), settings), AbstractBlock.Settings.copy(base));
     }
 
     public static void initialize() {
