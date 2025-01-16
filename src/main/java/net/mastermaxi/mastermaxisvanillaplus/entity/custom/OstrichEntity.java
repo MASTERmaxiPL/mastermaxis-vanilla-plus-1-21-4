@@ -1,9 +1,9 @@
 package net.mastermaxi.mastermaxisvanillaplus.entity.custom;
 
+import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -35,7 +35,7 @@ import java.util.UUID;
 
 public class OstrichEntity extends AnimalEntity implements Angerable {
     public final AnimationState idlingAnimationState = new AnimationState();
-    public final AnimationState attackingAnimationState = new AnimationState();
+    public final AnimationState getHitAnimationState = new AnimationState();
     public final AnimationState walkingAnimationState = new AnimationState();
 
     private int idleAnimationCooldown = 0;
@@ -187,21 +187,47 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
         }
     }
 
+    @Override
+    protected void applyDamage(ServerWorld world, DamageSource source, float amount) {
+        super.applyDamage(world, source, amount);
+        MASTERmaxisVanillaPlus.LOGGER.info("getHit");
+        this.getHitAnimationState.start(this.age);
+    }
+
+    private boolean isMoving() {
+        return this.getVelocity().horizontalLengthSquared() > 0.01;
+    }
+
     private void updateAnimations() {
-        if (this.idleAnimationCooldown <= 0) {
+        MASTERmaxisVanillaPlus.LOGGER.info("idleAnimationCooldown: " + idlingAnimationState.isRunning());
+        MASTERmaxisVanillaPlus.LOGGER.info("getHitAnimationState: " + getHitAnimationState.isRunning());
+        MASTERmaxisVanillaPlus.LOGGER.info("walkingAnimationState: " + walkingAnimationState.isRunning());
+
+        if (this.getHitAnimationState.isRunning()) {
+            idlingAnimationState.stop();
+            walkingAnimationState.stop();
+
+            this.getHitAnimationState.start(this.age);
+        }
+        else if (this.isMoving()) {
+            idlingAnimationState.stop();
+            getHitAnimationState.stop();
+
+            this.walkingAnimationState.start(this.age);
+        }
+        else if (this.idleAnimationCooldown <= 0) {
+            idlingAnimationState.stop();
+            getHitAnimationState.stop();
+
             this.idleAnimationCooldown = this.random.nextInt(40) + 80;
             this.idlingAnimationState.start(this.age);
         } else {
             this.idleAnimationCooldown--;
         }
 
-        if (this.attackingAnimationState.isRunning()) {
-            this.attackingAnimationState.start(this.age);
-        }
 
-        if (this.walkingAnimationState.isRunning()) {
-            this.walkingAnimationState.start(this.age);
-        }
+
+
     }
 
     @Override

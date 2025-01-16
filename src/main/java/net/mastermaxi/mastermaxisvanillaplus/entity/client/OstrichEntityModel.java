@@ -70,7 +70,7 @@ public class OstrichEntityModel extends EntityModel<OstrichEntityRenderState> {
 
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animate(ostrichEntityRenderState.attackingAnimationState, OstrichEntityAnimations.GET_HIT, ostrichEntityRenderState.age, 1.0F);
+        this.animate(ostrichEntityRenderState.getHitAnimationState, OstrichEntityAnimations.GET_HIT, ostrichEntityRenderState.age, 1.0F);
         this.animate(ostrichEntityRenderState.idlingAnimationState, OstrichEntityAnimations.IDLE, ostrichEntityRenderState.age, 1.0F);
         this.animateWalking(OstrichEntityAnimations.WALK, 1, 1, 2f, 2.5f);
     }

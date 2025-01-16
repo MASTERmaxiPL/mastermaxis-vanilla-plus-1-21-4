@@ -5,5 +5,5 @@ import net.minecraft.entity.AnimationState;
 
 public class OstrichEntityRenderState extends LivingEntityRenderState {
     public final AnimationState idlingAnimationState = new AnimationState();
-    public final AnimationState attackingAnimationState = new AnimationState();
+    public final AnimationState getHitAnimationState = new AnimationState();
 }
