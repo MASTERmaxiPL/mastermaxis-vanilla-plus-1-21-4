@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.mastermaxi.mastermaxisvanillaplus.block.Blocks;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityRenderer;
@@ -18,6 +19,8 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         System.out.println("Registering Renderers");
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MUDSTONE_DOOR, RenderLayer.getCutout());
+
         EntityRendererRegistry.register(EntityInit.MUD_BALL, FlyingItemEntityRenderer::new);
         System.out.println("Mud Ball renderer registered!");
 

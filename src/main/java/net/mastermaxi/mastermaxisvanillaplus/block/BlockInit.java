@@ -23,12 +23,22 @@ public class BlockInit {
 
         entries.add(MUDSTONE_BLOCK);
         entries.add(MUDSTONE_STAIRS);
+        entries.add(MUDSTONE_SLAB);
+        entries.add(MUDSTONE_WALL);
+        entries.add(MUDSTONE_BUTTON);
+        entries.add(MUDSTONE_PRESSURE_PLATE);
+        entries.add(MUDSTONE_DOOR);
 
         entries.add(MUDSTONE_BRICK);
         entries.add(MUDSTONE_BRICK_STAIRS);
+        entries.add(Blocks.MUDSTONE_BRICK_SLAB);
+        entries.add(Blocks.MUDSTONE_BRICK_WALL);
+        entries.add(Blocks.MUDSTONE_BRICK_PRESSURE_PLATE);
 
-        entries.add(POLISHED_MUDSTONE);
-        entries.add(POLISHED_MUDSTONE_STAIRS);
+        entries.add(Blocks.POLISHED_MUDSTONE);
+        entries.add(Blocks.POLISHED_MUDSTONE_STAIRS);
+        entries.add(Blocks.POLISHED_MUDSTONE_SLAB);
+        entries.add(Blocks.POLISHED_MUDSTONE_WALL);
 
         entries.add(MUDSTONE_COAL_ORE);
         entries.add(MUDSTONE_IRON_ORE);

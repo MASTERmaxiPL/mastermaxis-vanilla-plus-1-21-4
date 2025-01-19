@@ -2,10 +2,7 @@ package net.mastermaxi.mastermaxisvanillaplus.block;
 
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.ExperienceDroppingBlock;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -39,6 +36,9 @@ public class Blocks {
                     .strength(0.5f)
                     .sounds(BlockSoundGroup.MUD)
     );
+
+    public static final Identifier MUDSTONE_BLOCK_TOP_BOTTOM_TEXTURE = Identifier.of("mastermaxisvanillaplus", "block/mudstone_block_top_bottom");
+    public static final Identifier MUDSTONE_BLOCK_SIDE_TEXTURE = Identifier.of("mastermaxisvanillaplus", "block/mudstone_block_simple");
     public static Block MUDSTONE_BLOCK = register(
             "mudstone_block",
             Block::new,
@@ -48,7 +48,21 @@ public class Blocks {
                     .sounds(BlockSoundGroup.STONE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
+    public static final Block MUDSTONE_BLOCK_SIMPLE = register(
+            "mudstone_block_simple",
+            Block::new,
+            Block.Settings.create()
+                    .requiresTool()
+                    .strength(2F, 6.0F)
+                    .sounds(BlockSoundGroup.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+    );
     public static final Block MUDSTONE_STAIRS = registerStairsBlock("mudstone_stairs", MUDSTONE_BLOCK);
+    public static final Block MUDSTONE_SLAB = registerSlabBlock("mudstone_slab", MUDSTONE_BLOCK);
+    public static final Block MUDSTONE_BUTTON = registerButtonBlock("mudstone_button", MUDSTONE_BLOCK, BlockSetType.STONE, 20);
+    public static final Block MUDSTONE_PRESSURE_PLATE = registerPressurePlateBlock("mudstone_pressure_plate", MUDSTONE_BLOCK, BlockSetType.STONE);
+    public static final Block MUDSTONE_WALL = registerWallBlock("mudstone_wall", MUDSTONE_BLOCK);
+    public static final Block MUDSTONE_DOOR = registerDoorBlock("mudstone_door", MUDSTONE_BLOCK, BlockSetType.STONE);
 
     public static Block MUDSTONE_BRICK = register(
             "mudstone_brick",
@@ -60,7 +74,9 @@ public class Blocks {
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
     public static final Block MUDSTONE_BRICK_STAIRS = registerStairsBlock("mudstone_brick_stairs", MUDSTONE_BRICK);
-
+    public static final Block MUDSTONE_BRICK_SLAB = registerSlabBlock("mudstone_brick_slab", MUDSTONE_BRICK);
+    public static final Block MUDSTONE_BRICK_PRESSURE_PLATE = registerPressurePlateBlock("mudstone_brick_pressure_plate", MUDSTONE_BRICK, BlockSetType.STONE);
+    public static final Block MUDSTONE_BRICK_WALL = registerWallBlock("mudstone_brick_wall", MUDSTONE_BRICK);
 
     public static Block POLISHED_MUDSTONE = register(
             "polished_mudstone",
@@ -72,6 +88,8 @@ public class Blocks {
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
     public static final Block POLISHED_MUDSTONE_STAIRS = registerStairsBlock("polished_mudstone_stairs", POLISHED_MUDSTONE);
+    public static final Block POLISHED_MUDSTONE_SLAB = registerSlabBlock("polished_mudstone_slab", POLISHED_MUDSTONE);
+    public static final Block POLISHED_MUDSTONE_WALL = registerWallBlock("polished_mudstone_wall", POLISHED_MUDSTONE);
 
     public static Block MUDSTONE_COAL_ORE = register(
             "mudstone_coal_ore",
@@ -120,6 +138,38 @@ public class Blocks {
 
     private static Block registerStairsBlock(String id, Block base) {
         return register(id, settings -> new StairsBlock(base.getDefaultState(), settings), AbstractBlock.Settings.copy(base));
+    }
+
+    private static Block registerSlabBlock(String id, Block base) {
+        return register(id, SlabBlock::new, AbstractBlock.Settings.copy(base));
+    }
+
+    private static Block registerButtonBlock(String id, Block base, BlockSetType type, int pressTicks) {
+        return register(id, settings -> new ButtonBlock(type, pressTicks, settings), AbstractBlock.Settings.copy(base).noCollision());
+    }
+
+    private static Block registerPressurePlateBlock(String id, Block base, BlockSetType type) {
+        return register(id, settings -> new PressurePlateBlock(type, settings), AbstractBlock.Settings.copy(base));
+    }
+
+    private static Block registerFenceBlock(String id, Block base) {
+        return register(id, FenceBlock::new, AbstractBlock.Settings.copy(base));
+    }
+
+    private static Block registerFenceGateBlock(String id, Block base, WoodType type) {
+        return register(id, settings -> new FenceGateBlock(type, settings), AbstractBlock.Settings.copy(base));
+    }
+
+    private static Block registerWallBlock(String id, Block base) {
+        return register(id, WallBlock::new, AbstractBlock.Settings.copy(base));
+    }
+
+    private static Block registerDoorBlock(String id, Block base, BlockSetType type) {
+        return register(id, settings -> new DoorBlock(type, settings), AbstractBlock.Settings.copy(base).nonOpaque());
+    }
+
+    private static Block registerTrapDoorBlock(String id, Block base, BlockSetType type) {
+        return register(id, settings -> new TrapdoorBlock(type, settings), AbstractBlock.Settings.copy(base).nonOpaque());
     }
 
     public static void initialize() {
