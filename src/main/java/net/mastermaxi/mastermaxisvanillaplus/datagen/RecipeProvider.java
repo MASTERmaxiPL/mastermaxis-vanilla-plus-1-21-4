@@ -89,13 +89,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Blocks.MUDSTONE_BLOCK), conditionsFromItem(Blocks.MUDSTONE_BLOCK))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
-                id = MASTERmaxisVanillaPlus.id("mudstone_pressure_plate");
-                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), BUILDING_BLOCKS, Blocks.MUDSTONE_PRESSURE_PLATE)
-                        .pattern("MM")
-                        .input('M', Blocks.MUDSTONE_BLOCK)
-                        .criterion(hasItem(Blocks.MUDSTONE_BLOCK), conditionsFromItem(Blocks.MUDSTONE_BLOCK))
-                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
-
                 id = MASTERmaxisVanillaPlus.id("mudstone_door");
                 ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), BUILDING_BLOCKS, Blocks.MUDSTONE_DOOR, 3)
                         .pattern("MM")

@@ -42,7 +42,6 @@ public class ModelProvider extends FabricModelProvider {
         mudstoneBlockTexturePool.slab(MUDSTONE_SLAB);
         mudstoneBlockTexturePool.wall(MUDSTONE_WALL);
         mudstoneBlockTexturePool.button(MUDSTONE_BUTTON);
-        mudstoneBlockTexturePool.pressurePlate(MUDSTONE_PRESSURE_PLATE);
         blockStateModelGenerator.registerDoor(MUDSTONE_DOOR);
 
         BlockStateModelGenerator.BlockTexturePool polishedMudstoneTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(POLISHED_MUDSTONE);

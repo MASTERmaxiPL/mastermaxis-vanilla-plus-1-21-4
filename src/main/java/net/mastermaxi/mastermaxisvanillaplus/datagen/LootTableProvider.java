@@ -35,7 +35,6 @@ public class LootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MUDSTONE_SLAB, slabDrops(MUDSTONE_SLAB));
         addDrop(MUDSTONE_WALL);
         addDrop(MUDSTONE_BUTTON);
-        addDrop(MUDSTONE_PRESSURE_PLATE);
         addDrop(MUDSTONE_DOOR, doorDrops(MUDSTONE_DOOR));
 
         addDrop(MUDSTONE_BRICK);

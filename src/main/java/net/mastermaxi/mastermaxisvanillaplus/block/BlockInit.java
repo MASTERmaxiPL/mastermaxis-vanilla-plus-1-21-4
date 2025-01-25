@@ -26,7 +26,6 @@ public class BlockInit {
         entries.add(MUDSTONE_SLAB);
         entries.add(MUDSTONE_WALL);
         entries.add(MUDSTONE_BUTTON);
-        entries.add(MUDSTONE_PRESSURE_PLATE);
         entries.add(MUDSTONE_DOOR);
 
         entries.add(MUDSTONE_BRICK);

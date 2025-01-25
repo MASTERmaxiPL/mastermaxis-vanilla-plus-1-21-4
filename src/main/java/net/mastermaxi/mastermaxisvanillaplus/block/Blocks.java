@@ -60,7 +60,6 @@ public class Blocks {
     public static final Block MUDSTONE_STAIRS = registerStairsBlock("mudstone_stairs", MUDSTONE_BLOCK);
     public static final Block MUDSTONE_SLAB = registerSlabBlock("mudstone_slab", MUDSTONE_BLOCK);
     public static final Block MUDSTONE_BUTTON = registerButtonBlock("mudstone_button", MUDSTONE_BLOCK, BlockSetType.STONE, 20);
-    public static final Block MUDSTONE_PRESSURE_PLATE = registerPressurePlateBlock("mudstone_pressure_plate", MUDSTONE_BLOCK, BlockSetType.STONE);
     public static final Block MUDSTONE_WALL = registerWallBlock("mudstone_wall", MUDSTONE_BLOCK);
     public static final Block MUDSTONE_DOOR = registerDoorBlock("mudstone_door", MUDSTONE_BLOCK, BlockSetType.STONE);
 

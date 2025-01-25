@@ -22,7 +22,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MUDSTONE_SLAB)
                 .add(MUDSTONE_WALL)
                 .add(MUDSTONE_BUTTON)
-                .add(MUDSTONE_PRESSURE_PLATE)
                 .add(MUDSTONE_DOOR)
 
                 .add(MUDSTONE_BRICK)
@@ -51,7 +50,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MUDSTONE_SLAB)
                 .add(MUDSTONE_WALL)
                 .add(MUDSTONE_BUTTON)
-                .add(MUDSTONE_PRESSURE_PLATE)
                 .add(MUDSTONE_DOOR)
 
                 .add(MUDSTONE_BRICK)
@@ -88,7 +86,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MUDSTONE_BUTTON);
 
         getOrCreateTagBuilder(BlockTags.PRESSURE_PLATES)
-                .add(MUDSTONE_PRESSURE_PLATE)
                 .add(MUDSTONE_BRICK_PRESSURE_PLATE);
 
         getOrCreateTagBuilder(BlockTags.DOORS)
