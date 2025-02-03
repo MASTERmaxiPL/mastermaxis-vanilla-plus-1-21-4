@@ -11,6 +11,7 @@ import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.MudWaterFluidRenderHandler;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemGroupsInit;
+import net.mastermaxi.mastermaxisvanillaplus.world.gen.WorldGenerationInit;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,8 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		EntityInit.initialize();
 		LOGGER.info("trying to register ostrich attributes");
 		FabricDefaultAttributeRegistry.register(EntityInit.OSTRICH, OstrichEntity.createAttributes());
-
+		LOGGER.info("trying to init world generation");
+		WorldGenerationInit.initialize();
 		LOGGER.info("Hello Fabric world!");
 	}
 

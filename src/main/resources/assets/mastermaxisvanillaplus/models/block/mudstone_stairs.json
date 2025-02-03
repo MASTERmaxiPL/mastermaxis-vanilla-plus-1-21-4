@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "mastermaxisvanillaplus:block/mudstone_top",
-    "side": "mastermaxisvanillaplus:block/mudstone_sides",
-    "top": "mastermaxisvanillaplus:block/mudstone_sides"
-  }
-}
