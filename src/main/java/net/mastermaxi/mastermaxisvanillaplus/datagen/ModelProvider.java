@@ -65,6 +65,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_BLOCK, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_block"));
         blockStateModelGenerator.registerParentedItemModel(POLISHED_MUDSTONE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/polished_mudstone"));
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_BRICK, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_brick"));
+        blockStateModelGenerator.registerParentedItemModel(MUDSTONE_BRICK_PRESSURE_PLATE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_brick_pressure_plate"));
     }
 
     @Override
