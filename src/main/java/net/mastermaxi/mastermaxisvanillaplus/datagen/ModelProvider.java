@@ -55,6 +55,20 @@ public class ModelProvider extends FabricModelProvider {
         mudstoneBrickTexturePool.wall(MUDSTONE_BRICK_WALL);
         mudstoneBrickTexturePool.pressurePlate(MUDSTONE_BRICK_PRESSURE_PLATE);
 
+        blockStateModelGenerator.registerLog(BAOBAB_LOG).log(BAOBAB_LOG).wood(BAOBAB_WOOD);
+        blockStateModelGenerator.registerLog(STRIPPED_BAOBAB_LOG).log(STRIPPED_BAOBAB_LOG).wood(STRIPPED_BAOBAB_WOOD);
+        blockStateModelGenerator.registerSingleton(BAOBAB_LEAVES, TexturedModel.LEAVES);
+        blockStateModelGenerator.registerTintableCrossBlockState(BAOBAB_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        BlockStateModelGenerator.BlockTexturePool BaobabPlanksTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(BAOBAB_PLANKS);
+        BaobabPlanksTexturePool.slab(BAOBAB_SLAB);
+        BaobabPlanksTexturePool.stairs(BAOBAB_STAIRS);
+        BaobabPlanksTexturePool.fence(BAOBAB_FENCE);
+        BaobabPlanksTexturePool.fenceGate(BAOBAB_GATE);
+        BaobabPlanksTexturePool.button(BAOBAB_BUTTON);
+        BaobabPlanksTexturePool.pressurePlate(BAOBAB_PRESSURE_PLATE);
+        blockStateModelGenerator.registerDoor(BAOBAB_DOOR);
+        blockStateModelGenerator.registerTrapdoor(BAOBAB_TRAPDOOR);
+
         //Adding item models for blocks manually, because it is not done automatically somehow
 
         blockStateModelGenerator.registerParentedItemModel(FEATHER_BLOCK, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/feather_block"));
@@ -66,6 +80,15 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(POLISHED_MUDSTONE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/polished_mudstone"));
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_BRICK, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_brick"));
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_BRICK_PRESSURE_PLATE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_brick_pressure_plate"));
+
+        blockStateModelGenerator.registerParentedItemModel(BAOBAB_LOG, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_log"));
+        blockStateModelGenerator.registerParentedItemModel(STRIPPED_BAOBAB_LOG, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/stripped_baobab_log"));
+        blockStateModelGenerator.registerParentedItemModel(BAOBAB_WOOD, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_wood"));
+        blockStateModelGenerator.registerParentedItemModel(STRIPPED_BAOBAB_WOOD, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/stripped_baobab_wood"));
+        blockStateModelGenerator.registerParentedItemModel(BAOBAB_LEAVES, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_leaves"));
+        blockStateModelGenerator.registerParentedItemModel(BAOBAB_PLANKS, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_planks"));
+        blockStateModelGenerator.registerParentedItemModel(BAOBAB_PRESSURE_PLATE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_pressure_plate"));
+        blockStateModelGenerator.registerParentedItemModel(BAOBAB_GATE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_gate"));
     }
 
     @Override
@@ -73,5 +96,6 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemInit.MUD_BALL, Models.GENERATED);
         itemModelGenerator.register(ItemInit.OSTRICH_FEATHER, Models.GENERATED);
         itemModelGenerator.register(FluidInit.MUD_WATER_BUCKET, Models.GENERATED);
+        itemModelGenerator.register(BAOBAB_SAPLING.asItem(), Models.GENERATED);
     }
 }

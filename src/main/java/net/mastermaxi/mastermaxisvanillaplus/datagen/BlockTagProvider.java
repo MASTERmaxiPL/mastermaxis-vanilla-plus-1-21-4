@@ -42,7 +42,20 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
                 .add(MUD_BLOCK);
 
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE);
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+                .add(BAOBAB_LOG)
+                .add(STRIPPED_BAOBAB_LOG)
+                .add(BAOBAB_WOOD)
+                .add(STRIPPED_BAOBAB_WOOD)
+                .add(BAOBAB_PLANKS)
+                .add(BAOBAB_SLAB)
+                .add(BAOBAB_STAIRS)
+                .add(BAOBAB_FENCE)
+                .add(BAOBAB_GATE)
+                .add(BAOBAB_BUTTON)
+                .add(BAOBAB_PRESSURE_PLATE)
+                .add(BAOBAB_DOOR)
+                .add(BAOBAB_TRAPDOOR);
 
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(MUDSTONE_BLOCK)
@@ -75,26 +88,40 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.SLABS)
                 .add(MUDSTONE_SLAB)
                 .add(MUDSTONE_BRICK_SLAB)
-                .add(POLISHED_MUDSTONE_SLAB);
+                .add(POLISHED_MUDSTONE_SLAB)
+                .add(BAOBAB_SLAB);
 
         getOrCreateTagBuilder(BlockTags.STAIRS)
                 .add(MUDSTONE_STAIRS)
                 .add(MUDSTONE_BRICK_STAIRS)
-                .add(POLISHED_MUDSTONE_STAIRS);
+                .add(POLISHED_MUDSTONE_STAIRS)
+                .add(BAOBAB_STAIRS);
 
         getOrCreateTagBuilder(BlockTags.BUTTONS)
-                .add(MUDSTONE_BUTTON);
+                .add(MUDSTONE_BUTTON)
+                .add(BAOBAB_BUTTON);
 
         getOrCreateTagBuilder(BlockTags.PRESSURE_PLATES)
-                .add(MUDSTONE_BRICK_PRESSURE_PLATE);
+                .add(MUDSTONE_BRICK_PRESSURE_PLATE)
+                .add(BAOBAB_PRESSURE_PLATE);
 
         getOrCreateTagBuilder(BlockTags.DOORS)
-                .add(MUDSTONE_DOOR);
+                .add(MUDSTONE_DOOR)
+                .add(BAOBAB_DOOR);
 
-        getOrCreateTagBuilder(BlockTags.FENCES);
+        getOrCreateTagBuilder(BlockTags.FENCES)
+                .add(BAOBAB_FENCE);
 
-        getOrCreateTagBuilder(BlockTags.FENCE_GATES);
+        getOrCreateTagBuilder(BlockTags.FENCE_GATES)
+                .add(BAOBAB_GATE);
 
-        getOrCreateTagBuilder(BlockTags.TRAPDOORS);
+        getOrCreateTagBuilder(BlockTags.TRAPDOORS)
+                .add(BAOBAB_TRAPDOOR);
+
+        getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
+                .add(BAOBAB_LOG)
+                .add(STRIPPED_BAOBAB_LOG)
+                .add(BAOBAB_WOOD)
+                .add(STRIPPED_BAOBAB_WOOD);
     }
 }

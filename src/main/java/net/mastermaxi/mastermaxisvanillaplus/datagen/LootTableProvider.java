@@ -52,6 +52,22 @@ public class LootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MUDSTONE_COAL_ORE, multipleOreDrop(MUDSTONE_COAL_ORE, Items.COAL, 1, 2));
         addDrop(MUDSTONE_IRON_ORE, oreDrops(MUDSTONE_IRON_ORE, Items.RAW_IRON));
         addDrop(MUDSTONE_FLINT_ORE, multipleOreDrop(MUDSTONE_FLINT_ORE, Items.FLINT, 1, 2));
+
+        addDrop(BAOBAB_LOG);
+        addDrop(STRIPPED_BAOBAB_LOG);
+        addDrop(BAOBAB_WOOD);
+        addDrop(STRIPPED_BAOBAB_WOOD);
+        addDrop(BAOBAB_PLANKS);
+        addDrop(BAOBAB_SLAB, slabDrops(BAOBAB_SLAB));
+        addDrop(BAOBAB_STAIRS);
+        addDrop(BAOBAB_FENCE);
+        addDrop(BAOBAB_GATE);
+        addDrop(BAOBAB_BUTTON);
+        addDrop(BAOBAB_PRESSURE_PLATE);
+        addDrop(BAOBAB_DOOR, doorDrops(BAOBAB_DOOR));
+        addDrop(BAOBAB_TRAPDOOR);
+
+        addDrop(BAOBAB_LEAVES, leavesDrops(BAOBAB_LEAVES, BAOBAB_SAPLING, 0.06F));
     }
 
     public LootTable.Builder multipleOreDrop(Block drop, Item item, int min, int max) {

@@ -2,6 +2,7 @@ package net.mastermaxi.mastermaxisvanillaplus.block;
 
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
+import net.mastermaxi.mastermaxisvanillaplus.world.tree.SaplingGeneratorsInit;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.Items;
@@ -157,6 +158,7 @@ public class Blocks {
     public static final Block BAOBAB_FENCE = registerFenceBlock("baobab_fence", BAOBAB_PLANKS);
     public static final Block BAOBAB_GATE = registerFenceGateBlock("baobab_gate", BAOBAB_PLANKS, WoodType.OAK);
     public static final Block BAOBAB_DOOR = registerDoorBlock("baobab_door", BAOBAB_PLANKS, BlockSetType.OAK);
+    public static final Block BAOBAB_TRAPDOOR = registerTrapDoorBlock("baobab_trapdoor", BAOBAB_PLANKS, BlockSetType.OAK);
     public static final Block BAOBAB_PRESSURE_PLATE = registerPressurePlateBlock("baobab_pressure_plate", BAOBAB_PLANKS, BlockSetType.OAK);
     public static final Block BAOBAB_BUTTON = registerButtonBlock("baobab_button", BAOBAB_PLANKS, BlockSetType.OAK, 20);
 
@@ -166,8 +168,9 @@ public class Blocks {
             Block.Settings.copy(net.minecraft.block.Blocks.OAK_LEAVES)
     );
     public static Block BAOBAB_SAPLING = register(
-            "baobab_planks",
-            new SaplingBlock(new BaoabTree(), Block.Settings.copy(net.minecraft.block.Blocks.OAK_SAPLING))
+            "baobab_sapling",
+            settings -> new SaplingBlock(SaplingGeneratorsInit.BAOBAB, settings),
+            AbstractBlock.Settings.copy(net.minecraft.block.Blocks.DARK_OAK_SAPLING)
     );
     // endregion WoodType
 
