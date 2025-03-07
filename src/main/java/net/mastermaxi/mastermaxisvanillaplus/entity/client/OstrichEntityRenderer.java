@@ -30,6 +30,8 @@ public class OstrichEntityRenderer extends MobEntityRenderer<OstrichEntity, Ostr
 
     public void updateRenderState(OstrichEntity entity, OstrichEntityRenderState state, float f) {
         super.updateRenderState(entity, state, f);
+        state.idlingAnimationState.copyFrom(entity.idlingAnimationState);
+        state.getHitAnimationState.copyFrom(entity.getHitAnimationState);
     }
 
     protected void setupTransforms(OstrichEntityRenderState state, MatrixStack matrixStack, float f, float g) {

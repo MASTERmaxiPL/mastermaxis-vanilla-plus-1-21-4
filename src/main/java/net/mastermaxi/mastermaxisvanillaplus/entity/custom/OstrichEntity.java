@@ -36,7 +36,6 @@ import java.util.UUID;
 public class OstrichEntity extends AnimalEntity implements Angerable {
     public final AnimationState idlingAnimationState = new AnimationState();
     public final AnimationState getHitAnimationState = new AnimationState();
-    public final AnimationState walkingAnimationState = new AnimationState();
 
     private int idleAnimationCooldown = 0;
     private int attackTicksLeft;
@@ -199,21 +198,13 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
     }
 
     private void updateAnimations() {
-        //MASTERmaxisVanillaPlus.LOGGER.info("idleAnimationCooldown: " + idlingAnimationState.isRunning());
-        //MASTERmaxisVanillaPlus.LOGGER.info("getHitAnimationState: " + getHitAnimationState.isRunning());
-        //MASTERmaxisVanillaPlus.LOGGER.info("walkingAnimationState: " + walkingAnimationState.isRunning());
-
         if (this.getHitAnimationState.isRunning()) {
             idlingAnimationState.stop();
-            walkingAnimationState.stop();
-
             this.getHitAnimationState.start(this.age);
         }
         else if (this.isMoving()) {
             idlingAnimationState.stop();
             getHitAnimationState.stop();
-
-            this.walkingAnimationState.start(this.age);
         }
         else if (this.idleAnimationCooldown <= 0) {
             idlingAnimationState.stop();
