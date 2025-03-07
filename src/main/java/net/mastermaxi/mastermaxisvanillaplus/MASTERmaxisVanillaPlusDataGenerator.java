@@ -18,6 +18,8 @@ public class MASTERmaxisVanillaPlusDataGenerator implements DataGeneratorEntrypo
 		MASTERmaxisVanillaPlus.LOGGER.info("Blocks passed");
 		pack.addProvider(ItemTagProvider::new);
 		MASTERmaxisVanillaPlus.LOGGER.info("Items passed");
+		pack.addProvider(ModFluidTagProvider::new);
+		MASTERmaxisVanillaPlus.LOGGER.info("Fluids passed");
 		pack.addProvider(ModelProvider::new);
 		MASTERmaxisVanillaPlus.LOGGER.info("Models passed");
 		pack.addProvider(LootTableProvider::new);
