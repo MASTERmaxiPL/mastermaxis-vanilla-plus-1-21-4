@@ -38,6 +38,14 @@ public class OstrichEntityRenderer extends MobEntityRenderer<OstrichEntity, Ostr
         state.maxWingDeviation = MathHelper.lerp(f, entity.prevMaxWingDeviation, entity.maxWingDeviation);
     }
 
+    @Override
+    protected void scale(OstrichEntityRenderState state, MatrixStack matrixStack) {
+        super.scale(state, matrixStack);
+        if (state.baby) {
+            matrixStack.scale(0.5F, 0.5F, 0.5F);
+        }
+    }
+
     protected void setupTransforms(OstrichEntityRenderState state, MatrixStack matrixStack, float f, float g) {
         super.setupTransforms(state, matrixStack, f, g);
         if (!((double)state.limbAmplitudeMultiplier < 0.01)) {

@@ -21,7 +21,7 @@ public class ItemInit {
     public static final Item OSTRICH_FEATHER = register("ostrich_feather", new Item.Settings(), Item::new);
     public static final Item MUD_BALL = register("mud_ball", new Item.Settings().maxCount(32), MudBallItem::new);
     public static final Item OSTRICH_SPAWN_EGG = register("ostrich_spawn_egg", new Item.Settings(), settings -> new SpawnEggItem(EntityInit.OSTRICH, settings));
-    public static final Item OSTRICH_EGG = register("ostrich_egg", new Item.Settings().maxCount(16), Item::new);
+    public static final Item OSTRICH_EGG = register("ostrich_egg", new Item.Settings().maxCount(16), OstrichEggItem::new);
 
     private static Item register(String name, Item.Settings itemSettings, ItemCreator creator) {
         Identifier id = MASTERmaxisVanillaPlus.id(name);
@@ -48,5 +48,7 @@ public class ItemInit {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> entries.add(OSTRICH_EGG));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.add(MUD_BALL));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> entries.add(OSTRICH_SPAWN_EGG));
+
+        net.minecraft.block.DispenserBlock.registerProjectileBehavior(OSTRICH_EGG);
     }
 }

@@ -27,6 +27,8 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntityInit.MUD_BALL, FlyingItemEntityRenderer::new);
         System.out.println("Mud Ball renderer registered!");
 
+        EntityRendererRegistry.register(EntityInit.OSTRICH_EGG, FlyingItemEntityRenderer::new);
+
         FluidRenderHandlerRegistry.INSTANCE.register(FluidInit.MUD_WATER_STILL, FluidInit.MUD_WATER_FLOWING, SimpleFluidRenderHandler.coloredWater(0x5C3A1E));
         System.out.println("Mud Water renderer registered!");
 
