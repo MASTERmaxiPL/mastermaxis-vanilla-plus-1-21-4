@@ -1,6 +1,7 @@
 package net.mastermaxi.mastermaxisvanillaplus.entity;
 
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
+import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -17,6 +18,16 @@ public class EntityInit {
                     .maxTrackingRange(4)
                     .trackingTickInterval(10)
                     .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("mud_ball")))
+    );
+
+    public static final EntityType<OstrichEntity> OSTRICH = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("ostrich"),
+            EntityType.Builder.create(OstrichEntity::new, SpawnGroup.CREATURE)
+                    .dimensions(0.9F, 1.4F)
+                    .maxTrackingRange(8)
+                    .trackingTickInterval(10)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("ostrich")))
     );
 
     public static void initialize() {

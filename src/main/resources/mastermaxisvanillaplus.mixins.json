@@ -3,9 +3,16 @@
 	"package": "net.mastermaxi.mastermaxisvanillaplus.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ItemMixin"
+		"FluidBlockMixin",
+		"ItemMixin",
+		"LivingEntityMixin"
 	],
-	"client": [],
+	"client": [
+		"FluidRendererMixin",
+		"InGameHudMixin",
+		"WaterBubbleParticleMixin",
+		"WaterSplashParticleMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}

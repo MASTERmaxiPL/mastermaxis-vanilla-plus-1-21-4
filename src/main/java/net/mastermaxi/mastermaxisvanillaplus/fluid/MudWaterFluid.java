@@ -7,14 +7,20 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+
+import java.util.Optional;
 
 public abstract class MudWaterFluid extends FlowableFluid {
     @Override
@@ -24,7 +30,7 @@ public abstract class MudWaterFluid extends FlowableFluid {
 
     @Override
     protected boolean isInfinite(ServerWorld world) {
-        return false;
+        return world.getGameRules().getBoolean(GameRules.WATER_SOURCE_CONVERSION);
     }
 
     @Override
@@ -44,8 +50,8 @@ public abstract class MudWaterFluid extends FlowableFluid {
     }
 
     @Override
-    protected boolean canBeReplacedWith(FluidState state, BlockView world, BlockPos pos, Fluid fluid, Direction direction) {
-        return false;
+    public boolean canBeReplacedWith(FluidState state, BlockView world, BlockPos pos, Fluid fluid, Direction direction) {
+        return direction == Direction.DOWN && !state.isIn(FluidTags.WATER);
     }
 
     @Override
@@ -71,6 +77,11 @@ public abstract class MudWaterFluid extends FlowableFluid {
     @Override
     public Item getBucketItem() {
         return FluidInit.MUD_WATER_BUCKET;
+    }
+
+    @Override
+    public Optional<SoundEvent> getBucketFillSound() {
+        return Optional.of(SoundEvents.ITEM_BUCKET_FILL);
     }
 
     @Override
