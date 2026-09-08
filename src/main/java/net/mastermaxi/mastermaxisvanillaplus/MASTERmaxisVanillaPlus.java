@@ -10,7 +10,6 @@ import net.mastermaxi.mastermaxisvanillaplus.block.Blocks;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
-import net.mastermaxi.mastermaxisvanillaplus.fluid.MudWaterFluidRenderHandler;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemGroupsInit;
 import net.mastermaxi.mastermaxisvanillaplus.world.gen.WorldGenerationInit;
@@ -30,7 +29,6 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		ItemGroupsInit.initialize();
 		LOGGER.info("trying to init fluids");
 		FluidInit.initialize();
-		MudWaterFluidRenderHandler.initialize();
 		LOGGER.info("trying to init blocks");
 		Blocks.initialize();
 		BlockInit.initialize();

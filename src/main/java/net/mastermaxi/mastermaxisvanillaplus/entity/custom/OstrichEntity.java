@@ -1,6 +1,5 @@
 package net.mastermaxi.mastermaxisvanillaplus.entity.custom;
 
-import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.minecraft.block.BlockState;
@@ -16,7 +15,6 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
@@ -24,6 +22,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.TimeHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -36,12 +36,17 @@ import java.util.UUID;
 public class OstrichEntity extends AnimalEntity implements Angerable {
     public final AnimationState idlingAnimationState = new AnimationState();
     public final AnimationState getHitAnimationState = new AnimationState();
-    public final AnimationState walkingAnimationState = new AnimationState();
 
     private int idleAnimationCooldown = 0;
     private int attackTicksLeft;
 
     public int eggLayTime = this.random.nextInt(6000) + 6000;
+
+    public float flapProgress;
+    public float maxWingDeviation;
+    public float prevMaxWingDeviation;
+    public float prevFlapProgress;
+    public float flapSpeed = 1.0F;
 
     private static final UniformIntProvider ANGER_TIME_RANGE = TimeHelper.betweenSeconds(10, 20);
     private int angerTime;
@@ -68,13 +73,13 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
         this.goalSelector.add(8, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(4, new UniversalAngerGoal<>(this, false));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
+        this.targetSelector.add(3, new UniversalAngerGoal<>(this, false));
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return AnimalEntity.createMobAttributes()
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.25)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.32)
                 .add(EntityAttributes.MAX_HEALTH, 12.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
                 .add(EntityAttributes.ATTACK_KNOCKBACK, 1.0)
@@ -87,15 +92,28 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
     @Override
     public void tickMovement() {
         super.tickMovement();
+        this.prevFlapProgress = this.flapProgress;
+        this.prevMaxWingDeviation = this.maxWingDeviation;
+        this.maxWingDeviation += (this.isOnGround() ? -1.0F : 4.0F) * 0.3F;
+        this.maxWingDeviation = MathHelper.clamp(this.maxWingDeviation, 0.0F, 1.0F);
+        if (!this.isOnGround() && this.flapSpeed < 1.0F) {
+            this.flapSpeed = 1.0F;
+        }
+        this.flapSpeed *= 0.9F;
+        Vec3d vec3d = this.getVelocity();
+        if (!this.isOnGround() && vec3d.y < 0.0) {
+            this.setVelocity(vec3d.multiply(1.0, 0.85, 1.0));
+        }
+        this.flapProgress += this.flapSpeed * 2.0F;
+
         if (this.attackTicksLeft > 0) {
             this.attackTicksLeft--;
         }
 
         if (this.getWorld() instanceof ServerWorld serverWorld && this.isAlive() && !this.isBaby() && --this.eggLayTime <= 0) {
-            if (this.forEachGiftedItem(serverWorld, LootTables.CHICKEN_LAY_GAMEPLAY, this::dropStack)) {
-                this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.emitGameEvent(GameEvent.ENTITY_PLACE);
-            }
+            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.dropItem(serverWorld, ItemInit.OSTRICH_EGG);
+            this.emitGameEvent(GameEvent.ENTITY_PLACE);
 
             this.eggLayTime = this.random.nextInt(6000) + 6000;
         }
@@ -180,6 +198,14 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
     }
 
     @Override
+    protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
+        super.dropLoot(world, damageSource, causedByPlayer);
+        if (this.random.nextFloat() < 0.6667F) {
+            this.dropStack(world, new ItemStack(ItemInit.OSTRICH_FEATHER));
+        }
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.getWorld().isClient()) {
@@ -188,46 +214,34 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
     }
 
     @Override
-    protected void applyDamage(ServerWorld world, DamageSource source, float amount) {
-        super.applyDamage(world, source, amount);
-        MASTERmaxisVanillaPlus.LOGGER.info("getHit");
-        this.getHitAnimationState.start(this.age);
+    public void onDamaged(DamageSource damageSource) {
+        super.onDamaged(damageSource);
+        if (this.getWorld().isClient()) {
+            this.idlingAnimationState.stop();
+            this.getHitAnimationState.startIfNotRunning(this.age);
+            this.idleAnimationCooldown = 40;
+        }
     }
 
     private boolean isMoving() {
-        return this.getVelocity().horizontalLengthSquared() > 0.01;
+        return this.limbAnimator.isLimbMoving() || this.getVelocity().horizontalLengthSquared() > 0.001;
     }
 
     private void updateAnimations() {
-        //MASTERmaxisVanillaPlus.LOGGER.info("idleAnimationCooldown: " + idlingAnimationState.isRunning());
-        //MASTERmaxisVanillaPlus.LOGGER.info("getHitAnimationState: " + getHitAnimationState.isRunning());
-        //MASTERmaxisVanillaPlus.LOGGER.info("walkingAnimationState: " + walkingAnimationState.isRunning());
-
-        if (this.getHitAnimationState.isRunning()) {
-            idlingAnimationState.stop();
-            walkingAnimationState.stop();
-
-            this.getHitAnimationState.start(this.age);
-        }
-        else if (this.isMoving()) {
-            idlingAnimationState.stop();
-            getHitAnimationState.stop();
-
-            this.walkingAnimationState.start(this.age);
-        }
-        else if (this.idleAnimationCooldown <= 0) {
-            idlingAnimationState.stop();
-            getHitAnimationState.stop();
-
-            this.idleAnimationCooldown = this.random.nextInt(40) + 80;
-            this.idlingAnimationState.start(this.age);
+        if (this.hurtTime > 0) {
+            this.idlingAnimationState.stop();
+            this.getHitAnimationState.startIfNotRunning(this.age);
         } else {
-            this.idleAnimationCooldown--;
+            this.getHitAnimationState.stop();
+            if (this.isMoving()) {
+                this.idlingAnimationState.stop();
+            } else if (this.idleAnimationCooldown <= 0) {
+                this.idleAnimationCooldown = this.random.nextInt(40) + 80;
+                this.idlingAnimationState.start(this.age);
+            } else {
+                this.idleAnimationCooldown--;
+            }
         }
-
-
-
-
     }
 
     @Override
@@ -253,10 +267,12 @@ public class OstrichEntity extends AnimalEntity implements Angerable {
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
+        this.writeAngerToNbt(nbt);
     }
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        this.readAngerFromNbt(this.getWorld(), nbt);
     }
 }
