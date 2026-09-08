@@ -20,6 +20,8 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
     public void onInitializeClient() {
         System.out.println("Registering Renderers");
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MUDSTONE_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BAOBAB_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BAOBAB_SAPLING, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(EntityInit.MUD_BALL, FlyingItemEntityRenderer::new);
         System.out.println("Mud Ball renderer registered!");

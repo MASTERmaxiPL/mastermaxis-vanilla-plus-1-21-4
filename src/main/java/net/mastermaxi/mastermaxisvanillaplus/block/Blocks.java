@@ -2,6 +2,7 @@ package net.mastermaxi.mastermaxisvanillaplus.block;
 
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
+import net.mastermaxi.mastermaxisvanillaplus.world.tree.SaplingGeneratorsInit;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.Items;
@@ -29,6 +30,7 @@ public class Blocks {
     //endregion
     //region Savanna
 
+    // region Other
     public static Block MUD_BLOCK = register(
             "mud_block",
             settings -> new MudBlock(settings, FluidInit.MUD_WATER_STILL),
@@ -37,6 +39,9 @@ public class Blocks {
                     .sounds(BlockSoundGroup.MUD)
     );
 
+    //endregion Other
+
+    // region Mudstone
     public static final Identifier MUDSTONE_BLOCK_TOP_BOTTOM_TEXTURE = Identifier.of("mastermaxisvanillaplus", "block/mudstone_block_top_bottom");
     public static final Identifier MUDSTONE_BLOCK_SIDE_TEXTURE = Identifier.of("mastermaxisvanillaplus", "block/mudstone_block_simple");
     public static Block MUDSTONE_BLOCK = register(
@@ -117,8 +122,59 @@ public class Blocks {
                     .sounds(BlockSoundGroup.DEEPSLATE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
+    // endregion Mudstone
 
-    //endregion
+    // region WoodType
+
+    public static Block BAOBAB_LOG = register(
+            "baobab_log",
+            PillarBlock::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.OAK_LOG)
+    );
+    public static Block BAOBAB_WOOD = register(
+            "baobab_wood",
+            PillarBlock::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.OAK_WOOD)
+    );
+    public static Block STRIPPED_BAOBAB_LOG = register(
+            "stripped_baobab_log",
+            PillarBlock::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.STRIPPED_OAK_LOG)
+    );
+    public static Block STRIPPED_BAOBAB_WOOD = register(
+            "stripped_baobab_wood",
+            PillarBlock::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.STRIPPED_OAK_WOOD)
+    );
+
+    public static Block BAOBAB_PLANKS = register(
+            "baobab_planks",
+            PillarBlock::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.OAK_PLANKS)
+    );
+
+    public static final Block BAOBAB_STAIRS = registerStairsBlock("baobab_stairs", BAOBAB_PLANKS);
+    public static final Block BAOBAB_SLAB = registerSlabBlock("baobab_slab", BAOBAB_PLANKS);
+    public static final Block BAOBAB_FENCE = registerFenceBlock("baobab_fence", BAOBAB_PLANKS);
+    public static final Block BAOBAB_GATE = registerFenceGateBlock("baobab_gate", BAOBAB_PLANKS, WoodType.OAK);
+    public static final Block BAOBAB_DOOR = registerDoorBlock("baobab_door", BAOBAB_PLANKS, BlockSetType.OAK);
+    public static final Block BAOBAB_TRAPDOOR = registerTrapDoorBlock("baobab_trapdoor", BAOBAB_PLANKS, BlockSetType.OAK);
+    public static final Block BAOBAB_PRESSURE_PLATE = registerPressurePlateBlock("baobab_pressure_plate", BAOBAB_PLANKS, BlockSetType.OAK);
+    public static final Block BAOBAB_BUTTON = registerButtonBlock("baobab_button", BAOBAB_PLANKS, BlockSetType.OAK, 20);
+
+    public static Block BAOBAB_LEAVES = register(
+            "baobab_leaves",
+            LeavesBlock::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.OAK_LEAVES)
+    );
+    public static Block BAOBAB_SAPLING = register(
+            "baobab_sapling",
+            settings -> new SaplingBlock(SaplingGeneratorsInit.BAOBAB, settings),
+            AbstractBlock.Settings.copy(net.minecraft.block.Blocks.DARK_OAK_SAPLING)
+    );
+    // endregion WoodType
+
+    //endregion Savanna
 
 
     private static Block register(

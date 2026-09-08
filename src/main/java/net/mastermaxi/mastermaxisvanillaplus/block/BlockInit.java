@@ -44,7 +44,23 @@ public class BlockInit {
 
                 MUDSTONE_COAL_ORE,
                 MUDSTONE_IRON_ORE,
-                MUDSTONE_FLINT_ORE
+                MUDSTONE_FLINT_ORE,
+
+                BAOBAB_LOG,
+                STRIPPED_BAOBAB_LOG,
+                BAOBAB_WOOD,
+                STRIPPED_BAOBAB_WOOD,
+                BAOBAB_LEAVES,
+                BAOBAB_SAPLING,
+                BAOBAB_PLANKS,
+                BAOBAB_STAIRS,
+                BAOBAB_SLAB,
+                BAOBAB_FENCE,
+                BAOBAB_GATE,
+                BAOBAB_BUTTON,
+                BAOBAB_PRESSURE_PLATE,
+                BAOBAB_DOOR,
+                BAOBAB_TRAPDOOR
         );
         addBlock(entries, blocks);
     }
