@@ -11,9 +11,10 @@ import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityRenderer;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.FoliageColors;
 
 public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
     @Override
@@ -26,11 +27,7 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntityInit.MUD_BALL, FlyingItemEntityRenderer::new);
         System.out.println("Mud Ball renderer registered!");
 
-        FluidRenderHandlerRegistry.INSTANCE.register(FluidInit.MUD_WATER_STILL, FluidInit.MUD_WATER_FLOWING, new SimpleFluidRenderHandler(
-                Identifier.of("minecraft:block/water_still"),
-                Identifier.of("minecraft:block/water_flow"),
-                0x8B4513
-        ));
+        FluidRenderHandlerRegistry.INSTANCE.register(FluidInit.MUD_WATER_STILL, FluidInit.MUD_WATER_FLOWING, SimpleFluidRenderHandler.coloredWater(0x5C3A1E));
         System.out.println("Mud Water renderer registered!");
 
         EntityModelLayerRegistry.registerModelLayer(OstrichEntityModel.OSTRICH, OstrichEntityModel::getTexturedModelData);
@@ -39,5 +36,10 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), FluidInit.MUD_WATER_STILL, FluidInit.MUD_WATER_FLOWING);
         System.out.println("Mud Water BlockRenderLayerMap renderer registered!");
+
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
+                (state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT,
+                Blocks.BAOBAB_LEAVES
+        );
     }
 }

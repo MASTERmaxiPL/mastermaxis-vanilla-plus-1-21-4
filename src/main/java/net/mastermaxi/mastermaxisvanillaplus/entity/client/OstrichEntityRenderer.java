@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 @Environment(EnvType.CLIENT)
@@ -28,10 +29,13 @@ public class OstrichEntityRenderer extends MobEntityRenderer<OstrichEntity, Ostr
         return new OstrichEntityRenderState();
     }
 
+    @Override
     public void updateRenderState(OstrichEntity entity, OstrichEntityRenderState state, float f) {
         super.updateRenderState(entity, state, f);
         state.idlingAnimationState.copyFrom(entity.idlingAnimationState);
         state.getHitAnimationState.copyFrom(entity.getHitAnimationState);
+        state.flapProgress = MathHelper.lerp(f, entity.prevFlapProgress, entity.flapProgress);
+        state.maxWingDeviation = MathHelper.lerp(f, entity.prevMaxWingDeviation, entity.maxWingDeviation);
     }
 
     protected void setupTransforms(OstrichEntityRenderState state, MatrixStack matrixStack, float f, float g) {

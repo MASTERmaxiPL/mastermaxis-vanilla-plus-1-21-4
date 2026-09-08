@@ -8,6 +8,7 @@
 		"LivingEntityMixin"
 	],
 	"client": [
+		"BackgroundRendererMixin",
 		"FluidRendererMixin",
 		"InGameHudMixin",
 		"WaterBubbleParticleMixin",

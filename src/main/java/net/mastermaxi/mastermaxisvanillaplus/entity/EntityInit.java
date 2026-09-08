@@ -25,8 +25,6 @@ public class EntityInit {
             MASTERmaxisVanillaPlus.id("ostrich"),
             EntityType.Builder.create(OstrichEntity::new, SpawnGroup.CREATURE)
                     .dimensions(0.9F, 1.4F)
-                    .maxTrackingRange(8)
-                    .trackingTickInterval(10)
                     .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("ostrich")))
     );
 
