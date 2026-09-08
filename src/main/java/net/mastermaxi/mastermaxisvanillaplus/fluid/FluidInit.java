@@ -1,8 +1,6 @@
 package net.mastermaxi.mastermaxisvanillaplus.fluid;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
-import net.mastermaxi.mastermaxisvanillaplus.item.ItemGroupsInit;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
@@ -35,7 +33,7 @@ public class FluidInit {
         RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
         MASTERmaxisVanillaPlus.LOGGER.info("Registering FluidBlock with ID and Key: " + id + ", " + key);
 
-        FluidBlock fluidBlock = new MudWaterFluidBlock(fluid, settings.registryKey(key));
+        FluidBlock fluidBlock = new FluidBlock(fluid, settings.registryKey(key));
         MASTERmaxisVanillaPlus.LOGGER.info("FluidBlock created: " + fluidBlock);
 
         return Registry.register(Registries.BLOCK, key, fluidBlock);
@@ -68,12 +66,8 @@ public class FluidInit {
 
         MUD_WATER_BLOCK = registerFluidBlock(
                 "mud_water_block",
-                AbstractBlock.Settings.copy(Blocks.WATER),
+                AbstractBlock.Settings.create().noCollision().strength(100.0F).dropsNothing(),
                 MUD_WATER_STILL
         );
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.MOD_ITEM_GROUP_KEY).register((entries) -> {
-            entries.add(MUD_WATER_BUCKET);
-        });
     }
 }
