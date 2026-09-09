@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.mastermaxi.mastermaxisvanillaplus.block.Blocks;
 import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
+import net.mastermaxi.mastermaxisvanillaplus.entity.client.BabyOstrichEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityRenderer;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
@@ -33,6 +34,7 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         System.out.println("Mud Water renderer registered!");
 
         EntityModelLayerRegistry.registerModelLayer(OstrichEntityModel.OSTRICH, OstrichEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(BabyOstrichEntityModel.BABY_OSTRICH, BabyOstrichEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(EntityInit.OSTRICH, OstrichEntityRenderer::new);
         System.out.println("Ostrich renderer registered!");
 
