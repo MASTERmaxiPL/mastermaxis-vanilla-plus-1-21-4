@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class StemBlockMixin {
     @Inject(method = "canPlantOnTop", at = @At("HEAD"), cancellable = true)
     private void allowOnGrassyRedSoil(BlockState floor, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        if (floor.isOf(Blocks.GRASSY_RED_SOIL)) {
+        if (floor.isOf(Blocks.GRASSY_RED_SOIL) || floor.isOf(Blocks.RED_SOIL)) {
             cir.setReturnValue(true);
         }
     }

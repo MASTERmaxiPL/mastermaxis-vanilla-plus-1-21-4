@@ -18,8 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SaplingBlockMixin {
     @Inject(method = "generate", at = @At("HEAD"), cancellable = true)
     private void witherNonAcacia(ServerWorld world, BlockPos pos, BlockState state, Random random, CallbackInfo ci) {
-        if (world.getBlockState(pos.down()).isOf(Blocks.GRASSY_RED_SOIL)) {
-            if (!state.isOf(net.minecraft.block.Blocks.ACACIA_SAPLING)) {
+        BlockState floor = world.getBlockState(pos.down());
+        if (floor.isOf(Blocks.GRASSY_RED_SOIL) || floor.isOf(Blocks.RED_SOIL)) {
+            if (!state.isOf(net.minecraft.block.Blocks.ACACIA_SAPLING) && !state.isOf(Blocks.BAOBAB_SAPLING)) {
                 world.setBlockState(pos, net.minecraft.block.Blocks.DEAD_BUSH.getDefaultState());
                 world.playSound(null, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 0.7F, 0.8F);
                 world.spawnParticles(ParticleTypes.SMOKE, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 5, 0.1, 0.1, 0.1, 0.02);

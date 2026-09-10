@@ -59,7 +59,7 @@ public class PlacedFeaturesInit {
                 MUD_POOL_PLACED,
                 configFeatures.getOrThrow(ConfiguredFeaturesInit.MUD_POOL),
                 List.of(
-                        RarityFilterPlacementModifier.of(36),
+                        RarityFilterPlacementModifier.of(28),
                         SquarePlacementModifier.of(),
                         PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
                         BiomePlacementModifier.of()

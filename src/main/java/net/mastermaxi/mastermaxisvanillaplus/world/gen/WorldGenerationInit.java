@@ -20,13 +20,15 @@ public class WorldGenerationInit {
 
         var savannaBiomeSelector = BiomeSelectors.includeByKey(
                 BiomeKeys.SAVANNA,
-                BiomeKeys.SAVANNA_PLATEAU
+                BiomeKeys.SAVANNA_PLATEAU,
+                net.mastermaxi.mastermaxisvanillaplus.world.biome.ModBiomes.RUSTY_SAVANNA
         );
 
         var allSavannaSelector = BiomeSelectors.includeByKey(
                 BiomeKeys.SAVANNA,
                 BiomeKeys.SAVANNA_PLATEAU,
-                BiomeKeys.WINDSWEPT_SAVANNA
+                BiomeKeys.WINDSWEPT_SAVANNA,
+                net.mastermaxi.mastermaxisvanillaplus.world.biome.ModBiomes.RUSTY_SAVANNA
         );
 
         // 1. Mud pools (Lakes step) - Savanna & Savanna Plateau
@@ -62,17 +64,17 @@ public class WorldGenerationInit {
                         )
                 );
 
-        // Add sparser savanna trees to SAVANNA
+        // Add sparser savanna trees to SAVANNA & RUSTY_SAVANNA
         BiomeModifications.addFeature(
-                BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
+                BiomeSelectors.includeByKey(BiomeKeys.SAVANNA, net.mastermaxi.mastermaxisvanillaplus.world.biome.ModBiomes.RUSTY_SAVANNA),
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 PlacedFeaturesInit.SPARSE_SAVANNA_TREES_PLACED
         );
 
         // 5. Baobab trees:
-        // Rare in SAVANNA
+        // Rare in SAVANNA & RUSTY_SAVANNA
         BiomeModifications.addFeature(
-                BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
+                BiomeSelectors.includeByKey(BiomeKeys.SAVANNA, net.mastermaxi.mastermaxisvanillaplus.world.biome.ModBiomes.RUSTY_SAVANNA),
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 PlacedFeaturesInit.BAOBAB_TREE_PLACED
         );

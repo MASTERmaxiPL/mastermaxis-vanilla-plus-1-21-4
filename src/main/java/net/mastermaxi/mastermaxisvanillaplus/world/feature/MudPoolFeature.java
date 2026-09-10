@@ -139,13 +139,13 @@ public class MudPoolFeature extends Feature<DefaultFeatureConfig> {
         // 3. Terrain flatness check across the entire proposed pool footprint
         for (BlockPos col : waterCols) {
             int ly = getGroundY(world, col.getX(), col.getZ(), groundY);
-            if (Math.abs(ly - groundY) > 1 || !world.getFluidState(new BlockPos(col.getX(), ly, col.getZ())).isEmpty()) {
+            if (Math.abs(ly - groundY) > 2 || !world.getFluidState(new BlockPos(col.getX(), ly, col.getZ())).isEmpty()) {
                 return false;
             }
         }
         for (BlockPos col : mudCols) {
             int ly = getGroundY(world, col.getX(), col.getZ(), groundY);
-            if (Math.abs(ly - groundY) > 1 || !world.getFluidState(new BlockPos(col.getX(), ly, col.getZ())).isEmpty()) {
+            if (Math.abs(ly - groundY) > 2 || !world.getFluidState(new BlockPos(col.getX(), ly, col.getZ())).isEmpty()) {
                 return false;
             }
         }

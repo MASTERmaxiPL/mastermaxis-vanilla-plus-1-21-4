@@ -34,5 +34,6 @@ public class MASTERmaxisVanillaPlusDataGenerator implements DataGeneratorEntrypo
 	public void buildRegistry(RegistryBuilder registryBuilder){
 		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ConfiguredFeaturesInit::boostrap);
 		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, PlacedFeaturesInit::boostrap);
+		registryBuilder.addRegistry(RegistryKeys.BIOME, net.mastermaxi.mastermaxisvanillaplus.world.biome.ModBiomes::bootstrap);
 	}
 }

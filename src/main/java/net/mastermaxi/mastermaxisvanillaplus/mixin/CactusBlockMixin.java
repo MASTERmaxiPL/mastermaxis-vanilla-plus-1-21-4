@@ -17,6 +17,6 @@ public class CactusBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z")
     )
     private boolean allowCactusOnGrassyRedSoil(BlockState state, TagKey<Block> tag, Operation<Boolean> original) {
-        return original.call(state, tag) || state.isOf(Blocks.GRASSY_RED_SOIL);
+        return original.call(state, tag) || state.isOf(Blocks.GRASSY_RED_SOIL) || state.isOf(Blocks.RED_SOIL);
     }
 }
