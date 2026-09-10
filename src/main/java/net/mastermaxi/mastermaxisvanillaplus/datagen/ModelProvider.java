@@ -26,6 +26,8 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(MUDSTONE_FLINT_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(MUDSTONE_IRON_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(MUDSTONE_COAL_ORE);
+        blockStateModelGenerator.registerSimpleCubeAll(MUDSTONE_COPPER_ORE);
+        blockStateModelGenerator.registerSimpleCubeAll(SILTED_GRAVEL);
 
         //Registering block models with custom textures
 

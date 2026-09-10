@@ -66,6 +66,8 @@ public class LootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MUDSTONE_COAL_ORE, multipleOreDrop(MUDSTONE_COAL_ORE, Items.COAL, 1, 2));
         addDrop(MUDSTONE_IRON_ORE, oreDrops(MUDSTONE_IRON_ORE, Items.RAW_IRON));
         addDrop(MUDSTONE_FLINT_ORE, multipleOreDrop(MUDSTONE_FLINT_ORE, Items.FLINT, 1, 2));
+        addDrop(MUDSTONE_COPPER_ORE, multipleOreDrop(MUDSTONE_COPPER_ORE, Items.RAW_COPPER, 2, 5));
+        addDrop(SILTED_GRAVEL);
 
         addDrop(BAOBAB_LOG);
         addDrop(STRIPPED_BAOBAB_LOG);

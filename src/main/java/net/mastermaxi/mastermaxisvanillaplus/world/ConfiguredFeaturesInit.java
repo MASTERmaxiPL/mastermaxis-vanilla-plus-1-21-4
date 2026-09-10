@@ -18,15 +18,22 @@ import java.util.OptionalInt;
 
 public class ConfiguredFeaturesInit {
     public static final RegistryKey<ConfiguredFeature<?, ?>> BAOBAB_TREE = registryKey("baobab_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MUD_POOL = registryKey("mud_pool");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> TERMITE_MOUND = registryKey("termite_mound");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MUDSTONE_DEPOSIT = registryKey("mudstone_deposit");
 
     public static void boostrap(Registerable<ConfiguredFeature<?, ?>> context){
         context.register(BAOBAB_TREE, new ConfiguredFeature<>(Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(Blocks.BAOBAB_LOG),
-                new BaobabTrunkPlacer(6, 2, 2),
+                new BaobabTrunkPlacer(10, 2, 2),
                 BlockStateProvider.of(Blocks.BAOBAB_LEAVES),
-                new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 4),
+                new LargeOakFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(2), 3),
                 new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
         ).build()));
+
+        context.register(MUD_POOL, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.MUD_POOL, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
+        context.register(TERMITE_MOUND, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.TERMITE_MOUND, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
+        context.register(MUDSTONE_DEPOSIT, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.MUDSTONE_DEPOSIT, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registryKey(String name){

@@ -9,6 +9,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 
+import net.mastermaxi.mastermaxisvanillaplus.mixin.SpawnRestrictionAccessor;
+import net.minecraft.entity.SpawnLocationTypes;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.world.Heightmap;
+
 public class EntityInit {
     public static final EntityType<MudBallEntity> MUD_BALL = Registry.register(
             Registries.ENTITY_TYPE,
@@ -40,5 +45,11 @@ public class EntityInit {
 
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering entities for" + MASTERmaxisVanillaPlus.MOD_ID);
+        SpawnRestrictionAccessor.callRegister(
+                OSTRICH,
+                SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                AnimalEntity::isValidNaturalSpawn
+        );
     }
 }

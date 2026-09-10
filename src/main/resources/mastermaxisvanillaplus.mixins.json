@@ -9,8 +9,12 @@
 		"ItemMixin",
 		"LandPathNodeMakerMixin",
 		"LivingEntityMixin",
+		"OreFeatureMixin",
 		"SaplingBlockMixin",
-		"StemBlockMixin"
+		"SpawnRestrictionAccessor",
+		"StemBlockMixin",
+		"SurfaceBuilderMixin",
+		"VanillaSurfaceRulesMixin"
 	],
 	"client": [
 		"BackgroundRendererMixin",

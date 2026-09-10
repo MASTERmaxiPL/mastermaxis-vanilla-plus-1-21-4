@@ -665,6 +665,9 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        if (entityData == null) {
+            entityData = new PassiveData(true, 0.35F);
+        }
         EntityData data = super.initialize(world, difficulty, spawnReason, entityData);
         float maxHealth = 12.0F + this.random.nextInt(9);
         EntityAttributeInstance maxHealthAttr = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);

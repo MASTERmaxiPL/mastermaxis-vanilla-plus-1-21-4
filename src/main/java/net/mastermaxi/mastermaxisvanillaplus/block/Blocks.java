@@ -201,6 +201,23 @@ public class Blocks {
                     .sounds(BlockSoundGroup.DEEPSLATE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
     );
+    public static Block MUDSTONE_COPPER_ORE = register(
+            "mudstone_copper_ore",
+            Block::new,
+            Block.Settings.create()
+                    .requiresTool()
+                    .strength(3F, 3F)
+                    .sounds(BlockSoundGroup.DEEPSLATE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+    );
+    public static Block SILTED_GRAVEL = register(
+            "silted_gravel",
+            settings -> new ColoredFallingBlock(new net.minecraft.util.ColorCode(-6323630), settings),
+            Block.Settings.create()
+                    .strength(0.6F)
+                    .sounds(BlockSoundGroup.GRAVEL)
+                    .instrument(NoteBlockInstrument.SNARE)
+    );
     // endregion Mudstone
 
     // region WoodType

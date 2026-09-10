@@ -38,6 +38,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MUDSTONE_COAL_ORE)
                 .add(MUDSTONE_IRON_ORE)
                 .add(MUDSTONE_FLINT_ORE)
+                .add(MUDSTONE_COPPER_ORE)
 
                 .add(LATERITE)
                 .add(LATERITE_STAIRS)
@@ -50,7 +51,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(RED_SOIL_SLAB)
                 .add(GRASSY_RED_SOIL)
                 .add(MOUND)
-                .add(INFECTED_MOUND);
+                .add(INFECTED_MOUND)
+                .add(SILTED_GRAVEL);
 
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
                 .add(BAOBAB_LOG)
@@ -89,7 +91,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                 .add(MUDSTONE_COAL_ORE)
                 .add(MUDSTONE_IRON_ORE)
-                .add(MUDSTONE_FLINT_ORE);
+                .add(MUDSTONE_FLINT_ORE)
+                .add(MUDSTONE_COPPER_ORE);
+
+        getOrCreateTagBuilder(BlockTags.COAL_ORES)
+                .add(MUDSTONE_COAL_ORE);
+
+        getOrCreateTagBuilder(BlockTags.IRON_ORES)
+                .add(MUDSTONE_IRON_ORE);
+
+        getOrCreateTagBuilder(BlockTags.COPPER_ORES)
+                .add(MUDSTONE_COPPER_ORE);
 
         getOrCreateTagBuilder(BlockTags.WALLS)
                 .add(MUDSTONE_WALL)
@@ -153,5 +165,18 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(LATERITE)
                 .add(RED_SOIL)
                 .add(GRASSY_RED_SOIL);
+
+        getOrCreateTagBuilder(BlockTags.ANIMALS_SPAWNABLE_ON)
+                .add(GRASSY_RED_SOIL)
+                .add(RED_SOIL);
+
+        getOrCreateTagBuilder(BlockTags.BASE_STONE_OVERWORLD)
+                .add(MUDSTONE_BLOCK);
+
+        getOrCreateTagBuilder(BlockTags.STONE_ORE_REPLACEABLES)
+                .add(MUDSTONE_BLOCK);
+
+        getOrCreateTagBuilder(BlockTags.OVERWORLD_CARVER_REPLACEABLES)
+                .add(MUDSTONE_BLOCK);
     }
 }
