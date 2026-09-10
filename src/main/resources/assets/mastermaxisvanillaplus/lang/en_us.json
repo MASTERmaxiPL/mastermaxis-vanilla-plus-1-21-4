@@ -26,5 +26,17 @@
   "block.mastermaxisvanillaplus.mudstone_coal_ore" : "Mudstone Coal Ore",
   "block.mastermaxisvanillaplus.mudstone_iron_ore" : "Mudstone Iron Ore",
   "block.mastermaxisvanillaplus.mudstone_flint_ore" : "Mudstone Flint Ore",
-  "block.mastermaxisvanillaplus.feather_block" : "Block of Feather"
+  "block.mastermaxisvanillaplus.feather_block" : "Block of Feather",
+  "block.mastermaxisvanillaplus.red_soil": "Red Soil",
+  "block.mastermaxisvanillaplus.red_soil_stairs": "Red Soil Stairs",
+  "block.mastermaxisvanillaplus.red_soil_slab": "Red Soil Slab",
+  "block.mastermaxisvanillaplus.laterite": "Laterite",
+  "block.mastermaxisvanillaplus.laterite_stairs": "Laterite Stairs",
+  "block.mastermaxisvanillaplus.laterite_slab": "Laterite Slab",
+  "block.mastermaxisvanillaplus.redthorn": "Redthorn",
+  "block.mastermaxisvanillaplus.grassy_red_soil": "Grassy Red Soil",
+  "block.mastermaxisvanillaplus.mound": "Termite Mound",
+  "block.mastermaxisvanillaplus.infected_mound": "Infected Termite Mound",
+  "block.mastermaxisvanillaplus.infected_wood": "Infected Wood",
+  "block.mastermaxisvanillaplus.termite_trail": "Termite Trail"
 }

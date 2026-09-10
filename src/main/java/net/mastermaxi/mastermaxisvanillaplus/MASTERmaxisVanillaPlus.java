@@ -32,6 +32,7 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		LOGGER.info("trying to init blocks");
 		Blocks.initialize();
 		BlockInit.initialize();
+		net.mastermaxi.mastermaxisvanillaplus.block.BlockEntities.initialize();
 
 		StrippableBlockRegistry.register(Blocks.BAOBAB_LOG, Blocks.STRIPPED_BAOBAB_LOG);
 		StrippableBlockRegistry.register(Blocks.BAOBAB_WOOD, Blocks.STRIPPED_BAOBAB_WOOD);

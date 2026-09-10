@@ -30,6 +30,20 @@ public class LootTableProvider extends FabricBlockLootTableProvider {
     public void generate() {
         addDrop(FEATHER_BLOCK);
 
+        addDrop(RED_SOIL);
+        addDrop(RED_SOIL_STAIRS);
+        addDrop(RED_SOIL_SLAB, slabDrops(RED_SOIL_SLAB));
+        addDrop(GRASSY_RED_SOIL, drops(GRASSY_RED_SOIL, RED_SOIL));
+        addDrop(REDTHORN);
+
+        addDrop(LATERITE);
+        addDrop(LATERITE_STAIRS);
+        addDrop(LATERITE_SLAB, slabDrops(LATERITE_SLAB));
+
+        addDrop(MOUND);
+        addDrop(INFECTED_MOUND, drops(INFECTED_MOUND, MOUND));
+        addDrop(TERMITE_TRAIL, dropsNothing());
+
         addDrop(MUDSTONE_BLOCK);
         addDrop(MUDSTONE_STAIRS);
         addDrop(MUDSTONE_SLAB, slabDrops(MUDSTONE_SLAB));

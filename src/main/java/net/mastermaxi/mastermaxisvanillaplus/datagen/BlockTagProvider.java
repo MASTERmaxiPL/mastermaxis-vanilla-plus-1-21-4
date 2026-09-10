@@ -37,10 +37,20 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                 .add(MUDSTONE_COAL_ORE)
                 .add(MUDSTONE_IRON_ORE)
-                .add(MUDSTONE_FLINT_ORE);
+                .add(MUDSTONE_FLINT_ORE)
+
+                .add(LATERITE)
+                .add(LATERITE_STAIRS)
+                .add(LATERITE_SLAB);
 
         getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
-                .add(MUD_BLOCK);
+                .add(MUD_BLOCK)
+                .add(RED_SOIL)
+                .add(RED_SOIL_STAIRS)
+                .add(RED_SOIL_SLAB)
+                .add(GRASSY_RED_SOIL)
+                .add(MOUND)
+                .add(INFECTED_MOUND);
 
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
                 .add(BAOBAB_LOG)
@@ -50,6 +60,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(BAOBAB_PLANKS)
                 .add(BAOBAB_SLAB)
                 .add(BAOBAB_STAIRS)
+                .add(INFECTED_WOOD)
                 .add(BAOBAB_FENCE)
                 .add(BAOBAB_GATE)
                 .add(BAOBAB_BUTTON)
@@ -89,13 +100,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MUDSTONE_SLAB)
                 .add(MUDSTONE_BRICK_SLAB)
                 .add(POLISHED_MUDSTONE_SLAB)
-                .add(BAOBAB_SLAB);
+                .add(BAOBAB_SLAB)
+                .add(RED_SOIL_SLAB)
+                .add(LATERITE_SLAB);
 
         getOrCreateTagBuilder(BlockTags.STAIRS)
                 .add(MUDSTONE_STAIRS)
                 .add(MUDSTONE_BRICK_STAIRS)
                 .add(POLISHED_MUDSTONE_STAIRS)
-                .add(BAOBAB_STAIRS);
+                .add(BAOBAB_STAIRS)
+                .add(RED_SOIL_STAIRS)
+                .add(LATERITE_STAIRS);
 
         getOrCreateTagBuilder(BlockTags.BUTTONS)
                 .add(MUDSTONE_BUTTON)
@@ -129,5 +144,14 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         getOrCreateTagBuilder(BlockTags.SAPLINGS)
                 .add(BAOBAB_SAPLING);
+
+        getOrCreateTagBuilder(BlockTags.DIRT)
+                .add(RED_SOIL)
+                .add(GRASSY_RED_SOIL);
+
+        getOrCreateTagBuilder(BlockTags.DEAD_BUSH_MAY_PLACE_ON)
+                .add(LATERITE)
+                .add(RED_SOIL)
+                .add(GRASSY_RED_SOIL);
     }
 }

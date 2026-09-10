@@ -24,6 +24,19 @@ public class BlockInit {
                 FEATHER_BLOCK,
                 MUD_BLOCK,
 
+                RED_SOIL,
+                RED_SOIL_STAIRS,
+                RED_SOIL_SLAB,
+                GRASSY_RED_SOIL,
+                REDTHORN,
+
+                LATERITE,
+                LATERITE_STAIRS,
+                LATERITE_SLAB,
+
+                MOUND,
+                INFECTED_MOUND,
+
                 MUDSTONE_BLOCK,
                 MUDSTONE_STAIRS,
                 MUDSTONE_SLAB,

@@ -1,0 +1,51 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_1"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_1",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_1",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_1",
+        "y": 270
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_2"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_2",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_2",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_2",
+        "y": 270
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_3"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_3",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_3",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/redthorn_3",
+        "y": 270
+      }
+    ]
+  }
+}

@@ -24,6 +24,15 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MUDSTONE_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BAOBAB_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BAOBAB_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.REDTHORN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.GRASSY_RED_SOIL, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.INFECTED_MOUND, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.TERMITE_TRAIL, RenderLayer.getCutout());
+
+        net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(
+                net.mastermaxi.mastermaxisvanillaplus.block.BlockEntities.INFECTED_WOOD,
+                net.mastermaxi.mastermaxisvanillaplus.block.client.InfectedWoodBlockEntityRenderer::new
+        );
 
         EntityRendererRegistry.register(EntityInit.MUD_BALL, FlyingItemEntityRenderer::new);
         System.out.println("Mud Ball renderer registered!");
@@ -44,6 +53,17 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
                 (state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT,
                 Blocks.BAOBAB_LEAVES
+        );
+
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
+                (state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : net.minecraft.world.biome.GrassColors.getDefaultColor(),
+                Blocks.GRASSY_RED_SOIL
+        );
+
+        // Redthorn: biome layer (tintindex 0) gets grass color; spike layer has no tintindex so stays red
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
+                (state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT,
+                Blocks.REDTHORN
         );
     }
 }

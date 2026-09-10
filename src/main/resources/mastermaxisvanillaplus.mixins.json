@@ -3,9 +3,14 @@
 	"package": "net.mastermaxi.mastermaxisvanillaplus.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"AttachedStemBlockMixin",
+		"CactusBlockMixin",
 		"FluidBlockMixin",
 		"ItemMixin",
-		"LivingEntityMixin"
+		"LandPathNodeMakerMixin",
+		"LivingEntityMixin",
+		"SaplingBlockMixin",
+		"StemBlockMixin"
 	],
 	"client": [
 		"BackgroundRendererMixin",

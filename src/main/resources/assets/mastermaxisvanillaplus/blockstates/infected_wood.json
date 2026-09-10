@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "animation=0": {
+      "model": "mastermaxisvanillaplus:block/infected_wood_overlay_0"
+    },
+    "animation=1": {
+      "model": "mastermaxisvanillaplus:block/infected_wood_overlay_1"
+    },
+    "animation=2": {
+      "model": "mastermaxisvanillaplus:block/infected_wood_overlay_2"
+    },
+    "animation=3": {
+      "model": "mastermaxisvanillaplus:block/infected_wood_overlay_3"
+    }
+  }
+}

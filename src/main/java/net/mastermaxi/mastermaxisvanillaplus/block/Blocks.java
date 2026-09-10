@@ -30,6 +30,85 @@ public class Blocks {
     //endregion
     //region Savanna
 
+    // region Red Soil
+    public static Block RED_SOIL = register(
+            "red_soil",
+            Block::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.DIRT)
+    );
+    public static final Block RED_SOIL_STAIRS = registerStairsBlock("red_soil_stairs", RED_SOIL);
+    public static final Block RED_SOIL_SLAB = registerSlabBlock("red_soil_slab", RED_SOIL);
+    public static Block GRASSY_RED_SOIL = register(
+            "grassy_red_soil",
+            GrassyRedSoilBlock::new,
+            Block.Settings.copy(net.minecraft.block.Blocks.GRASS_BLOCK)
+    );
+    // endregion Red Soil
+
+    // region Plants
+    public static Block REDTHORN = register(
+            "redthorn",
+            RedthornBlock::new,
+            Block.Settings.create()
+                    .noCollision()
+                    .breakInstantly()
+                    .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)
+                    .nonOpaque()
+                    .pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY)
+    );
+    // endregion Plants
+
+    // region Laterite
+    public static Block LATERITE = register(
+            "laterite",
+            Block::new,
+            Block.Settings.create()
+                    .requiresTool()
+                    .strength(1.5F, 6.0F)
+                    .sounds(BlockSoundGroup.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+    );
+    public static final Block LATERITE_STAIRS = registerStairsBlock("laterite_stairs", LATERITE);
+    public static final Block LATERITE_SLAB = registerSlabBlock("laterite_slab", LATERITE);
+    // endregion Laterite
+
+    // region Mound & Termites
+    public static Block MOUND = register(
+            "mound",
+            MoundBlock::new,
+            Block.Settings.create()
+                    .strength(0.8F)
+                    .sounds(BlockSoundGroup.GRAVEL)
+    );
+    public static Block INFECTED_MOUND = register(
+            "infected_mound",
+            InfectedMoundBlock::new,
+            Block.Settings.create()
+                    .ticksRandomly()
+                    .strength(0.8F)
+                    .sounds(BlockSoundGroup.GRAVEL)
+    );
+    public static Block INFECTED_WOOD = register(
+            "infected_wood",
+            InfectedWoodBlock::new,
+            Block.Settings.create()
+                    .strength(2.0F)
+                    .sounds(BlockSoundGroup.WOOD)
+                    .nonOpaque()
+    );
+    public static Block TERMITE_TRAIL = register(
+            "termite_trail",
+            TermiteTrailBlock::new,
+            Block.Settings.create()
+                    .noCollision()
+                    .ticksRandomly()
+                    .breakInstantly()
+                    .sounds(BlockSoundGroup.MUD)
+                    .nonOpaque()
+                    .pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY)
+    );
+    // endregion Mound & Termites
+
     // region Other
     public static Block MUD_BLOCK = register(
             "mud_block",
@@ -199,6 +278,7 @@ public class Blocks {
         return register(id, SlabBlock::new, AbstractBlock.Settings.copy(base));
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static Block registerButtonBlock(String id, Block base, BlockSetType type, int pressTicks) {
         return register(id, settings -> new ButtonBlock(type, pressTicks, settings), AbstractBlock.Settings.copy(base).noCollision());
     }
@@ -207,10 +287,12 @@ public class Blocks {
         return register(id, settings -> new PressurePlateBlock(type, settings), AbstractBlock.Settings.copy(base));
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static Block registerFenceBlock(String id, Block base) {
         return register(id, FenceBlock::new, AbstractBlock.Settings.copy(base));
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static Block registerFenceGateBlock(String id, Block base, WoodType type) {
         return register(id, settings -> new FenceGateBlock(type, settings), AbstractBlock.Settings.copy(base));
     }
@@ -223,6 +305,7 @@ public class Blocks {
         return register(id, settings -> new DoorBlock(type, settings), AbstractBlock.Settings.copy(base).nonOpaque());
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static Block registerTrapDoorBlock(String id, Block base, BlockSetType type) {
         return register(id, settings -> new TrapdoorBlock(type, settings), AbstractBlock.Settings.copy(base).nonOpaque());
     }

@@ -97,6 +97,7 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
         this.goalSelector.add(2, new WanderNearTargetGoal(this, 0.9, 32.0F));
         this.goalSelector.add(2, new WanderAroundPointOfInterestGoal(this, 0.6, false));
         this.goalSelector.add(3, new AnimalMateGoal(this, 1.15D));
+        this.goalSelector.add(3, new net.mastermaxi.mastermaxisvanillaplus.entity.ai.EatTermitesGoal(this, 1.15D, 16));
         this.goalSelector.add(4, new TemptGoal(this, 1.25D, Ingredient.ofItems(Items.GLISTERING_MELON_SLICE, Items.MELON_SLICE), false));
         this.goalSelector.add(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
@@ -528,6 +529,12 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
             world.sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         }
         return bl;
+    }
+
+    public void playPeckAnimation() {
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            serverWorld.sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        }
     }
 
     @Override

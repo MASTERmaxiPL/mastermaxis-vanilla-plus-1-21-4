@@ -6,6 +6,7 @@ import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.tint.GrassTintSource;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
 
@@ -37,6 +38,14 @@ public class ModelProvider extends FabricModelProvider {
         );
 
         //Registering block using others block net.mastermaxi.mastermaxisvanillaplus.entity.client.model
+
+        BlockStateModelGenerator.BlockTexturePool redSoilTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(RED_SOIL);
+        redSoilTexturePool.stairs(RED_SOIL_STAIRS);
+        redSoilTexturePool.slab(RED_SOIL_SLAB);
+
+        BlockStateModelGenerator.BlockTexturePool lateriteTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(LATERITE);
+        lateriteTexturePool.stairs(LATERITE_STAIRS);
+        lateriteTexturePool.slab(LATERITE_SLAB);
 
         BlockStateModelGenerator.BlockTexturePool mudstoneBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(MUDSTONE_BLOCK_SIMPLE);
         mudstoneBlockTexturePool.stairs(MUDSTONE_STAIRS);
@@ -73,6 +82,8 @@ public class ModelProvider extends FabricModelProvider {
         //Adding item models for blocks manually, because it is not done automatically somehow
 
         blockStateModelGenerator.registerParentedItemModel(FEATHER_BLOCK, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/feather_block"));
+        blockStateModelGenerator.registerParentedItemModel(RED_SOIL, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/red_soil"));
+        blockStateModelGenerator.registerParentedItemModel(LATERITE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/laterite"));
         blockStateModelGenerator.registerParentedItemModel(MUD_BLOCK, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mud_block"));
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_FLINT_ORE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_flint_ore"));
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_IRON_ORE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_iron_ore"));
@@ -81,6 +92,42 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(POLISHED_MUDSTONE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/polished_mudstone"));
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_BRICK, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_brick"));
         blockStateModelGenerator.registerParentedItemModel(MUDSTONE_BRICK_PRESSURE_PLATE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mudstone_brick_pressure_plate"));
+
+        blockStateModelGenerator.registerParentedItemModel(MOUND, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/mound"));
+        blockStateModelGenerator.registerParentedItemModel(INFECTED_MOUND, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/infected_mound_0"));
+        blockStateModelGenerator.registerParentedItemModel(INFECTED_WOOD, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/infected_wood_overlay_0"));
+        blockStateModelGenerator.registerParentedItemModel(TERMITE_TRAIL, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/termite_trail_0"));
+
+        // Register tinted item models via reflection (itemModelOutput is package-private).
+        // This prevents Fabric's mixin from auto-generating plain (non-tinted) versions on each runDatagen.
+        try {
+            java.lang.reflect.Field field = BlockStateModelGenerator.class.getDeclaredField("itemModelOutput");
+            field.setAccessible(true);
+            ItemModelOutput itemModelOutput = (ItemModelOutput) field.get(blockStateModelGenerator);
+
+            // GRASSY_RED_SOIL: grass tint
+            itemModelOutput.accept(
+                GRASSY_RED_SOIL.asItem(),
+                ItemModels.tinted(
+                    Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/grassy_red_soil"),
+                    new GrassTintSource()
+                )
+            );
+
+            // REDTHORN: foliage tint (same as biome layer in block model)
+            itemModelOutput.accept(
+                REDTHORN.asItem(),
+                ItemModels.tinted(
+                    Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "item/redthorn"),
+                    // tintindex 0 = layer0 (spikes) → no color change
+                    new net.minecraft.client.render.item.tint.ConstantTintSource(-1),
+                    // tintindex 1 = layer1 (biome) → savanna foliage color (temperature=1.0, downfall=0.0)
+                    new GrassTintSource(1.0f, 0.0f)
+                )
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to register tinted item models", e);
+        }
 
         blockStateModelGenerator.registerParentedItemModel(BAOBAB_LOG, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_log"));
         blockStateModelGenerator.registerParentedItemModel(STRIPPED_BAOBAB_LOG, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/stripped_baobab_log"));

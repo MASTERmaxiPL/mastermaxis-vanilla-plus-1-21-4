@@ -45,6 +45,24 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ItemInit.OSTRICH_FEATHER), conditionsFromItem(ItemInit.OSTRICH_FEATHER))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
+                // Red Soil Recipes
+                createStairsRecipe(Blocks.RED_SOIL_STAIRS, Ingredient.ofItems(Blocks.RED_SOIL))
+                        .criterion(hasItem(Blocks.RED_SOIL), conditionsFromItem(Blocks.RED_SOIL))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, MASTERmaxisVanillaPlus.id("red_soil_stairs")));
+                createSlabRecipe(BUILDING_BLOCKS, Blocks.RED_SOIL_SLAB, Ingredient.ofItems(Blocks.RED_SOIL))
+                        .criterion(hasItem(Blocks.RED_SOIL), conditionsFromItem(Blocks.RED_SOIL))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, MASTERmaxisVanillaPlus.id("red_soil_slab")));
+
+                // Laterite Recipes
+                offerStonecuttingRecipe(BUILDING_BLOCKS, Blocks.LATERITE_STAIRS, Blocks.LATERITE);
+                offerStonecuttingRecipe(BUILDING_BLOCKS, Blocks.LATERITE_SLAB, Blocks.LATERITE);
+                createStairsRecipe(Blocks.LATERITE_STAIRS, Ingredient.ofItems(Blocks.LATERITE))
+                        .criterion(hasItem(Blocks.LATERITE), conditionsFromItem(Blocks.LATERITE))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, MASTERmaxisVanillaPlus.id("laterite_stairs")));
+                createSlabRecipe(BUILDING_BLOCKS, Blocks.LATERITE_SLAB, Ingredient.ofItems(Blocks.LATERITE))
+                        .criterion(hasItem(Blocks.LATERITE), conditionsFromItem(Blocks.LATERITE))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, MASTERmaxisVanillaPlus.id("laterite_slab")));
+
                 // Mudstone Block Recipes
                 offerStonecuttingRecipe(BUILDING_BLOCKS, Blocks.MUDSTONE_STAIRS, Blocks.MUDSTONE_BLOCK);
                 offerStonecuttingRecipe(BUILDING_BLOCKS, Blocks.MUDSTONE_SLAB, Blocks.MUDSTONE_BLOCK);

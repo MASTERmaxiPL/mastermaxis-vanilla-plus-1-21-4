@@ -26,5 +26,17 @@
   "block.mastermaxisvanillaplus.mudstone_coal_ore" : "Mułowcowe Złoże Węgla",
   "block.mastermaxisvanillaplus.mudstone_iron_ore" : "Mułowcowe Złoże Żelaza",
   "block.mastermaxisvanillaplus.mudstone_flint_ore" : "Mułowcowe Złoże Krzemienia",
-  "block.mastermaxisvanillaplus.feather_block" : "Blok Piór"
+  "block.mastermaxisvanillaplus.feather_block" : "Blok Piór",
+  "block.mastermaxisvanillaplus.red_soil": "Czerwona Gleba",
+  "block.mastermaxisvanillaplus.red_soil_stairs": "Schody z Czerwonej Gleby",
+  "block.mastermaxisvanillaplus.red_soil_slab": "Płyta z Czerwonej Gleby",
+  "block.mastermaxisvanillaplus.laterite": "Lateryt",
+  "block.mastermaxisvanillaplus.laterite_stairs": "Laterytowe Schody",
+  "block.mastermaxisvanillaplus.laterite_slab": "Laterytowa Płyta",
+  "block.mastermaxisvanillaplus.redthorn": "Czerwony Cierń",
+  "block.mastermaxisvanillaplus.grassy_red_soil": "Porośnięta Czerwona Gleba",
+  "block.mastermaxisvanillaplus.mound": "Kopiec Termitów",
+  "block.mastermaxisvanillaplus.infected_mound": "Zainfekowany Kopiec Termitów",
+  "block.mastermaxisvanillaplus.infected_wood": "Zainfekowane Drewno",
+  "block.mastermaxisvanillaplus.termite_trail": "Ścieżka Termitów"
 }
