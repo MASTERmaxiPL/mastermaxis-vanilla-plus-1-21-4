@@ -23,32 +23,79 @@ public abstract class VanillaBiomeParametersMixin {
             RegistryKey<Biome> biomeKey = pair.getSecond();
             MultiNoiseUtil.NoiseHypercube cube = pair.getFirst();
 
-            // Intercept regular SAVANNA entries and split them by temperature macro-region
-            // so Rusty Savanna forms its own large, distinct, contiguous biome instead of intermingling locally
+            // Intercept regular SAVANNA entries:
+            // 1. Split by temperature into two contiguous macro-regions:
+            //    - [minT, midT] -> regular SAVANNA
+            //    - [midT, maxT] -> RUSTY_SAVANNA
+            // 2. Carve out SCORCHED_SAVANNA as a localized sub-biome pocket (top 20% of weirdness peaks)
+            //    within these savanna regions so it:
+            //    - is much smaller and contained
+            //    - is ALWAYS directly adjacent to its parent savanna (never alone/isolated)
             if (BiomeKeys.SAVANNA.equals(biomeKey)) {
                 MultiNoiseUtil.ParameterRange temperature = cube.temperature();
-                long min = temperature.min();
-                long max = temperature.max();
+                long minT = temperature.min();
+                long maxT = temperature.max();
 
-                if (max - min > 1) {
-                    long mid = (min + max) / 2;
+                long midT = (minT + maxT) / 2;
+
+                MultiNoiseUtil.ParameterRange savannaTemp = (maxT - minT > 1)
+                        ? new MultiNoiseUtil.ParameterRange(minT, midT)
+                        : temperature;
+                MultiNoiseUtil.ParameterRange rustyTemp = (maxT - minT > 1)
+                        ? new MultiNoiseUtil.ParameterRange(midT, maxT)
+                        : temperature;
+
+                MultiNoiseUtil.ParameterRange weirdness = cube.weirdness();
+                long minW = weirdness.min();
+                long maxW = weirdness.max();
+
+                if (maxW - minW > 10) {
+                    long wSplit = minW + (long) ((maxW - minW) * 0.80);
+                    MultiNoiseUtil.ParameterRange parentWeirdness = new MultiNoiseUtil.ParameterRange(minW, wSplit);
+                    MultiNoiseUtil.ParameterRange scorchedWeirdness = new MultiNoiseUtil.ParameterRange(wSplit, maxW);
+
+                    // 1. Regular Savanna + adjacent Scorched Savanna pocket
                     MultiNoiseUtil.NoiseHypercube savannaCube = new MultiNoiseUtil.NoiseHypercube(
-                            new MultiNoiseUtil.ParameterRange(min, mid),
-                            cube.humidity(), cube.continentalness(),
-                            cube.erosion(), cube.depth(),
-                            cube.weirdness(),
-                            cube.offset()
+                            savannaTemp, cube.humidity(), cube.continentalness(),
+                            cube.erosion(), cube.depth(), parentWeirdness, cube.offset()
                     );
+                    MultiNoiseUtil.NoiseHypercube scorchedSavannaCube = new MultiNoiseUtil.NoiseHypercube(
+                            savannaTemp, cube.humidity(), cube.continentalness(),
+                            cube.erosion(), cube.depth(), scorchedWeirdness, cube.offset()
+                    );
+
+                    // 2. Rusty Savanna + adjacent Scorched Savanna pocket
                     MultiNoiseUtil.NoiseHypercube rustyCube = new MultiNoiseUtil.NoiseHypercube(
-                            new MultiNoiseUtil.ParameterRange(mid, max),
-                            cube.humidity(), cube.continentalness(),
-                            cube.erosion(), cube.depth(),
-                            cube.weirdness(),
-                            cube.offset()
+                            rustyTemp, cube.humidity(), cube.continentalness(),
+                            cube.erosion(), cube.depth(), parentWeirdness, cube.offset()
                     );
+                    MultiNoiseUtil.NoiseHypercube scorchedRustyCube = new MultiNoiseUtil.NoiseHypercube(
+                            rustyTemp, cube.humidity(), cube.continentalness(),
+                            cube.erosion(), cube.depth(), scorchedWeirdness, cube.offset()
+                    );
+
                     originalConsumer.accept(Pair.of(savannaCube, BiomeKeys.SAVANNA));
-                    originalConsumer.accept(Pair.of(rustyCube, ModBiomes.RUSTY_SAVANNA));
+                    originalConsumer.accept(Pair.of(scorchedSavannaCube, ModBiomes.SCORCHED_SAVANNA));
+
+                    if (maxT - minT > 1) {
+                        originalConsumer.accept(Pair.of(rustyCube, ModBiomes.RUSTY_SAVANNA));
+                        originalConsumer.accept(Pair.of(scorchedRustyCube, ModBiomes.SCORCHED_SAVANNA));
+                    }
                     return;
+                } else {
+                    if (maxT - minT > 1) {
+                        MultiNoiseUtil.NoiseHypercube savannaCube = new MultiNoiseUtil.NoiseHypercube(
+                                savannaTemp, cube.humidity(), cube.continentalness(),
+                                cube.erosion(), cube.depth(), cube.weirdness(), cube.offset()
+                        );
+                        MultiNoiseUtil.NoiseHypercube rustyCube = new MultiNoiseUtil.NoiseHypercube(
+                                rustyTemp, cube.humidity(), cube.continentalness(),
+                                cube.erosion(), cube.depth(), cube.weirdness(), cube.offset()
+                        );
+                        originalConsumer.accept(Pair.of(savannaCube, BiomeKeys.SAVANNA));
+                        originalConsumer.accept(Pair.of(rustyCube, ModBiomes.RUSTY_SAVANNA));
+                        return;
+                    }
                 }
             }
 

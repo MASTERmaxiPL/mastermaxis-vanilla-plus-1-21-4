@@ -21,6 +21,9 @@ public class ConfiguredFeaturesInit {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MUD_POOL = registryKey("mud_pool");
     public static final RegistryKey<ConfiguredFeature<?, ?>> TERMITE_MOUND = registryKey("termite_mound");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MUDSTONE_DEPOSIT = registryKey("mudstone_deposit");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> REDTHORN_PATCH = registryKey("redthorn_patch");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DRIED_ACACIA = registryKey("dried_acacia");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SCORCHED_MUDSTONE_DEPOSIT = registryKey("scorched_mudstone_deposit");
 
     public static void boostrap(Registerable<ConfiguredFeature<?, ?>> context){
         context.register(BAOBAB_TREE, new ConfiguredFeature<>(Feature.TREE, new TreeFeatureConfig.Builder(
@@ -34,6 +37,9 @@ public class ConfiguredFeaturesInit {
         context.register(MUD_POOL, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.MUD_POOL, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
         context.register(TERMITE_MOUND, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.TERMITE_MOUND, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
         context.register(MUDSTONE_DEPOSIT, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.MUDSTONE_DEPOSIT, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
+        context.register(REDTHORN_PATCH, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.REDTHORN_PATCH, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
+        context.register(DRIED_ACACIA, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.DRIED_ACACIA, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
+        context.register(SCORCHED_MUDSTONE_DEPOSIT, new ConfiguredFeature<>(net.mastermaxi.mastermaxisvanillaplus.world.feature.ModFeatures.SCORCHED_MUDSTONE_DEPOSIT, new net.minecraft.world.gen.feature.DefaultFeatureConfig()));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registryKey(String name){

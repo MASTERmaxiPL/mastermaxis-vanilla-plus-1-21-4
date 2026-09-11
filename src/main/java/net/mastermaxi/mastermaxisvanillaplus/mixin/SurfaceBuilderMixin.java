@@ -20,6 +20,7 @@ public abstract class SurfaceBuilderMixin {
         MaterialRules.MaterialRule grassyRedSoil = MaterialRules.block(Blocks.GRASSY_RED_SOIL.getDefaultState());
         MaterialRules.MaterialRule grassBlock = MaterialRules.block(net.minecraft.block.Blocks.GRASS_BLOCK.getDefaultState());
         MaterialRules.MaterialRule coarseDirt = MaterialRules.block(net.minecraft.block.Blocks.COARSE_DIRT.getDefaultState());
+        MaterialRules.MaterialRule laterite = MaterialRules.block(Blocks.LATERITE.getDefaultState());
 
         // 0. Rusty Savanna:
         // Surface floor: predominantly Grassy Red Soil (Red Soil Grass), with small patches of Grass Block
@@ -50,6 +51,23 @@ public abstract class SurfaceBuilderMixin {
                                 MaterialRules.aboveY(YOffset.fixed(58), 0),
                                 MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH_RANGE_6, mudstone)
                         )
+                )
+        );
+
+        // 0.1 Scorched Savanna:
+        // Top surface floor: Laterite
+        // Subsurface (2-3 layers): Mudstone
+        // Beneath that: default stone (falls through to originalRule)
+        // Steep slopes: Mudstone
+        MaterialRules.MaterialRule scorchedSavannaRule = MaterialRules.condition(
+                MaterialRules.biome(ModBiomes.SCORCHED_SAVANNA),
+                MaterialRules.sequence(
+                        MaterialRules.condition(MaterialRules.steepSlope(), mudstone),
+                        MaterialRules.condition(
+                                MaterialRules.surface(),
+                                MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, laterite)
+                        ),
+                        MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, mudstone)
                 )
         );
 
@@ -101,6 +119,7 @@ public abstract class SurfaceBuilderMixin {
 
         return MaterialRules.sequence(
                 rustySavannaRule,
+                scorchedSavannaRule,
                 savannaPlateauRule,
                 savannaSteepRule,
                 originalRule,

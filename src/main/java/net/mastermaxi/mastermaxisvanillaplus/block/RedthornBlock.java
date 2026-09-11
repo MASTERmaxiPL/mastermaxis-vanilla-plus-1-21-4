@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 public class RedthornBlock extends PlantBlock {
     public static final MapCodec<RedthornBlock> CODEC = createCodec(RedthornBlock::new);
@@ -36,12 +37,15 @@ public class RedthornBlock extends PlantBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(net.minecraft.block.Blocks.GRASS_BLOCK)
-                || floor.isOf(net.minecraft.block.Blocks.DIRT)
-                || floor.isOf(net.minecraft.block.Blocks.COARSE_DIRT)
+        return floor.isOf(Blocks.GRASSY_RED_SOIL)
                 || floor.isOf(Blocks.RED_SOIL)
                 || floor.isOf(Blocks.LATERITE)
-                || floor.isOf(Blocks.GRASSY_RED_SOIL);
+                || floor.isOf(net.minecraft.block.Blocks.COARSE_DIRT);
+    }
+
+    @Override
+    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return world.getFluidState(pos).isEmpty() && super.canPlaceAt(state, world, pos);
     }
 
     @Override
