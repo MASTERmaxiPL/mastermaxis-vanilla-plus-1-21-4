@@ -97,8 +97,8 @@ public class ModBiomes {
                 .waterFogColor(329011)
                 .fogColor(12638463)
                 .skyColor(skyColor)
-                .grassColor(0xC49C35)      // Złocisto-rdzawy odcień trawy z dodatkiem żółci
-                .foliageColor(0xB89A38)    // Ciepły, złocisto-sawannowy odcień liści
+                .grassColor(0xC49C35)      // Golden-rusty grass shade with a touch of yellow
+                .foliageColor(0xB89A38)    // Warm, golden savanna foliage tint
                 .moodSound(BiomeMoodSound.CAVE)
                 .build();
 
@@ -149,7 +149,7 @@ public class ModBiomes {
         DefaultBiomeFeatures.addFrozenTopLayer(genSettings);
 
         // 8. Spawn Settings:
-        // "W biomie nie powinny generować się rzadne zwierzęta" -> NO animals (SpawnGroup.CREATURE)
+        // No animal spawns allowed (SpawnGroup.CREATURE is intentionally empty)
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
 
