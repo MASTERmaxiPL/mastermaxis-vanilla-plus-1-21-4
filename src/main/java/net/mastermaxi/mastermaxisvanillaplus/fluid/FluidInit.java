@@ -30,8 +30,8 @@ public class FluidInit {
         return Registry.register(Registries.FLUID, key, fluid);
     }
 
-    private static Block registerFluidBlock(String name, AbstractBlock.Settings settings, FlowableFluid fluid) {
-        Identifier id = MASTERmaxisVanillaPlus.id(name);
+    private static Block registerFluidBlock(FlowableFluid fluid, AbstractBlock.Settings settings) {
+        Identifier id = MASTERmaxisVanillaPlus.id("mud_water_block");
         RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
         MASTERmaxisVanillaPlus.LOGGER.info("Registering FluidBlock with ID and Key: " + id + ", " + key);
 
@@ -41,39 +41,27 @@ public class FluidInit {
         return Registry.register(Registries.BLOCK, key, fluidBlock);
     }
 
-    @FunctionalInterface
-    private interface BucketItemCreator {
-        BucketItem createBucketItem(Item.Settings settings);
-    }
-
-    private static Item registerItem(String name, Item.Settings itemSettings, BucketItemCreator creator) {
-        Identifier id = MASTERmaxisVanillaPlus.id(name);
+    private static Item registerBucketItem(FlowableFluid fluid) {
+        Identifier id = MASTERmaxisVanillaPlus.id("mud_water_bucket");
         RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, id);
-        Item.Settings settings = itemSettings.registryKey(key);
-        return Registry.register(Registries.ITEM, key, creator.createBucketItem(settings));
+        Item.Settings settings = new Item.Settings()
+                .registryKey(key)
+                .recipeRemainder(Items.BUCKET)
+                .maxCount(1);
+        return Registry.register(Registries.ITEM, key, new BucketItem(fluid, settings));
     }
 
     public static void initialize() {
         MUD_WATER_STILL = registerFluid("mud_water", new MudWaterFluid.Still());
         MUD_WATER_FLOWING = registerFluid("mud_water_flowing", new MudWaterFluid.Flowing());
 
-        MUD_WATER_BUCKET = registerItem(
-                "mud_water_bucket",
-                new Item.Settings().maxCount(1),
-                (settings) -> new BucketItem(
-                        MUD_WATER_STILL,
-                        settings.recipeRemainder(Items.BUCKET).maxCount(1)
-                )
-        );
+        MUD_WATER_BUCKET = registerBucketItem(MUD_WATER_STILL);
 
         MUD_WATER_BLOCK = registerFluidBlock(
-                "mud_water_block",
-                AbstractBlock.Settings.copy(Blocks.WATER),
-                MUD_WATER_STILL
+                MUD_WATER_STILL,
+                AbstractBlock.Settings.copy(Blocks.WATER)
         );
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.MOD_ITEM_GROUP_KEY).register((entries) -> {
-            entries.add(MUD_WATER_BUCKET);
-        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.MOD_ITEM_GROUP_KEY).register((entries) -> entries.add(MUD_WATER_BUCKET));
     }
 }
