@@ -1,12 +1,18 @@
 package net.mastermaxi.mastermaxisvanillaplus.entity;
 
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
+import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+
+import net.mastermaxi.mastermaxisvanillaplus.mixin.SpawnRestrictionAccessor;
+import net.minecraft.entity.SpawnLocationTypes;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.world.Heightmap;
 
 public class EntityInit {
     public static final EntityType<MudBallEntity> MUD_BALL = Registry.register(
@@ -19,7 +25,31 @@ public class EntityInit {
                     .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("mud_ball")))
     );
 
+    public static final EntityType<OstrichEntity> OSTRICH = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("ostrich"),
+            EntityType.Builder.create(OstrichEntity::new, SpawnGroup.CREATURE)
+                    .dimensions(0.9F, 1.4F)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("ostrich")))
+    );
+
+    public static final EntityType<OstrichEggEntity> OSTRICH_EGG = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("ostrich_egg"),
+            EntityType.Builder.<OstrichEggEntity>create(OstrichEggEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.25F, 0.25F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(10)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("ostrich_egg")))
+    );
+
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering entities for" + MASTERmaxisVanillaPlus.MOD_ID);
+        SpawnRestrictionAccessor.callRegister(
+                OSTRICH,
+                SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                AnimalEntity::isValidNaturalSpawn
+        );
     }
 }

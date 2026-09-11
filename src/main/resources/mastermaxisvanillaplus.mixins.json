@@ -3,9 +3,27 @@
 	"package": "net.mastermaxi.mastermaxisvanillaplus.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ItemMixin"
+		"AttachedStemBlockMixin",
+		"CactusBlockMixin",
+		"FluidBlockMixin",
+		"ItemMixin",
+		"LandPathNodeMakerMixin",
+		"LivingEntityMixin",
+		"OreFeatureMixin",
+		"SaplingBlockMixin",
+		"SpawnRestrictionAccessor",
+		"StemBlockMixin",
+		"SurfaceBuilderMixin",
+		"VanillaBiomeParametersMixin",
+		"VanillaSurfaceRulesMixin"
 	],
-	"client": [],
+	"client": [
+		"BackgroundRendererMixin",
+		"FluidRendererMixin",
+		"InGameHudMixin",
+		"WaterBubbleParticleMixin",
+		"WaterSplashParticleMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}

@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_0"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_0",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_0",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_0",
+        "y": 270
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_1"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_1",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_1",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/infected_mound_1",
+        "y": 270
+      }
+    ]
+  }
+}

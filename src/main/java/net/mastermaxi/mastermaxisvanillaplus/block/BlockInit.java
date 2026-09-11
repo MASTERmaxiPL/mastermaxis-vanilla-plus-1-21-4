@@ -1,57 +1,86 @@
 package net.mastermaxi.mastermaxisvanillaplus.block;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
-import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
-import net.minecraft.block.AbstractBlock;
+import net.mastermaxi.mastermaxisvanillaplus.item.ItemGroupsInit;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 
-import java.util.function.Function;
+import java.util.List;
+
+import static net.mastermaxi.mastermaxisvanillaplus.block.Blocks.*;
 
 public class BlockInit {
 
-    public static Block FEATHER_BLOCK = register(
-            "feather_block",
-            Block::new,
-            Block.Settings.create()
-                   .strength(0.2f)
-                   .sounds(BlockSoundGroup.WOOL)
-    );
-    public static Block MUD_BLOCK = register(
-            "mud_block",
-            settings -> new MudBlock(settings, FluidInit.MUD_WATER_STILL),
-            Block.Settings.create()
-                   .strength(0.5f)
-                   .sounds(BlockSoundGroup.MUD)
-    );
-
-    private static Block register(
-            String name,
-            Function<AbstractBlock.Settings, Block> factory,
-            AbstractBlock.Settings settings
-    ) {
-        final Identifier identifier = MASTERmaxisVanillaPlus.id(name);
-        final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
-
-        final Block block = Blocks.register(registryKey, factory, settings);
-        Items.register(block);
-
-        return block;
-    }
 
     public static void initialize() {
-        MASTERmaxisVanillaPlus.LOGGER.info("Registering blocks for " + MASTERmaxisVanillaPlus.MOD_ID);
+        MASTERmaxisVanillaPlus.LOGGER.info("Initializing blocks for " + MASTERmaxisVanillaPlus.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((entries) -> {
-            entries.add(FEATHER_BLOCK);
-            entries.add(MUD_BLOCK);
-        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.MOD_ITEM_GROUP_KEY).register(BlockInit::modifyEntries);
+    }
+
+    private static void modifyEntries(FabricItemGroupEntries entries) {
+        List<Block> blocks = List.of(
+                FEATHER_BLOCK,
+                MUD_BLOCK,
+
+                RED_SOIL,
+                RED_SOIL_STAIRS,
+                RED_SOIL_SLAB,
+                GRASSY_RED_SOIL,
+                REDTHORN,
+
+                LATERITE,
+                LATERITE_STAIRS,
+                LATERITE_SLAB,
+
+                MOUND,
+                INFECTED_MOUND,
+
+                MUDSTONE_BLOCK,
+                MUDSTONE_STAIRS,
+                MUDSTONE_SLAB,
+                MUDSTONE_WALL,
+                MUDSTONE_BUTTON,
+                MUDSTONE_DOOR,
+
+                MUDSTONE_BRICK,
+                MUDSTONE_BRICK_STAIRS,
+                MUDSTONE_BRICK_SLAB,
+                MUDSTONE_BRICK_WALL,
+                MUDSTONE_BRICK_PRESSURE_PLATE,
+
+                POLISHED_MUDSTONE,
+                POLISHED_MUDSTONE_STAIRS,
+                POLISHED_MUDSTONE_SLAB,
+                POLISHED_MUDSTONE_WALL,
+
+                MUDSTONE_COAL_ORE,
+                MUDSTONE_IRON_ORE,
+                MUDSTONE_FLINT_ORE,
+
+                BAOBAB_LOG,
+                STRIPPED_BAOBAB_LOG,
+                BAOBAB_WOOD,
+                STRIPPED_BAOBAB_WOOD,
+                BAOBAB_LEAVES,
+                BAOBAB_SAPLING,
+                BAOBAB_PLANKS,
+                BAOBAB_STAIRS,
+                BAOBAB_SLAB,
+                BAOBAB_FENCE,
+                BAOBAB_GATE,
+                BAOBAB_BUTTON,
+                BAOBAB_PRESSURE_PLATE,
+                BAOBAB_DOOR,
+                BAOBAB_TRAPDOOR
+        );
+        addBlock(entries, blocks);
+    }
+
+    private static void addBlock(FabricItemGroupEntries entries, List<Block> blocks) {
+        for(Block block : blocks) {
+            entries.add(block);
+        }
     }
 }

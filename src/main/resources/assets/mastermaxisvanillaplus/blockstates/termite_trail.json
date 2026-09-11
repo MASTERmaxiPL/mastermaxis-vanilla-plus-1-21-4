@@ -1,0 +1,66 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_0"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_0",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_0",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_0",
+        "y": 270
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_1"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_1",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_1",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_1",
+        "y": 270
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_2"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_2",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_2",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_2",
+        "y": 270
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_3"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_3",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_3",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/termite_trail_3",
+        "y": 270
+      }
+    ]
+  }
+}

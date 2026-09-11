@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mastermaxisvanillaplus:block/grassy_red_soil"
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/grassy_red_soil",
+        "y": 90
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/grassy_red_soil",
+        "y": 180
+      },
+      {
+        "model": "mastermaxisvanillaplus:block/grassy_red_soil",
+        "y": 270
+      }
+    ]
+  }
+}

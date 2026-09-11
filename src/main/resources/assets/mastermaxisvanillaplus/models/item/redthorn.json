@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mastermaxisvanillaplus:block/redthorn_1_spikes",
+    "layer1": "mastermaxisvanillaplus:block/redthorn_1_biome"
+  }
+}
