@@ -10,6 +10,7 @@
 		"LandPathNodeMakerMixin",
 		"LivingEntityMixin",
 		"OreFeatureMixin",
+		"PigEntityMixin",
 		"SaplingBlockMixin",
 		"SpawnRestrictionAccessor",
 		"StemBlockMixin",
@@ -21,6 +22,9 @@
 		"BackgroundRendererMixin",
 		"FluidRendererMixin",
 		"InGameHudMixin",
+		"PigEntityRenderStateMixin",
+		"PigEntityRendererMixin",
+		"QuadrupedEntityModelMixin",
 		"WaterBubbleParticleMixin",
 		"WaterSplashParticleMixin"
 	],

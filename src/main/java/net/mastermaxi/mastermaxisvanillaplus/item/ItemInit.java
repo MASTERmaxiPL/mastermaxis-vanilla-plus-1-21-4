@@ -41,6 +41,13 @@ public class ItemInit {
 
     public static final Item BAOBAB_STEW = register("baobab_stew", new Item.Settings().food(new FoodComponent(8, 9.0F, false)).useRemainder(Items.BOWL).maxCount(1), Item::new);
 
+    public static final Item TRUFFLE = register("truffle", new Item.Settings().food(new FoodComponent(2, 2.5F, false)), Item::new);
+
+    public static final ConsumableComponent TRUFFLE_PORKCHOP_CONSUMABLE = ConsumableComponents.food()
+            .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.HASTE, 40 * 20, 0)))
+            .build();
+    public static final Item TRUFFLE_PORKCHOP = register("truffle_porkchop", new Item.Settings().food(new FoodComponent(10, 14.0F, true), TRUFFLE_PORKCHOP_CONSUMABLE), Item::new);
+
     private static Item register(String name, Item.Settings itemSettings, ItemCreator creator) {
         Identifier id = MASTERmaxisVanillaPlus.id(name);
         RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, id);
@@ -61,12 +68,15 @@ public class ItemInit {
             entries.add(GUI_JUICE);
             entries.add(MONKEY_BREAD);
             entries.add(BAOBAB_STEW);
+            entries.add(TRUFFLE);
+            entries.add(TRUFFLE_PORKCHOP);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((entries) -> {
             entries.add(OSTRICH_FEATHER);
             entries.add(OSTRICH_EGG);
             entries.add(BAOBAB_FRUIT);
+            entries.add(TRUFFLE);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(OSTRICH_EGG);
@@ -74,6 +84,8 @@ public class ItemInit {
             entries.add(GUI_JUICE);
             entries.add(MONKEY_BREAD);
             entries.add(BAOBAB_STEW);
+            entries.add(TRUFFLE);
+            entries.add(TRUFFLE_PORKCHOP);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.add(MUD_BALL));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> entries.add(OSTRICH_SPAWN_EGG));

@@ -376,6 +376,18 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
             return super.interactMob(player, hand);
         }
 
+        // Name tag support
+        if (itemStack.isOf(Items.NAME_TAG)) {
+            ActionResult result = super.interactMob(player, hand);
+            if (result.isAccepted() && this.isRoadOstrich()) {
+                if (this.getWorld() instanceof ServerWorld serverWorld) {
+                    serverWorld.sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+                    this.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.8F, 1.5F);
+                }
+            }
+            return result;
+        }
+
         // 2. Baby ostrich interactions: feeding to accelerate growth & heal
         if (this.isBaby()) {
             if (itemStack.isOf(Items.GLISTERING_MELON_SLICE) || itemStack.isOf(Items.MELON_SLICE)) {
@@ -696,5 +708,17 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
         this.setSaddled(nbt.getBoolean("Saddled"));
         this.setSprintTicks(nbt.getInt("SprintTicks"));
         this.setCooldownTicks(nbt.getInt("CooldownTicks"));
+    }
+
+    public boolean isRoadOstrich() {
+        if (this.hasCustomName() && this.getCustomName() != null) {
+            String name = this.getCustomName().getString().trim().toLowerCase(java.util.Locale.ROOT);
+            return name.equals("road ostrich")
+                    || name.equals("struś pędziwiatr")
+                    || name.equals("struś pędziwiatrt")
+                    || name.equals("strus pedziwiatr")
+                    || name.equals("strus pedziwiatrt");
+        }
+        return false;
     }
 }

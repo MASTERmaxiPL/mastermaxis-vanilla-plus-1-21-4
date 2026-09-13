@@ -11,6 +11,7 @@ import net.mastermaxi.mastermaxisvanillaplus.entity.EntityInit;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.BabyOstrichEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityRenderer;
+import net.mastermaxi.mastermaxisvanillaplus.entity.client.PigMuddedTopEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
@@ -48,6 +49,7 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(OstrichEntityModel.OSTRICH, OstrichEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(BabyOstrichEntityModel.BABY_OSTRICH, BabyOstrichEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(PigMuddedTopEntityModel.LAYER_LOCATION, PigMuddedTopEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(EntityInit.OSTRICH, OstrichEntityRenderer::new);
         System.out.println("Ostrich renderer registered!");
 

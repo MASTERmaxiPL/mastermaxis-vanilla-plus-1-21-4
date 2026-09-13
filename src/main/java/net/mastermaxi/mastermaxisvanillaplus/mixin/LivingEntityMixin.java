@@ -39,6 +39,13 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void mastermaxisvanillaplus$onTick(CallbackInfo ci) {
+        if ((Object) this instanceof net.mastermaxi.mastermaxisvanillaplus.entity.custom.MuddyPigAccess muddyPig) {
+            muddyPig.mastermaxisvanillaplus$tickPig();
+        }
+    }
+
     @Unique
     private boolean mastermaxisvanillaplus$isInMudWater() {
         if (!this.isTouchingWater()) {

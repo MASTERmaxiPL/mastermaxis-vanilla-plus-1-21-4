@@ -12,6 +12,7 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
 2. [Fauna & Creatures](#-fauna--creatures)
    - [The Ostrich](#the-ostrich)
    - [Termites & Colonies](#termites--colonies)
+   - [Muddy Pigs, Happiness & Truffles](#muddy-pigs-happiness--truffles)
 3. [Flora & Trees](#-flora--trees)
    - [Baobab Tree, Leaf Stages & Harvesting](#baobab-tree-leaf-stages--harvesting)
    - [Dried Acacia](#dried-acacia)
@@ -21,6 +22,7 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
    - [Gui Juice](#gui-juice)
    - [Monkey Bread](#monkey-bread)
    - [Baobab Stew](#baobab-stew)
+   - [Truffle Porkchop](#truffle-porkchop)
 5. [Fluids & Mud Mechanics](#-fluids--mud-mechanics)
    - [Mud Pools & Mud Water](#mud-pools--mud-water)
    - [Mud Balls & Mud Blocks](#mud-balls--mud-blocks)
@@ -91,6 +93,9 @@ Ostriches are tall, swift, flightless birds native to Savannas and Rusty Savanna
 - **Water Running:** While sprinting, ostriches can **run directly on the surface of water**! (Note: Sprinting does not allow walking on dense mud water).
 - **Gliding / Slow Fall:** When falling from high cliffs, ostriches flap their wings, slowing down downward velocity and preventing fall damage.
 
+#### Mysterious Rumors
+- **A Well-Kept Secret:** Savanna folklore whispers of a legendary, nostalgic plumage hidden away... Will you be able to uncover its secret?
+
 ---
 
 ### Termites & Colonies
@@ -99,6 +104,36 @@ Ostriches are tall, swift, flightless birds native to Savannas and Rusty Savanna
 - **Infected Wood:** Wood blocks infested by termites.
 - **Termite Trail:** Soil surface paths created by foraging worker termites.
 - **Control:** Introduce Ostriches to hunt the termites, or break the infected mounds to eliminate colonies.
+
+---
+
+### Muddy Pigs, Happiness & Truffles
+Pigs have received an engaging behavioral expansion centered on happiness, mud wallowing, and foraging for rare subterranean truffles:
+
+#### Happiness System & Behaviors
+Pigs now track an internal happiness level (0% to 100%) and will actively prioritize activities that boost their well-being:
+- **Grazing:** Pigs naturally graze on grass, short grass, and grassy red soil like sheep (restores +15% happiness, plays chewing sounds and green/heart particles). Honors `mobGriefing` gamerule.
+- **Hand Feeding:** Players can feed pigs carrots, golden carrots, potatoes, or beetroots (+20% happiness).
+- **Mud Wallowing:** Pigs are naturally attracted to savanna mud pools and mud blocks. They overcome their natural fear of fluids to bathe in mud water and roll in mud blocks (+30% happiness upon wallowing).
+
+#### Visual Mud Variants
+Bathing in mud coats the pig in thick mud, selecting a 50/50 independent visual variant:
+1. **Mud Bottom:** The pig's lower torso, legs, and belly are caked in thick, dried mud (`pig_in_mud_bottom.png`).
+2. **Mud Top:** Mud covers the pig's back, head, and snout, featuring a custom 3D model with a delicate blooming flower perched on top (`pig_in_mud_top.png` via `PigMuddedTopEntityModel`).
+- **Natural Spawning:** Generated mud pools in savanna biomes spawn with 1–2 naturally wallowing muddy pigs.
+- **Mud Drying & Washing:**
+  - **Natural Drying:** After ~5 minutes away from mud, the dried mud cracks and naturally flakes off (accompanied by dirt/gravel break sounds and mud particles). Stepping back into mud refreshes the timer.
+  - **Water & Rain:** Submerging in clean water or standing under rainfall rapidly washes the mud off, cleanly restoring the pig to its standard pink skin.
+
+#### Truffle Hunting & Digging
+- **Searching:** When an adult pig is both muddy and sufficiently content (happiness >= 75%), it begins roaming and sniffing the ground in search of truffles (piglets do not hunt truffles).
+- **Digging Behavior:** Upon finding a suitable dirt or grassy patch, the pig lowers its snout and vigorously roots through the soil (digging animation, kicking up grass/dirt particles and grunting).
+- **Yields:** Successfully foraging digs up subterranean delicacies:
+  - **Truffle (`ItemInit.TRUFFLE`):** **60% chance**
+  - **Brown Mushroom (`minecraft:brown_mushroom`):** **25% chance**
+  - **Red Mushroom (`minecraft:red_mushroom`):** **15% chance**
+  Rooting consumes 25% happiness and places truffle hunting on cooldown.
+- **Truffle Item:** A rare culinary delicacy. Restores **2 Hunger** and **2.5 Saturation**. Can be eaten directly or cooked into luxurious **Truffle Porkchop**.
 
 ---
 
@@ -153,6 +188,11 @@ The fruits harvested from baobab canopies can be enjoyed raw or used as the key 
 - **Recipe:** 1x **Bowl** + 1x **Baobab Fruit** + 1x **Cooked Beef** (or **Cooked Porkchop**) + 1x **Brown Mushroom** (Shapeless).
 - **Nutrition:** Restores **8 Hunger** (4 full shanks) and **9 Saturation**.
 - **Properties:** Hearty, savory stew serving as high-tier savanna fuel. Eating it returns an empty **Bowl**. Stacks up to 1 (standard bowl food).
+
+### Truffle Porkchop
+- **Recipe:** 1x **Cooked Porkchop** + 1x **Truffle** (Shapeless).
+- **Nutrition & Buffs:** Restores **10 Hunger** (5 full shanks) and **14 Saturation**, granting **Haste I for 40 seconds**!
+- **Properties:** A gourmet delicacy infused with earthy truffle essence, providing tremendous energy and unmatched mining speed. Can be consumed even when full.
 
 ---
 
@@ -217,6 +257,7 @@ A durable, warm sedimentary rock forming the bedrock and rock towers of savannas
 | **Gui Juice** | 1x Water Bottle + 1x Baobab Fruit + 1x Sugar | Shapeless |
 | **Monkey Bread** | 2x Wheat + 1x Baobab Fruit | Shapeless |
 | **Baobab Stew** | 1x Bowl + 1x Baobab Fruit + 1x Cooked Beef / Cooked Porkchop + 1x Brown Mushroom | Shapeless |
+| **Truffle Porkchop** | 1x Cooked Porkchop + 1x Truffle | Shapeless |
 
 ### Stonecutter Support
 The Stonecutter can be used directly with **Mudstone**, **Mudstone Bricks**, **Polished Mudstone**, and **Laterite** to craft stairs, slabs, and walls with 1:1 ingredient efficiency!

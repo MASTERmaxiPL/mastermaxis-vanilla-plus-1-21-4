@@ -233,6 +233,27 @@ public class MudPoolFeature extends Feature<DefaultFeatureConfig> {
             }
         }
 
+        // Spawn 1-2 muddy pigs around the mud pool
+        if (random.nextFloat() < 0.65F && !mudCols.isEmpty()) {
+            int pigCount = 1 + random.nextInt(2);
+            for (int i = 0; i < pigCount; i++) {
+                BlockPos shorePos = mudCols.iterator().next();
+                int spawnY = getGroundY(world, shorePos.getX(), shorePos.getZ(), groundY) + 1;
+                BlockPos spawnPos = new BlockPos(shorePos.getX(), spawnY, shorePos.getZ());
+                if (world.getBlockState(spawnPos).isAir()) {
+                    net.minecraft.entity.passive.PigEntity pig = net.minecraft.entity.EntityType.PIG.create(world.toServerWorld(), net.minecraft.entity.SpawnReason.STRUCTURE);
+                    if (pig != null) {
+                        pig.refreshPositionAndAngles(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, random.nextFloat() * 360.0F, 0.0F);
+                        pig.initialize(world, world.getLocalDifficulty(spawnPos), net.minecraft.entity.SpawnReason.STRUCTURE, null);
+                        net.mastermaxi.mastermaxisvanillaplus.entity.custom.MuddyPigAccess access = (net.mastermaxi.mastermaxisvanillaplus.entity.custom.MuddyPigAccess) pig;
+                        access.mastermaxisvanillaplus$setMudVariant(random.nextBoolean() ? 1 : 2);
+                        access.mastermaxisvanillaplus$setHappiness(60 + random.nextInt(30));
+                        world.spawnEntity(pig);
+                    }
+                }
+            }
+        }
+
         return true;
     }
 }

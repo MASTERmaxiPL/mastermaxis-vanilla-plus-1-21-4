@@ -179,12 +179,20 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 id = MASTERmaxisVanillaPlus.id("baobab_stew");
                 ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), FOOD, ItemInit.BAOBAB_STEW)
-                        .input(Items.BOWL)
-                        .input(ItemInit.BAOBAB_FRUIT)
-                        .input(Ingredient.ofItems(Items.COOKED_BEEF, Items.COOKED_PORKCHOP))
-                        .input(Items.BROWN_MUSHROOM)
-                        .criterion(hasItem(ItemInit.BAOBAB_FRUIT), conditionsFromItem(ItemInit.BAOBAB_FRUIT))
-                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+                    .input(Items.BOWL)
+                    .input(ItemInit.BAOBAB_FRUIT)
+                    .input(Ingredient.ofItems(Items.COOKED_BEEF, Items.COOKED_PORKCHOP))
+                    .input(Items.BROWN_MUSHROOM)
+                    .criterion(hasItem(ItemInit.BAOBAB_FRUIT), conditionsFromItem(ItemInit.BAOBAB_FRUIT))
+                    .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                id = MASTERmaxisVanillaPlus.id("truffle_porkchop");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), FOOD, ItemInit.TRUFFLE_PORKCHOP)
+                    .input(Items.COOKED_PORKCHOP)
+                    .input(ItemInit.TRUFFLE)
+                    .criterion(hasItem(ItemInit.TRUFFLE), conditionsFromItem(ItemInit.TRUFFLE))
+                    .criterion(hasItem(Items.COOKED_PORKCHOP), conditionsFromItem(Items.COOKED_PORKCHOP))
+                    .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };
     }

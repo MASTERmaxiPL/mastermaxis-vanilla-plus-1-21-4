@@ -18,6 +18,8 @@ public class OstrichEntityRenderer extends MobEntityRenderer<OstrichEntity, Ostr
     private static final Identifier TEXTURE = Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "textures/entity/ostrich/ostrich.png");
     private static final Identifier SADDLED_TEXTURE = Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "textures/entity/ostrich/tammed_ostrich.png");
     private static final Identifier BABY_TEXTURE = Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "textures/entity/ostrich/baby_ostrich.png");
+    private static final Identifier ALT_TEXTURE = Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "textures/entity/ostrich/ostrich_alt.png");
+    private static final Identifier ALT_SADDLED_TEXTURE = Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "textures/entity/ostrich/ostrich_alt_tammed.png");
 
     private final OstrichEntityModel adultModel;
     private final BabyOstrichEntityModel babyModel;
@@ -39,6 +41,9 @@ public class OstrichEntityRenderer extends MobEntityRenderer<OstrichEntity, Ostr
         if (state.baby) {
             return BABY_TEXTURE;
         }
+        if (state.isAlt) {
+            return state.isSaddled ? ALT_SADDLED_TEXTURE : ALT_TEXTURE;
+        }
         return state.isSaddled ? SADDLED_TEXTURE : TEXTURE;
     }
 
@@ -54,6 +59,7 @@ public class OstrichEntityRenderer extends MobEntityRenderer<OstrichEntity, Ostr
         state.getHitAnimationState.copyFrom(entity.getHitAnimationState);
         state.attackAnimationState.copyFrom(entity.attackAnimationState);
         state.isSaddled = entity.isSaddled();
+        state.isAlt = entity.isRoadOstrich();
         state.idleAnimationId = entity.idleAnimationId;
         state.flapProgress = MathHelper.lerp(f, entity.prevFlapProgress, entity.flapProgress);
         state.maxWingDeviation = MathHelper.lerp(f, entity.prevMaxWingDeviation, entity.maxWingDeviation);

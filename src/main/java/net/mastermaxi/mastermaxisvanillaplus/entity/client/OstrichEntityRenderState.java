@@ -10,5 +10,6 @@ public class OstrichEntityRenderState extends LivingEntityRenderState {
     public float flapProgress;
     public float maxWingDeviation;
     public boolean isSaddled;
+    public boolean isAlt;
     public int idleAnimationId;
 }
