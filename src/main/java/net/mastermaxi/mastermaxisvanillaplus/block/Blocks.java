@@ -260,7 +260,17 @@ public class Blocks {
 
     public static Block BAOBAB_LEAVES = register(
             "baobab_leaves",
-            LeavesBlock::new,
+            settings -> new BaobabLeavesBlock(settings, 0),
+            Block.Settings.copy(net.minecraft.block.Blocks.OAK_LEAVES)
+    );
+    public static Block BAOBAB_LEAVES_FLOWERS = register(
+            "baobab_leaves_flowers",
+            settings -> new BaobabLeavesBlock(settings, 1),
+            Block.Settings.copy(net.minecraft.block.Blocks.OAK_LEAVES)
+    );
+    public static Block BAOBAB_LEAVES_FRUIT = register(
+            "baobab_leaves_fruit",
+            settings -> new BaobabLeavesBlock(settings, 2),
             Block.Settings.copy(net.minecraft.block.Blocks.OAK_LEAVES)
     );
     public static Block BAOBAB_SAPLING = register(

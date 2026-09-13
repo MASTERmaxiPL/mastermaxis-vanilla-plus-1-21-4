@@ -5,10 +5,14 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
+import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.item.tint.GrassTintSource;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import static net.mastermaxi.mastermaxisvanillaplus.block.Blocks.*;
 
@@ -18,6 +22,7 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         //Registering simple block models
 
@@ -41,11 +46,50 @@ public class ModelProvider extends FabricModelProvider {
 
         //Registering block using others block net.mastermaxi.mastermaxisvanillaplus.entity.client.model
 
-        BlockStateModelGenerator.BlockTexturePool redSoilTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(RED_SOIL);
+        Consumer<BlockStateSupplier> blockStateCollector;
+        BiConsumer<Identifier, ModelSupplier> modelCollector;
+        java.lang.reflect.Field baseModelIdField;
+        try {
+            java.lang.reflect.Field bscField = BlockStateModelGenerator.class.getDeclaredField("blockStateCollector");
+            bscField.setAccessible(true);
+            blockStateCollector = (Consumer<BlockStateSupplier>) bscField.get(blockStateModelGenerator);
+
+            java.lang.reflect.Field mcField = BlockStateModelGenerator.class.getDeclaredField("modelCollector");
+            mcField.setAccessible(true);
+            modelCollector = (BiConsumer<Identifier, ModelSupplier>) mcField.get(blockStateModelGenerator);
+
+            baseModelIdField = BlockStateModelGenerator.BlockTexturePool.class.getDeclaredField("baseModelId");
+            baseModelIdField.setAccessible(true);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to access model/blockstate collectors or pool fields", e);
+        }
+
+        TextureMap redSoilTextureMap = TextureMap.all(RED_SOIL);
+        Identifier redSoilModelId = registerCubeAllRotated(RED_SOIL, redSoilTextureMap, blockStateCollector, modelCollector);
+
+        BlockStateModelGenerator.BlockTexturePool redSoilTexturePool = blockStateModelGenerator.new BlockTexturePool(redSoilTextureMap);
+        try {
+            baseModelIdField.set(redSoilTexturePool, redSoilModelId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         redSoilTexturePool.stairs(RED_SOIL_STAIRS);
         redSoilTexturePool.slab(RED_SOIL_SLAB);
 
-        BlockStateModelGenerator.BlockTexturePool lateriteTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(LATERITE);
+        TextureMap lateriteTextureMap = new TextureMap()
+                .put(TextureKey.TOP, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/laterite_top"))
+                .put(TextureKey.BOTTOM, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/laterite_side_bot"))
+                .put(TextureKey.SIDE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/laterite_side_bot"))
+                .put(TextureKey.PARTICLE, Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/laterite_side_bot"));
+
+        Identifier lateriteModelId = registerCubeBottomTopRotated(LATERITE, lateriteTextureMap, blockStateCollector, modelCollector);
+
+        BlockStateModelGenerator.BlockTexturePool lateriteTexturePool = blockStateModelGenerator.new BlockTexturePool(lateriteTextureMap);
+        try {
+            baseModelIdField.set(lateriteTexturePool, lateriteModelId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         lateriteTexturePool.stairs(LATERITE_STAIRS);
         lateriteTexturePool.slab(LATERITE_SLAB);
 
@@ -127,6 +171,24 @@ public class ModelProvider extends FabricModelProvider {
                     new GrassTintSource(1.0f, 0.0f)
                 )
             );
+
+            // BAOBAB_LEAVES_FLOWERS: foliage tint
+            itemModelOutput.accept(
+                BAOBAB_LEAVES_FLOWERS.asItem(),
+                ItemModels.tinted(
+                    Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_leaves_flowers"),
+                    new net.minecraft.client.render.item.tint.ConstantTintSource(FoliageColors.DEFAULT)
+                )
+            );
+
+            // BAOBAB_LEAVES_FRUIT: foliage tint
+            itemModelOutput.accept(
+                BAOBAB_LEAVES_FRUIT.asItem(),
+                ItemModels.tinted(
+                    Identifier.of(MASTERmaxisVanillaPlus.MOD_ID, "block/baobab_leaves_fruit"),
+                    new net.minecraft.client.render.item.tint.ConstantTintSource(FoliageColors.DEFAULT)
+                )
+            );
         } catch (Exception e) {
             throw new RuntimeException("Failed to register tinted item models", e);
         }
@@ -148,5 +210,41 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(BAOBAB_SAPLING.asItem(), Models.GENERATED);
         itemModelGenerator.register(ItemInit.OSTRICH_SPAWN_EGG, Models.GENERATED);
         itemModelGenerator.register(ItemInit.OSTRICH_EGG, Models.GENERATED);
+        itemModelGenerator.register(ItemInit.BAOBAB_FRUIT, Models.GENERATED);
+        itemModelGenerator.register(ItemInit.GUI_JUICE, Models.GENERATED);
+        itemModelGenerator.register(ItemInit.MONKEY_BREAD, Models.GENERATED);
+        itemModelGenerator.register(ItemInit.BAOBAB_STEW, Models.GENERATED);
+    }
+
+    private static Identifier registerCubeBottomTopRotated(
+            Block block,
+            TextureMap textureMap,
+            Consumer<BlockStateSupplier> blockStateCollector,
+            BiConsumer<Identifier, ModelSupplier> modelCollector
+    ) {
+        Identifier modelId = Models.CUBE_BOTTOM_TOP.upload(block, textureMap, modelCollector);
+        BlockStateVariant v0 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId);
+        BlockStateVariant v90 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R90);
+        BlockStateVariant v180 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R180);
+        BlockStateVariant v270 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R270);
+
+        blockStateCollector.accept(VariantsBlockStateSupplier.create(block, v0, v90, v180, v270));
+        return modelId;
+    }
+
+    private static Identifier registerCubeAllRotated(
+            Block block,
+            TextureMap textureMap,
+            Consumer<BlockStateSupplier> blockStateCollector,
+            BiConsumer<Identifier, ModelSupplier> modelCollector
+    ) {
+        Identifier modelId = Models.CUBE_ALL.upload(block, textureMap, modelCollector);
+        BlockStateVariant v0 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId);
+        BlockStateVariant v90 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R90);
+        BlockStateVariant v180 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R180);
+        BlockStateVariant v270 = BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R270);
+
+        blockStateCollector.accept(VariantsBlockStateSupplier.create(block, v0, v90, v180, v270));
+        return modelId;
     }
 }

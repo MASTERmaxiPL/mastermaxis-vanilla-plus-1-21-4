@@ -13,19 +13,24 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
    - [The Ostrich](#the-ostrich)
    - [Termites & Colonies](#termites--colonies)
 3. [Flora & Trees](#-flora--trees)
-   - [Baobab Tree](#baobab-tree)
+   - [Baobab Tree, Leaf Stages & Harvesting](#baobab-tree-leaf-stages--harvesting)
    - [Dried Acacia](#dried-acacia)
    - [Redthorn](#redthorn)
-4. [Fluids & Mud Mechanics](#-fluids--mud-mechanics)
+4. [Baobab Fruit & Savanna Cuisine](#-baobab-fruit--savanna-cuisine)
+   - [Baobab Fruit](#baobab-fruit)
+   - [Gui Juice](#gui-juice)
+   - [Monkey Bread](#monkey-bread)
+   - [Baobab Stew](#baobab-stew)
+5. [Fluids & Mud Mechanics](#-fluids--mud-mechanics)
    - [Mud Pools & Mud Water](#mud-pools--mud-water)
    - [Mud Balls & Mud Blocks](#mud-balls--mud-blocks)
-5. [Blocks, Stones & Ores](#-blocks-stones--ores)
+6. [Blocks, Stones & Ores](#-blocks-stones--ores)
    - [Mudstone Collection](#mudstone-collection)
    - [Red Soil Family](#red-soil-family)
    - [Laterite Family](#laterite-family)
    - [Feather Block](#feather-block)
    - [Silted Gravel](#silted-gravel)
-6. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
+7. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
 
 ---
 
@@ -99,7 +104,7 @@ Ostriches are tall, swift, flightless birds native to Savannas and Rusty Savanna
 
 ## 🌳 Flora & Trees
 
-### Baobab Tree
+### Baobab Tree, Leaf Stages & Harvesting
 - **Description:** Massive, ancient trees with thick composite trunks (2x2 up to 4x4 bases) and lush canopy layers.
 - **Sapling:** Can be grown from a **Baobab Sapling** (grows naturally on grass, dirt, and red soil).
 - **Full Wood Set:**
@@ -107,7 +112,13 @@ Ostriches are tall, swift, flightless birds native to Savannas and Rusty Savanna
   - Baobab Planks
   - Baobab Stairs, Slabs, Fences, and Fence Gates
   - Baobab Doors, Trapdoors, Buttons, and Pressure Plates
-  - Baobab Leaves (with organic leaf drop rates)
+- **Dynamic Leaf Growth Cycle:**
+  - **Stage 0 (Baobab Leaves):** Normal lush leaves. Over time, random ticks trigger budding into flowers (1/20 chance per tick).
+  - **Stage 1 (Flowering Baobab Leaves):** Leaves adorned with delicate white baobab blossoms. With time, flowers develop into ripe hanging fruits (1/40 chance per tick).
+  - **Stage 2 (Fruiting Baobab Leaves):** Mature leaves bearing heavy, ripe baobab fruits ready for picking.
+  - **Bone Meal Acceleration:** Applying Bone Meal to leaves in Stage 0 or Stage 1 instantly accelerates them to the next development stage.
+  - **Harvesting:** Right-click (PPM) any **Fruiting Baobab Leaves** to harvest a fresh **Baobab Fruit**. Harvesting plays a crisp picking sound and smoothly resets the block back to standard leaves without breaking or decaying the tree canopy.
+  - **Dual-Layer Rendering:** Leaf foliage retains full dynamic biome color tinting while the blossoms and fruits keep their authentic, untinted creamy-white and woody-brown tones.
 
 ### Dried Acacia
 - **Description:** Leafless, weathered acacia skeletons and broken tree stumps unique to the Scorched Savanna.
@@ -117,6 +128,31 @@ Ostriches are tall, swift, flightless birds native to Savannas and Rusty Savanna
 - **Description:** A hardy, spiky red plant growing in irregular clusters on grassy red soil, red soil, laterite, and coarse dirt.
 - **Hazard:** Walking through Redthorn slows player and mob movement and deals continuous prick damage (similar to sweet berry bushes). Bees are immune.
 - **Placement Rule:** Redthorn cannot grow submerged in water or fluids.
+
+---
+
+## 🍈 Baobab Fruit & Savanna Cuisine
+
+The fruits harvested from baobab canopies can be enjoyed raw or used as the key ingredient in nutritious savanna recipes:
+
+### Baobab Fruit
+- **Source:** Harvested by right-clicking mature **Fruiting Baobab Leaves** or breaking fruiting leaf blocks.
+- **Nutrition:** Restores **1 Hunger** (half shank) and **0.4 Saturation**. Can be eaten directly or cooked into three nutritious dishes.
+
+### Gui Juice
+- **Recipe:** 1x Water Bottle (`minecraft:potion`) + 1x **Baobab Fruit** + 1x **Sugar** (Shapeless).
+- **Effects & Nutrition:** Restores **4 Hunger** and **4 Saturation**, granting **Speed I for 15 seconds**.
+- **Properties:** Refreshing drinkable beverage. Drinking it returns an empty **Glass Bottle**. Stacks up to 16.
+
+### Monkey Bread
+- **Recipe:** 2x **Wheat** + 1x **Baobab Fruit** (Shapeless).
+- **Nutrition & Healing:** Restores **5 Hunger** and **7 Saturation**, and immediately **heals 2 HP (1 full heart)** upon consumption!
+- **Properties:** A wholesome, fibrous baked loaf celebrated across savanna cultures.
+
+### Baobab Stew
+- **Recipe:** 1x **Bowl** + 1x **Baobab Fruit** + 1x **Cooked Beef** (or **Cooked Porkchop**) + 1x **Brown Mushroom** (Shapeless).
+- **Nutrition:** Restores **8 Hunger** (4 full shanks) and **9 Saturation**.
+- **Properties:** Hearty, savory stew serving as high-tier savanna fuel. Eating it returns an empty **Bowl**. Stacks up to 1 (standard bowl food).
 
 ---
 
@@ -147,11 +183,11 @@ A durable, warm sedimentary rock forming the bedrock and rock towers of savannas
   - **Mudstone Flint Ore** (yields Flint + XP)
 
 ### Red Soil Family
-- **Red Soil:** Vibrant, iron-rich dirt with custom stairs and slabs.
-- **Grassy Red Soil:** Red soil covered with savanna turf. Placed blocks feature randomized textures and rotations matching vanilla grass behavior.
+- **Red Soil:** Vibrant, iron-rich dirt with custom stairs and slabs. Features a uniform texture on all sides with randomized 90-degree rotations for natural terrain variation.
+- **Grassy Red Soil:** Red soil covered with lush savanna turf. Built with dual-layer texturing (un-tinted red soil base with foliage-tinted grass overlay), randomized 90-degree rotations, and horizontal mirroring on sides to prevent repeating grid patterns. Naturally spreads to adjacent red soil blocks under sunlight.
 
 ### Laterite Family
-- **Laterite:** Hard, porous ferruginous stone that covers the surface of Scorched Savannas.
+- **Laterite:** Hard, porous ferruginous stone that covers the surface of Scorched Savannas. Features a unique top texture (`laterite_top`) with randomized 90-degree rotations, and dedicated side and bottom textures (`laterite_side_bot`).
 - **Building Options:** Crafted into Laterite Stairs and Laterite Slabs via crafting table or stonecutter.
 
 ### Feather Block
@@ -178,6 +214,9 @@ A durable, warm sedimentary rock forming the bedrock and rock towers of savannas
 | **Laterite Stairs** (x4) | 6x Laterite | Standard stair shape |
 | **Laterite Slab** (x6) | 3x Laterite | 3 horizontal line |
 | **Baobab Planks** (x4) | 1x Baobab Log | Shapeless (1 log) |
+| **Gui Juice** | 1x Water Bottle + 1x Baobab Fruit + 1x Sugar | Shapeless |
+| **Monkey Bread** | 2x Wheat + 1x Baobab Fruit | Shapeless |
+| **Baobab Stew** | 1x Bowl + 1x Baobab Fruit + 1x Cooked Beef / Cooked Porkchop + 1x Brown Mushroom | Shapeless |
 
 ### Stonecutter Support
 The Stonecutter can be used directly with **Mudstone**, **Mudstone Bricks**, **Polished Mudstone**, and **Laterite** to craft stairs, slabs, and walls with 1:1 ingredient efficiency!

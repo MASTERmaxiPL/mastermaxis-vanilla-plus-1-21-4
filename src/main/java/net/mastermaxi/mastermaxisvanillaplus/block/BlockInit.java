@@ -64,6 +64,8 @@ public class BlockInit {
                 BAOBAB_WOOD,
                 STRIPPED_BAOBAB_WOOD,
                 BAOBAB_LEAVES,
+                BAOBAB_LEAVES_FLOWERS,
+                BAOBAB_LEAVES_FRUIT,
                 BAOBAB_SAPLING,
                 BAOBAB_PLANKS,
                 BAOBAB_STAIRS,

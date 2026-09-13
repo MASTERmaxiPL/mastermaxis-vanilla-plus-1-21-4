@@ -42,5 +42,12 @@
   "block.mastermaxisvanillaplus.mudstone_copper_ore": "Mułowcowe Złoże Miedzi",
   "block.mastermaxisvanillaplus.silted_gravel": "Zamulony Żwir",
   "biome.mastermaxisvanillaplus.rusty_savanna": "Rdzawa sawanna",
-  "biome.mastermaxisvanillaplus.scorched_savanna": "Spalona sawanna"
+  "biome.mastermaxisvanillaplus.scorched_savanna": "Spalona sawanna",
+  "item.mastermaxisvanillaplus.baobab_fruit": "Owoc Baobabu",
+  "item.mastermaxisvanillaplus.gui_juice": "Sok Gui",
+  "item.mastermaxisvanillaplus.monkey_bread": "Małpi Chleb",
+  "item.mastermaxisvanillaplus.baobab_stew": "Gulasz z Baobabu",
+  "block.mastermaxisvanillaplus.baobab_leaves": "Liście Baobabu",
+  "block.mastermaxisvanillaplus.baobab_leaves_flowers": "Kwitnące Liście Baobabu",
+  "block.mastermaxisvanillaplus.baobab_leaves_fruit": "Owocujące Liście Baobabu"
 }

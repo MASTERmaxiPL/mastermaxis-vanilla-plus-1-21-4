@@ -45,6 +45,8 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		addFlammableBlock(Blocks.BAOBAB_STAIRS, 5, 15);
 		addFlammableBlock(Blocks.BAOBAB_SLAB, 5, 15);
 		addFlammableBlock(Blocks.BAOBAB_LEAVES, 30, 60);
+		addFlammableBlock(Blocks.BAOBAB_LEAVES_FLOWERS, 30, 60);
+		addFlammableBlock(Blocks.BAOBAB_LEAVES_FRUIT, 30, 60);
 
 		LOGGER.info("trying to init items");
 		ItemInit.initialize();

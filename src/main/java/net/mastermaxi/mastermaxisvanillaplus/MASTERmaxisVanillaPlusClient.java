@@ -29,6 +29,10 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.INFECTED_MOUND, RenderLayer.getCutoutMipped());
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.TERMITE_TRAIL, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BAOBAB_LEAVES, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BAOBAB_LEAVES_FLOWERS, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BAOBAB_LEAVES_FRUIT, RenderLayer.getCutoutMipped());
+
         net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(
                 net.mastermaxi.mastermaxisvanillaplus.block.BlockEntities.INFECTED_WOOD,
                 net.mastermaxi.mastermaxisvanillaplus.block.client.InfectedWoodBlockEntityRenderer::new
@@ -52,7 +56,9 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
 
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
                 (state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT,
-                Blocks.BAOBAB_LEAVES
+                Blocks.BAOBAB_LEAVES,
+                Blocks.BAOBAB_LEAVES_FLOWERS,
+                Blocks.BAOBAB_LEAVES_FRUIT
         );
 
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(

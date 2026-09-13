@@ -84,6 +84,12 @@ public class LootTableProvider extends FabricBlockLootTableProvider {
         addDrop(BAOBAB_TRAPDOOR);
 
         addDrop(BAOBAB_LEAVES, leavesDrops(BAOBAB_LEAVES, BAOBAB_SAPLING, 0.06F));
+        addDrop(BAOBAB_LEAVES_FLOWERS, leavesDrops(BAOBAB_LEAVES_FLOWERS, BAOBAB_SAPLING, 0.06F));
+        addDrop(BAOBAB_LEAVES_FRUIT, leavesDrops(BAOBAB_LEAVES_FRUIT, BAOBAB_SAPLING, 0.06F).pool(
+                net.minecraft.loot.LootPool.builder()
+                        .rolls(net.minecraft.loot.provider.number.ConstantLootNumberProvider.create(1.0F))
+                        .with(net.minecraft.loot.entry.ItemEntry.builder(ItemInit.BAOBAB_FRUIT))
+        ));
     }
 
     public LootTable.Builder multipleOreDrop(Block drop, Item item, int min, int max) {

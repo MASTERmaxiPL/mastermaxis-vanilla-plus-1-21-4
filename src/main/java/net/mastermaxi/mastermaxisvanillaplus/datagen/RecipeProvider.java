@@ -160,6 +160,31 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.FEATHER), conditionsFromItem(Items.FEATHER))
                         .criterion(hasItem(ItemInit.OSTRICH_FEATHER), conditionsFromItem(ItemInit.OSTRICH_FEATHER))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                id = MASTERmaxisVanillaPlus.id("gui_juice");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), FOOD, ItemInit.GUI_JUICE)
+                        .input(Items.POTION)
+                        .input(ItemInit.BAOBAB_FRUIT)
+                        .input(Items.SUGAR)
+                        .criterion(hasItem(ItemInit.BAOBAB_FRUIT), conditionsFromItem(ItemInit.BAOBAB_FRUIT))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                id = MASTERmaxisVanillaPlus.id("monkey_bread");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), FOOD, ItemInit.MONKEY_BREAD)
+                        .input(Items.WHEAT)
+                        .input(Items.WHEAT)
+                        .input(ItemInit.BAOBAB_FRUIT)
+                        .criterion(hasItem(ItemInit.BAOBAB_FRUIT), conditionsFromItem(ItemInit.BAOBAB_FRUIT))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                id = MASTERmaxisVanillaPlus.id("baobab_stew");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), FOOD, ItemInit.BAOBAB_STEW)
+                        .input(Items.BOWL)
+                        .input(ItemInit.BAOBAB_FRUIT)
+                        .input(Ingredient.ofItems(Items.COOKED_BEEF, Items.COOKED_PORKCHOP))
+                        .input(Items.BROWN_MUSHROOM)
+                        .criterion(hasItem(ItemInit.BAOBAB_FRUIT), conditionsFromItem(ItemInit.BAOBAB_FRUIT))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };
     }

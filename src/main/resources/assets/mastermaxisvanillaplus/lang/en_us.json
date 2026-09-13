@@ -42,5 +42,12 @@
   "block.mastermaxisvanillaplus.mudstone_copper_ore": "Mudstone Copper Ore",
   "block.mastermaxisvanillaplus.silted_gravel": "Silted Gravel",
   "biome.mastermaxisvanillaplus.rusty_savanna": "Rusty Savanna",
-  "biome.mastermaxisvanillaplus.scorched_savanna": "Scorched Savanna"
+  "biome.mastermaxisvanillaplus.scorched_savanna": "Scorched Savanna",
+  "item.mastermaxisvanillaplus.baobab_fruit": "Baobab Fruit",
+  "item.mastermaxisvanillaplus.gui_juice": "Gui Juice",
+  "item.mastermaxisvanillaplus.monkey_bread": "Monkey Bread",
+  "item.mastermaxisvanillaplus.baobab_stew": "Baobab Stew",
+  "block.mastermaxisvanillaplus.baobab_leaves": "Baobab Leaves",
+  "block.mastermaxisvanillaplus.baobab_leaves_flowers": "Flowering Baobab Leaves",
+  "block.mastermaxisvanillaplus.baobab_leaves_fruit": "Fruiting Baobab Leaves"
 }

@@ -26,6 +26,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.PLANKS)
                 .add(BAOBAB_PLANKS.asItem());
 
+        getOrCreateTagBuilder(ItemTags.LEAVES)
+                .add(BAOBAB_LEAVES.asItem())
+                .add(BAOBAB_LEAVES_FLOWERS.asItem())
+                .add(BAOBAB_LEAVES_FRUIT.asItem());
+
         getOrCreateTagBuilder(net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags.EGGS)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.OSTRICH_EGG);
 

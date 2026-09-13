@@ -152,7 +152,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(STRIPPED_BAOBAB_WOOD);
 
         getOrCreateTagBuilder(BlockTags.LEAVES)
-                .add(BAOBAB_LEAVES);
+                .add(BAOBAB_LEAVES)
+                .add(BAOBAB_LEAVES_FLOWERS)
+                .add(BAOBAB_LEAVES_FRUIT);
 
         getOrCreateTagBuilder(BlockTags.SAPLINGS)
                 .add(BAOBAB_SAPLING);
