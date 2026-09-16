@@ -1,0 +1,35 @@
+{
+    "model":  {
+                  "on_false":  {
+                                   "model":  "mastermaxisvanillaplus:item/heavy_bow",
+                                   "type":  "minecraft:model"
+                               },
+                  "property":  "minecraft:using_item",
+                  "on_true":  {
+                                  "scale":  0.04,
+                                  "property":  "minecraft:use_duration",
+                                  "entries":  [
+                                                  {
+                                                      "model":  {
+                                                                    "model":  "mastermaxisvanillaplus:item/heavy_bow_pulling_1",
+                                                                    "type":  "minecraft:model"
+                                                                },
+                                                      "threshold":  0.65
+                                                  },
+                                                  {
+                                                      "model":  {
+                                                                    "model":  "mastermaxisvanillaplus:item/heavy_bow_pulling_2",
+                                                                    "type":  "minecraft:model"
+                                                                },
+                                                      "threshold":  0.9
+                                                  }
+                                              ],
+                                  "fallback":  {
+                                                   "model":  "mastermaxisvanillaplus:item/heavy_bow_pulling_0",
+                                                   "type":  "minecraft:model"
+                                               },
+                                  "type":  "minecraft:range_dispatch"
+                              },
+                  "type":  "minecraft:condition"
+              }
+}

@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "mastermaxisvanillaplus:item/crossbow_nether_bolt"
+                 },
+    "parent":  "mastermaxisvanillaplus:item/crossbow_base"
+}

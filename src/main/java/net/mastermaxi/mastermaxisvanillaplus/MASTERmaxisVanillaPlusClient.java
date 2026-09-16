@@ -44,6 +44,10 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntityInit.OSTRICH_EGG, FlyingItemEntityRenderer::new);
 
+        // Register renderers for new shooting entities
+        EntityRendererRegistry.register(EntityInit.HEAVY_ARROW, net.minecraft.client.render.entity.ArrowEntityRenderer::new);
+        EntityRendererRegistry.register(EntityInit.BOLT, net.minecraft.client.render.entity.ArrowEntityRenderer::new);
+
         FluidRenderHandlerRegistry.INSTANCE.register(FluidInit.MUD_WATER_STILL, FluidInit.MUD_WATER_FLOWING, SimpleFluidRenderHandler.coloredWater(0x5C3A1E));
         System.out.println("Mud Water renderer registered!");
 
@@ -72,6 +76,11 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
                 (state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT,
                 Blocks.REDTHORN
+        );
+
+        net.minecraft.client.gui.screen.ingame.HandledScreens.register(
+                net.mastermaxi.mastermaxisvanillaplus.screen.ModScreenHandlerTypes.FLETCHING_TABLE,
+                net.mastermaxi.mastermaxisvanillaplus.client.gui.screen.FletchingTableScreen::new
         );
     }
 }

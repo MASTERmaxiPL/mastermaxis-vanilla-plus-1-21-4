@@ -50,12 +50,17 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 
 		LOGGER.info("trying to init items");
 		ItemInit.initialize();
+		net.mastermaxi.mastermaxisvanillaplus.recipe.ModRecipeSerializers.initialize();
+		net.mastermaxi.mastermaxisvanillaplus.enchantment.ModEnchantments.initialize();
+		net.mastermaxi.mastermaxisvanillaplus.screen.ModScreenHandlerTypes.initialize();
 		LOGGER.info("trying to init entities");
 		EntityInit.initialize();
 		LOGGER.info("trying to register ostrich attributes");
 		FabricDefaultAttributeRegistry.register(EntityInit.OSTRICH, OstrichEntity.createAttributes());
 		LOGGER.info("trying to init world generation");
 		WorldGenerationInit.initialize();
+		LOGGER.info("trying to init loot table modifiers");
+		net.mastermaxi.mastermaxisvanillaplus.loot.ModLootTableModifiers.initialize();
 		LOGGER.info("Hello Fabric world!");
 	}
 

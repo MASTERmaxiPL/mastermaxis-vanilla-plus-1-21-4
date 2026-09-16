@@ -216,6 +216,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemInit.BAOBAB_STEW, Models.GENERATED);
         itemModelGenerator.register(ItemInit.TRUFFLE, Models.GENERATED);
         itemModelGenerator.register(ItemInit.TRUFFLE_PORKCHOP, Models.GENERATED);
+
     }
 
     private static Identifier registerCubeBottomTopRotated(

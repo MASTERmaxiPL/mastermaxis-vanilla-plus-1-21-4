@@ -193,6 +193,127 @@ public class RecipeProvider extends FabricRecipeProvider {
                     .criterion(hasItem(ItemInit.TRUFFLE), conditionsFromItem(ItemInit.TRUFFLE))
                     .criterion(hasItem(Items.COOKED_PORKCHOP), conditionsFromItem(Items.COOKED_PORKCHOP))
                     .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // ===== SHOOTING MECHANICS =====
+
+                // Heavy Arrow: iron nugget + stick + ostrich feather => 4x heavy arrow
+                id = MASTERmaxisVanillaPlus.id("heavy_arrow");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.HEAVY_ARROW, 4)
+                        .pattern("I")
+                        .pattern("S")
+                        .pattern("F")
+                        .input('I', Items.IRON_NUGGET)
+                        .input('S', Items.STICK)
+                        .input('F', ItemInit.OSTRICH_FEATHER)
+                        .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
+                        .criterion(hasItem(ItemInit.OSTRICH_FEATHER), conditionsFromItem(ItemInit.OSTRICH_FEATHER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Bolt: flint + stick + feather => 4x bolt (crafting table equivalent of crossbow bolt)
+                id = MASTERmaxisVanillaPlus.id("bolt");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.BOLT, 4)
+                        .pattern("F")
+                        .pattern("S")
+                        .pattern("P")
+                        .input('F', Items.FLINT)
+                        .input('S', Items.STICK)
+                        .input('P', Ingredient.ofItems(Items.FEATHER, ItemInit.OSTRICH_FEATHER))
+                        .criterion(hasItem(Items.FLINT), conditionsFromItem(Items.FLINT))
+                        .criterion(hasItem(Items.FEATHER), conditionsFromItem(Items.FEATHER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Heavy Bow: bow + leather + slimeball + string => heavy_bow (fletching table upgrade via crafting)
+                // Pattern: crafting table - bow upgraded with leather, slime, string
+                id = MASTERmaxisVanillaPlus.id("heavy_bow");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.HEAVY_BOW)
+                        .pattern("LSB")
+                        .pattern("L S")
+                        .pattern("LSB")
+                        .input('L', Items.LEATHER)
+                        .input('S', Items.SLIME_BALL)
+                        .input('B', Items.BOW)
+                        .criterion(hasItem(Items.BOW), conditionsFromItem(Items.BOW))
+                        .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                        .criterion(hasItem(Items.SLIME_BALL), conditionsFromItem(Items.SLIME_BALL))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Heavy Hardened Bow: heavy_bow + 2 iron ingots + flint & steel
+                id = MASTERmaxisVanillaPlus.id("heavy_hardened_bow");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.HEAVY_HARDENED_BOW)
+                        .pattern("IFI")
+                        .pattern(" B ")
+                        .pattern(" B ")
+                        .input('I', Items.IRON_INGOT)
+                        .input('F', Items.FLINT_AND_STEEL)
+                        .input('B', ItemInit.HEAVY_BOW)
+                        .criterion(hasItem(ItemInit.HEAVY_BOW), conditionsFromItem(ItemInit.HEAVY_BOW))
+                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                        .criterion(hasItem(Items.FLINT_AND_STEEL), conditionsFromItem(Items.FLINT_AND_STEEL))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Iron Crossbow: 3 iron bars + slimeball + 2 strings
+                id = MASTERmaxisVanillaPlus.id("iron_crossbow");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.IRON_CROSSBOW)
+                        .pattern("ISI")
+                        .pattern("SCS")
+                        .pattern("ISI")
+                        .input('I', Items.IRON_INGOT)
+                        .input('S', Items.STRING)
+                        .input('C', Items.SLIME_BALL)
+                        .criterion(hasItem(Items.CROSSBOW), conditionsFromItem(Items.CROSSBOW))
+                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                        .criterion(hasItem(Items.SLIME_BALL), conditionsFromItem(Items.SLIME_BALL))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Nether Crossbow: iron_crossbow + 2 gold bars + 4 copper bars + 2 slime balls
+                id = MASTERmaxisVanillaPlus.id("nether_crossbow");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.NETHER_CROSSBOW)
+                        .pattern("GCG")
+                        .pattern("CSC")
+                        .pattern("GCG")
+                        .input('G', Items.GOLD_INGOT)
+                        .input('C', Items.COPPER_INGOT)
+                        .input('S', ItemInit.IRON_CROSSBOW)
+                        .criterion(hasItem(ItemInit.IRON_CROSSBOW), conditionsFromItem(ItemInit.IRON_CROSSBOW))
+                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
+                        .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Crossbow + viewfinder (vanilla crossbow with viewfinder)
+                id = MASTERmaxisVanillaPlus.id("crossbow_viewfinder");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.CROSSBOW_VIEWFINDER)
+                        .input(Items.CROSSBOW)
+                        .input(ItemInit.VIEWFINDER)
+                        .criterion(hasItem(Items.CROSSBOW), conditionsFromItem(Items.CROSSBOW))
+                        .criterion(hasItem(ItemInit.VIEWFINDER), conditionsFromItem(ItemInit.VIEWFINDER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Iron Crossbow + viewfinder
+                id = MASTERmaxisVanillaPlus.id("iron_crossbow_viewfinder");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.IRON_CROSSBOW_VIEWFINDER)
+                        .input(ItemInit.IRON_CROSSBOW)
+                        .input(ItemInit.VIEWFINDER)
+                        .criterion(hasItem(ItemInit.IRON_CROSSBOW), conditionsFromItem(ItemInit.IRON_CROSSBOW))
+                        .criterion(hasItem(ItemInit.VIEWFINDER), conditionsFromItem(ItemInit.VIEWFINDER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Nether Crossbow + viewfinder
+                id = MASTERmaxisVanillaPlus.id("nether_crossbow_viewfinder");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.NETHER_CROSSBOW_VIEWFINDER)
+                        .input(ItemInit.NETHER_CROSSBOW)
+                        .input(ItemInit.VIEWFINDER)
+                        .criterion(hasItem(ItemInit.NETHER_CROSSBOW), conditionsFromItem(ItemInit.NETHER_CROSSBOW))
+                        .criterion(hasItem(ItemInit.VIEWFINDER), conditionsFromItem(ItemInit.VIEWFINDER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Viewfinder item: copper ingot + amethyst shard
+                id = MASTERmaxisVanillaPlus.id("viewfinder");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), MISC, ItemInit.VIEWFINDER)
+                        .input(Items.COPPER_INGOT)
+                        .input(Items.AMETHYST_SHARD)
+                        .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+                        .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };
     }

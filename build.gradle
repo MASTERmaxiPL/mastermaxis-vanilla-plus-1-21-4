@@ -45,6 +45,13 @@ processResources {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+tasks.withType(AbstractArchiveTask).configureEach {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+tasks.withType(Copy).configureEach {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
@@ -81,4 +88,9 @@ publishing {
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
 	}
+}
+
+tasks.register('runTest', JavaExec) {
+    mainClass = 'net.mastermaxi.mastermaxisvanillaplus.Test'
+    classpath = sourceSets.main.runtimeClasspath
 }
