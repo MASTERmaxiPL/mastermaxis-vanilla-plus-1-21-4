@@ -36,6 +36,8 @@ public class BlockInit {
 
                 MOUND,
                 INFECTED_MOUND,
+                INFECTED_WOOD,
+                TERMITE_TRAIL,
 
                 MUDSTONE_BLOCK,
                 MUDSTONE_STAIRS,
@@ -55,8 +57,10 @@ public class BlockInit {
                 POLISHED_MUDSTONE_SLAB,
                 POLISHED_MUDSTONE_WALL,
 
+                SILTED_GRAVEL,
                 MUDSTONE_COAL_ORE,
                 MUDSTONE_IRON_ORE,
+                MUDSTONE_COPPER_ORE,
                 MUDSTONE_FLINT_ORE,
 
                 BAOBAB_LOG,
