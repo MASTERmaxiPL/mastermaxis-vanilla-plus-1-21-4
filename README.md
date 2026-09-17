@@ -224,7 +224,7 @@ The fruits harvested from baobab canopies can be enjoyed raw or used as the key 
 
 ### Mud Balls & Mud Blocks
 - **Mud Ball:** Harvested from mud deposits or mud water.
-  - Throwable item: can be thrown at entities to deal light damage, knockback, and apply **Slowness for 2 seconds**!
+  - Throwable item: can be thrown at entities to deal light damage, knockback, and apply **Slowness for 3 seconds**!
 - **Mud Block:** A soft, squishy building block crafted from **4 Mud Balls** in a 2x2 crafting grid.
 
 ---

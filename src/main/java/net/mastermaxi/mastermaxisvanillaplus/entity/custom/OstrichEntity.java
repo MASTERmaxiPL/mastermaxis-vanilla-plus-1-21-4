@@ -53,6 +53,8 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
     private static final TrackedData<Integer> SPRINT_TICKS = DataTracker.registerData(OstrichEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> COOLDOWN_TICKS = DataTracker.registerData(OstrichEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
+    public static final double BASE_MOVEMENT_SPEED = 0.28;
+
     public final AnimationState idlingAnimationState = new AnimationState();
     public final AnimationState getHitAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -111,7 +113,7 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return AnimalEntity.createMobAttributes()
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.24)
+                .add(EntityAttributes.MOVEMENT_SPEED, BASE_MOVEMENT_SPEED)
                 .add(EntityAttributes.MAX_HEALTH, 12.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
                 .add(EntityAttributes.ATTACK_KNOCKBACK, 1.0)
@@ -252,7 +254,7 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        float baseSpeed = 0.28F;
+        float baseSpeed = (float) BASE_MOVEMENT_SPEED;
         float maxHealth = this.getMaxHealth();
         float healthRatio = maxHealth > 0.0F ? (this.getHealth() / maxHealth) : 1.0F;
         healthRatio = MathHelper.clamp(healthRatio, 0.2F, 1.0F);
@@ -319,7 +321,7 @@ public class OstrichEntity extends AnimalEntity implements Angerable, Saddleable
             EntityAttributeInstance speedAttr = this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
             if (speedAttr != null && this.getMaxHealth() > 0.0F) {
                 float healthRatio = MathHelper.clamp(this.getHealth() / this.getMaxHealth(), 0.2F, 1.0F);
-                speedAttr.setBaseValue(0.24 * (0.5 + 0.5 * healthRatio));
+                speedAttr.setBaseValue(BASE_MOVEMENT_SPEED * (0.5 + 0.5 * healthRatio));
             }
         }
 

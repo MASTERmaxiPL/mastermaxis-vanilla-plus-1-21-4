@@ -41,7 +41,7 @@ public class MudBallEntity extends ThrownItemEntity implements FlyingItemEntity 
             target.damage(serverWorld, mudBallSource, 0.5F);
 
             if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 0), this.getEffectCause());
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 0), this.getEffectCause());
             }
 
             MASTERmaxisVanillaPlus.LOGGER.info("Mud Ball dealt 2 damage to {}", target.getName().getString());
