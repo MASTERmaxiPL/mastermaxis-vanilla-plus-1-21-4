@@ -356,6 +356,12 @@ public class FletchingTableScreenHandler extends ScreenHandler {
         if (scheme == ItemInit.NETHER_CROSSBOW_SCHEME) {
             return w == ItemInit.IRON_CROSSBOW || w == ItemInit.IRON_CROSSBOW_VIEWFINDER;
         }
+        if (scheme == ItemInit.HEAVY_BOW_SCHEME) {
+            return w == Items.BOW;
+        }
+        if (scheme == ItemInit.HEAVY_HARDENED_BOW_SCHEME) {
+            return w == ItemInit.HEAVY_BOW;
+        }
         return false;
     }
 
@@ -392,6 +398,28 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                             ItemInit.NETHER_CROSSBOW_VIEWFINDER : ItemInit.NETHER_CROSSBOW;
                     ItemStack result = weapon.copyComponentsToNewStack(target, 1);
                     result.setDamage(weapon.getDamage());
+                    resultInventory.setStack(0, result);
+                    return;
+                }
+            } else if (scheme == ItemInit.HEAVY_BOW_SCHEME) {
+                // 5 Leather + 3 Slime + 6 String
+                if (inA.isOf(Items.LEATHER) && inA.getCount() >= 5 &&
+                        inB.isOf(Items.SLIME_BALL) && inB.getCount() >= 3 &&
+                        inC.isOf(Items.STRING) && inC.getCount() >= 6) {
+
+                    ItemStack result = weapon.copyComponentsToNewStack(ItemInit.HEAVY_BOW, 1);
+                    result.setDamage(Math.min(weapon.getDamage(), ItemInit.HEAVY_BOW.getDefaultStack().getMaxDamage() - 1));
+                    resultInventory.setStack(0, result);
+                    return;
+                }
+            } else if (scheme == ItemInit.HEAVY_HARDENED_BOW_SCHEME) {
+                // 6 Iron + 1 Flint and Steel
+                if (inA.isOf(Items.IRON_INGOT) && inA.getCount() >= 6 &&
+                        inB.isOf(Items.FLINT_AND_STEEL) && inB.getCount() >= 1 &&
+                        inC.isEmpty()) {
+
+                    ItemStack result = weapon.copyComponentsToNewStack(ItemInit.HEAVY_HARDENED_BOW, 1);
+                    result.setDamage(Math.min(weapon.getDamage(), ItemInit.HEAVY_HARDENED_BOW.getDefaultStack().getMaxDamage() - 1));
                     resultInventory.setStack(0, result);
                     return;
                 }
@@ -481,6 +509,13 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 this.tableInventory.removeStack(1, 3);
                 this.tableInventory.removeStack(2, 5);
                 this.tableInventory.removeStack(3, 1);
+            } else if (scheme == ItemInit.HEAVY_BOW_SCHEME) {
+                this.tableInventory.removeStack(1, 5);
+                this.tableInventory.removeStack(2, 3);
+                this.tableInventory.removeStack(3, 6);
+            } else if (scheme == ItemInit.HEAVY_HARDENED_BOW_SCHEME) {
+                this.tableInventory.removeStack(1, 6);
+                this.tableInventory.removeStack(2, 1);
             }
 
             context.run((world, pos) -> world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1.0f, 1.0f));

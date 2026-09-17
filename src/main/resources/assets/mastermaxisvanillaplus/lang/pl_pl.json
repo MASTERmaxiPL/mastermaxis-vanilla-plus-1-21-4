@@ -1,5 +1,6 @@
 {
-  "itemGroup.mod_item_group" : "MASTERmaxis Vanilla+",
+  "itemGroup.mod_item_group" : "Vanilla+",
+  "itemGroup.mod_combat_group" : "Vanilla+ Combat",
 
   "item.mastermaxisvanillaplus.ostrich_feather" : "Strusie Pióro",
   "item.mastermaxisvanillaplus.mud_ball" : "Kula Błota",
@@ -68,6 +69,10 @@
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Ulepszenie w Stole Łuczniczym: Żelazna kusza",
   "item.mastermaxisvanillaplus.nether_crossbow_scheme": "Schemat: Kusza z Netheru",
   "item.mastermaxisvanillaplus.nether_crossbow_scheme.desc": "§7Ulepszenie w Stole Łuczniczym: Netherowa kusza",
+  "item.mastermaxisvanillaplus.heavy_bow_scheme": "Schemat: Ciężki Łuk",
+  "item.mastermaxisvanillaplus.heavy_bow_scheme.desc": "§7Ulepszenie w Stole Łuczniczym: Ciężki łuk",
+  "item.mastermaxisvanillaplus.heavy_hardened_bow_scheme": "Schemat: Ciężki Hartowany Łuk",
+  "item.mastermaxisvanillaplus.heavy_hardened_bow_scheme.desc": "§7Ulepszenie w Stole Łuczniczym: Ciężki hartowany łuk",
 
   "container.mastermaxisvanillaplus.fletching_table": "Stół łuczniczy",
   "gui.mastermaxisvanillaplus.fletching_table.weapon_slot": "Broń",
@@ -83,6 +88,10 @@
   "gui.mastermaxisvanillaplus.fletching_table.req_gold": "Wymagane: 3x Sztabka złota",
   "gui.mastermaxisvanillaplus.fletching_table.req_copper": "Wymagane: 5x Sztabka miedzi",
   "gui.mastermaxisvanillaplus.fletching_table.req_netherite": "Wymagane: Sztabka netherytu",
+  "gui.mastermaxisvanillaplus.fletching_table.req_leather": "Wymagane: 2x Skóra",
+  "gui.mastermaxisvanillaplus.fletching_table.req_slime_2": "Wymagane: 2x Kula szlamu",
+  "gui.mastermaxisvanillaplus.fletching_table.req_iron_2": "Wymagane: 2x Sztabka żelaza",
+  "gui.mastermaxisvanillaplus.fletching_table.req_flint_and_steel": "Wymagane: Krzesiwo",
 
   "enchantment.mastermaxisvanillaplus.curse_of_welding": "Klątwa zespawania",
 

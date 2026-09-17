@@ -222,35 +222,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.FEATHER), conditionsFromItem(Items.FEATHER))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
-                // Heavy Bow: bow + leather + slimeball + string => heavy_bow (fletching table upgrade via crafting)
-                // Pattern: crafting table - bow upgraded with leather, slime, string
-                id = MASTERmaxisVanillaPlus.id("heavy_bow");
-                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.HEAVY_BOW)
-                        .pattern("LSB")
-                        .pattern("L S")
-                        .pattern("LSB")
-                        .input('L', Items.LEATHER)
-                        .input('S', Items.SLIME_BALL)
-                        .input('B', Items.BOW)
-                        .criterion(hasItem(Items.BOW), conditionsFromItem(Items.BOW))
-                        .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
-                        .criterion(hasItem(Items.SLIME_BALL), conditionsFromItem(Items.SLIME_BALL))
-                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
-
-                // Heavy Hardened Bow: heavy_bow + 2 iron ingots + flint & steel
-                id = MASTERmaxisVanillaPlus.id("heavy_hardened_bow");
-                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.HEAVY_HARDENED_BOW)
-                        .pattern("IFI")
-                        .pattern(" B ")
-                        .pattern(" B ")
-                        .input('I', Items.IRON_INGOT)
-                        .input('F', Items.FLINT_AND_STEEL)
-                        .input('B', ItemInit.HEAVY_BOW)
-                        .criterion(hasItem(ItemInit.HEAVY_BOW), conditionsFromItem(ItemInit.HEAVY_BOW))
-                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                        .criterion(hasItem(Items.FLINT_AND_STEEL), conditionsFromItem(Items.FLINT_AND_STEEL))
-                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
-
                 // Iron Crossbow: 3 iron bars + slimeball + 2 strings
                 id = MASTERmaxisVanillaPlus.id("iron_crossbow");
                 ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.IRON_CROSSBOW)

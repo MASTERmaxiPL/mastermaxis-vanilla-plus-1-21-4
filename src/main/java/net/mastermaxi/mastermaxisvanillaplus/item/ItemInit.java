@@ -9,7 +9,6 @@ import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
@@ -81,6 +80,8 @@ public class ItemInit {
     // Schematics
     public static final Item IRON_CROSSBOW_SCHEME = register("iron_crossbow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.iron_crossbow_scheme.desc")));
     public static final Item NETHER_CROSSBOW_SCHEME = register("nether_crossbow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.nether_crossbow_scheme.desc")));
+    public static final Item HEAVY_BOW_SCHEME = register("heavy_bow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.heavy_bow_scheme.desc")));
+    public static final Item HEAVY_HARDENED_BOW_SCHEME = register("heavy_hardened_bow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.heavy_hardened_bow_scheme.desc")));
 
     private static Item register(String name, Item.Settings itemSettings, ItemCreator creator) {
         Identifier id = MASTERmaxisVanillaPlus.id(name);
@@ -93,6 +94,7 @@ public class ItemInit {
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering items for " + MASTERmaxisVanillaPlus.MOD_ID);
 
+        // General Tab: Vanilla+
         ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.MOD_ITEM_GROUP_KEY).register((entries) -> {
             entries.add(OSTRICH_FEATHER);
             entries.add(MUD_BALL);
@@ -104,52 +106,28 @@ public class ItemInit {
             entries.add(BAOBAB_STEW);
             entries.add(TRUFFLE);
             entries.add(TRUFFLE_PORKCHOP);
-            // Shooting mechanics
-            entries.add(HEAVY_ARROW);
-            entries.add(BOLT);
-            entries.add(HEAVY_BOW);
-            entries.add(HEAVY_HARDENED_BOW);
-            entries.add(VIEWFINDER);
-            entries.add(IRON_CROSSBOW);
-            entries.add(NETHER_CROSSBOW);
-            entries.add(CROSSBOW_VIEWFINDER);
-            entries.add(IRON_CROSSBOW_VIEWFINDER);
-            entries.add(NETHER_CROSSBOW_VIEWFINDER);
-            entries.add(IRON_CROSSBOW_SCHEME);
-            entries.add(NETHER_CROSSBOW_SCHEME);
-            addTippedVariants(entries);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((entries) -> {
-            entries.add(OSTRICH_FEATHER);
-            entries.add(OSTRICH_EGG);
-            entries.add(BAOBAB_FRUIT);
-            entries.add(TRUFFLE);
-            entries.add(IRON_CROSSBOW_SCHEME);
-            entries.add(NETHER_CROSSBOW_SCHEME);
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
-            entries.add(OSTRICH_EGG);
-            entries.add(BAOBAB_FRUIT);
-            entries.add(GUI_JUICE);
-            entries.add(MONKEY_BREAD);
-            entries.add(BAOBAB_STEW);
-            entries.add(TRUFFLE);
-            entries.add(TRUFFLE_PORKCHOP);
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.add(MUD_BALL));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> entries.add(OSTRICH_SPAWN_EGG));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
-            entries.add(HEAVY_ARROW);
-            entries.add(BOLT);
+        // Combat Tab: Vanilla+ Combat (bows, crossbows, schematics, arrows)
+        ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.COMBAT_ITEM_GROUP_KEY).register((entries) -> {
+            // Bows
             entries.add(HEAVY_BOW);
             entries.add(HEAVY_HARDENED_BOW);
+            // Crossbows & Optics
             entries.add(VIEWFINDER);
             entries.add(IRON_CROSSBOW);
             entries.add(NETHER_CROSSBOW);
             entries.add(CROSSBOW_VIEWFINDER);
             entries.add(IRON_CROSSBOW_VIEWFINDER);
             entries.add(NETHER_CROSSBOW_VIEWFINDER);
+            // Schematics
+            entries.add(HEAVY_BOW_SCHEME);
+            entries.add(HEAVY_HARDENED_BOW_SCHEME);
+            entries.add(IRON_CROSSBOW_SCHEME);
+            entries.add(NETHER_CROSSBOW_SCHEME);
+            // Projectiles & Ammunition
+            entries.add(HEAVY_ARROW);
+            entries.add(BOLT);
             addTippedVariants(entries);
         });
 

@@ -46,11 +46,12 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
    - [Weapon Upgrading & Attachment Station](#weapon-upgrading--attachment-station)
    - [Projectile Fletching Station](#projectile-fletching-station)
 10. [Schematics, Curses & World Loot](#-schematics-curses--world-loot)
-    - [Crossbow Schematics](#crossbow-schematics)
+    - [Bow & Crossbow Schematics](#bow--crossbow-schematics)
     - [Curse of Welding](#curse-of-welding)
     - [Dungeon & Structure Loot Tables](#dungeon--structure-loot-tables)
     - [Fishing Treasures](#fishing-treasures)
 11. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
+12. [Creative Inventory Tabs](#-creative-inventory-tabs)
 
 ---
 
@@ -334,7 +335,9 @@ The upper portion of the Fletching Table interface is dedicated to bow and cross
 - **Center Slot:** Weapon slot (Bow or Crossbow).
 - **Left Slot:** Attachment slot (Viewfinder). Inserting or removing a Viewfinder mounts or unmounts the scope on the weapon.
   - **Item Preservation:** All existing enchantments, durability percentage, and custom anvil names are fully preserved!
-- **Right Slot:** Schematic slot. Insert an **Iron Crossbow Scheme** or **Nether Crossbow Scheme** alongside required alloy materials in the lower slots to forge upgraded crossbows:
+- **Right Slot:** Schematic slot. Insert an **Iron Crossbow Scheme**, **Nether Crossbow Scheme**, **Heavy Bow Scheme**, or **Heavy Hardened Bow Scheme** alongside required alloy materials in the lower slots to forge upgraded weapons:
+  - **Heavy Bow Upgrade:** Bow + Heavy Bow Scheme + 2x Leather + 2x Slimeball + 2x String.
+  - **Heavy Hardened Bow Upgrade:** Heavy Bow + Heavy Hardened Bow Scheme + 2x Iron Ingot + 1x Flint and Steel.
   - **Iron Crossbow Upgrade:** Crossbow + Iron Crossbow Scheme + 3x Iron Ingot + 1x Slimeball + 2x String.
   - **Nether Crossbow Upgrade:** Iron Crossbow + Nether Crossbow Scheme + 3x Gold Ingot + 5x Copper Ingot + 1x Netherite Ingot.
   - Schemes and upgrade materials are consumed upon crafting the weapon.
@@ -351,8 +354,10 @@ The lower slots provide quick, batch fletching for ammunition (`Slot A + Slot B 
 
 ## 📜 Schematics, Curses & World Loot
 
-### Crossbow Schematics
-Ancient blueprints required to forge military-grade crossbows in the Fletching Table:
+### Bow & Crossbow Schematics
+Ancient blueprints required to forge military-grade ranged weapons in the Fletching Table (cannot be crafted, only found in world loot):
+- **Heavy Bow Scheme (`ItemInit.HEAVY_BOW_SCHEME`)**
+- **Heavy Hardened Bow Scheme (`ItemInit.HEAVY_HARDENED_BOW_SCHEME`)**
 - **Iron Crossbow Scheme (`ItemInit.IRON_CROSSBOW_SCHEME`)**
 - **Nether Crossbow Scheme (`ItemInit.NETHER_CROSSBOW_SCHEME`)**
 
@@ -361,7 +366,15 @@ Ancient blueprints required to forge military-grade crossbows in the Fletching T
 - **Mechanics:** Permanently welds any optic attachment to the weapon. While this curse is present, the Viewfinder cannot be removed from the crossbow in the Fletching Table!
 
 ### Dungeon & Structure Loot Tables
-Explore the world to discover crossbow schemes, pre-assembled weapons, and cursed gear:
+Explore the world to discover weapon schemes, pre-assembled weapons, and cursed gear:
+- **Heavy Bow Scheme:**
+  - Village Fletcher Houses: **5% chance**
+  - Ruined Portals: **6% chance**
+  - Shipwreck Chests: **4.5% chance**
+- **Heavy Hardened Bow Scheme:**
+  - Woodland Mansions: **8% chance**
+  - Village Fletcher Houses: **1.5% chance**
+  - Bastion Remnant Chests: **3% chance**
 - **Iron Crossbow Scheme:**
   - Stronghold Chests: **5% chance**
   - Abandoned Mineshafts: **2.5% chance**
@@ -389,8 +402,6 @@ Explore the world to discover crossbow schemes, pre-assembled weapons, and curse
 | Result | Ingredients | Pattern / Layout |
 | :--- | :--- | :--- |
 | **Viewfinder** | 1x Amethyst Shard + 1x Gold Ingot | Shaped: Shard above Ingot in middle column |
-| **Heavy Bow** | 1x Bow + 2x Leather + 2x Slimeball + 2x String | Shaped: Leather, Slime, Bow |
-| **Heavy Hardened Bow** | 1x Heavy Bow + 2x Iron Ingot + 1x Flint & Steel | Shaped: Iron, Flint & Steel, Heavy Bow |
 | **Heavy Arrow** (x4) | 1x Iron Nugget + 1x Stick + 1x Ostrich Feather | Shaped: Vertical column (Nugget, Stick, Feather) |
 | **Bolt** (x4) | 1x Flint + 1x Stick + 1x Feather / Ostrich Feather | Shaped: Vertical column (Flint, Stick, Feather) |
 | **Iron Crossbow** | 4x Iron Ingot + 2x String + 1x Slimeball | Shaped: Iron, String, Slime |
@@ -414,3 +425,21 @@ Explore the world to discover crossbow schemes, pre-assembled weapons, and curse
 
 ### Stonecutter Support
 The Stonecutter can be used directly with **Mudstone**, **Mudstone Bricks**, **Polished Mudstone**, and **Laterite** to craft stairs, slabs, and walls with 1:1 ingredient efficiency!
+
+---
+
+## 🗂️ Creative Inventory Tabs
+
+All items and blocks from the mod have been cleanly removed from the default Minecraft tabs and organized into two dedicated mod creative tabs:
+
+- **Vanilla+ (`itemGroup.mod_item_group`):**
+  - **Representative Icon:** Mudstone (`Blocks.MUDSTONE_BLOCK`)
+  - **Contents:** All blocks, soils, rocks, baobab trees and wood set, leaves, fluids, foods, creature drops, and spawn eggs.
+- **Vanilla+ Combat (`itemGroup.mod_combat_group`):**
+  - **Representative Icon:** Iron Crossbow (`ItemInit.IRON_CROSSBOW`)
+  - **Contents:**
+    - **Bows:** Heavy Bow, Heavy Hardened Bow.
+    - **Crossbows & Optics:** Viewfinder, Iron Crossbow, Nether Crossbow, and Viewfinder-mounted variants.
+    - **Schematics:** Heavy Bow Scheme, Heavy Hardened Bow Scheme, Iron Crossbow Scheme, Nether Crossbow Scheme.
+    - **Ammunition:** Heavy Arrows, Crossbow Bolts, and tipped projectile variants.
+

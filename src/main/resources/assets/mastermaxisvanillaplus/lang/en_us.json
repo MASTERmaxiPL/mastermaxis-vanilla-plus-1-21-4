@@ -1,5 +1,6 @@
 {
-  "itemGroup.mod_item_group" : "MASTERmaxis Vanilla+",
+  "itemGroup.mod_item_group" : "Vanilla+",
+  "itemGroup.mod_combat_group" : "Vanilla+ Combat",
 
   "item.mastermaxisvanillaplus.ostrich_feather" : "Ostrich Feather",
   "item.mastermaxisvanillaplus.mud_ball" : "Mud Ball",
@@ -68,6 +69,10 @@
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Upgrade in Fletching Table: Iron Crossbow",
   "item.mastermaxisvanillaplus.nether_crossbow_scheme": "Nether Crossbow Blueprint",
   "item.mastermaxisvanillaplus.nether_crossbow_scheme.desc": "§7Upgrade in Fletching Table: Nether Crossbow",
+  "item.mastermaxisvanillaplus.heavy_bow_scheme": "Heavy Bow Blueprint",
+  "item.mastermaxisvanillaplus.heavy_bow_scheme.desc": "§7Upgrade in Fletching Table: Heavy Bow",
+  "item.mastermaxisvanillaplus.heavy_hardened_bow_scheme": "Heavy Hardened Bow Blueprint",
+  "item.mastermaxisvanillaplus.heavy_hardened_bow_scheme.desc": "§7Upgrade in Fletching Table: Heavy Hardened Bow",
 
   "container.mastermaxisvanillaplus.fletching_table": "Fletching Table",
   "gui.mastermaxisvanillaplus.fletching_table.weapon_slot": "Weapon",
@@ -83,6 +88,10 @@
   "gui.mastermaxisvanillaplus.fletching_table.req_gold": "Requires: 3x Gold Ingot",
   "gui.mastermaxisvanillaplus.fletching_table.req_copper": "Requires: 5x Copper Ingot",
   "gui.mastermaxisvanillaplus.fletching_table.req_netherite": "Requires: Netherite Ingot",
+  "gui.mastermaxisvanillaplus.fletching_table.req_leather": "Requires: 2x Leather",
+  "gui.mastermaxisvanillaplus.fletching_table.req_slime_2": "Requires: 2x Slimeball",
+  "gui.mastermaxisvanillaplus.fletching_table.req_iron_2": "Requires: 2x Iron Ingot",
+  "gui.mastermaxisvanillaplus.fletching_table.req_flint_and_steel": "Requires: Flint and Steel",
 
   "enchantment.mastermaxisvanillaplus.curse_of_welding": "Curse of Welding",
 

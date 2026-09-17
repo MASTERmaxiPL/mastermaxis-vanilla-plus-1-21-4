@@ -119,7 +119,57 @@ public class ModLootTableModifiers {
                         .with(ItemEntry.builder(ItemInit.NETHER_CROSSBOW_SCHEME)));
             }
 
-            // 3. Shipwreck & Ruined Portal:
+            // 3. Heavy Bow Scheme
+            // Fletcher house (5%)
+            if (LootTables.VILLAGE_FLETCHER_CHEST.equals(key)) {
+                tableBuilder.pool(LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.05f))
+                        .with(ItemEntry.builder(ItemInit.HEAVY_BOW_SCHEME)));
+            }
+
+            // Ruined portal (6%)
+            if (LootTables.RUINED_PORTAL_CHEST.equals(key)) {
+                tableBuilder.pool(LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.06f))
+                        .with(ItemEntry.builder(ItemInit.HEAVY_BOW_SCHEME)));
+            }
+
+            // Shipwreck (4.5%)
+            if (SHIPWRECK_CHESTS.contains(key)) {
+                tableBuilder.pool(LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.045f))
+                        .with(ItemEntry.builder(ItemInit.HEAVY_BOW_SCHEME)));
+            }
+
+            // 4. Heavy Hardened Bow Scheme
+            // Woodland Mansion (8%)
+            if (LootTables.WOODLAND_MANSION_CHEST.equals(key)) {
+                tableBuilder.pool(LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.08f))
+                        .with(ItemEntry.builder(ItemInit.HEAVY_HARDENED_BOW_SCHEME)));
+            }
+
+            // Fletcher house (1.5%)
+            if (LootTables.VILLAGE_FLETCHER_CHEST.equals(key)) {
+                tableBuilder.pool(LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.015f))
+                        .with(ItemEntry.builder(ItemInit.HEAVY_HARDENED_BOW_SCHEME)));
+            }
+
+            // Bastion (3%)
+            if (BASTION_REMNANTS_CHESTS.contains(key)) {
+                tableBuilder.pool(LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.03f))
+                        .with(ItemEntry.builder(ItemInit.HEAVY_HARDENED_BOW_SCHEME)));
+            }
+
+            // 5. Shipwreck & Ruined Portal:
             // A) Iron Crossbow: 4% chance, durability up to 75% (damage 0.25 - 0.95), 20% viewfinder, 65% welding if viewfinder
             // B) Standard Crossbow: 5% chance, durability up to 75% (damage 0.25 - 0.95), 30% viewfinder, 85% welding if viewfinder
             if (SHIPWRECK_AND_RUINED_PORTAL.contains(key)) {

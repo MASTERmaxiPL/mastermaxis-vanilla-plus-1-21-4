@@ -82,6 +82,23 @@ public class FletchingTableScreen extends HandledScreen<FletchingTableScreenHand
             if (!this.handler.getSlot(FletchingTableScreenHandler.INGREDIENT_C_SLOT_INDEX).hasStack()) {
                 drawGrayedOutGhostItem(context, new ItemStack(Items.NETHERITE_INGOT), 84, 1);
             }
+        } else if (activeScheme == ItemInit.HEAVY_BOW_SCHEME) {
+            if (!this.handler.getSlot(FletchingTableScreenHandler.INGREDIENT_A_SLOT_INDEX).hasStack()) {
+                drawGrayedOutGhostItem(context, new ItemStack(Items.LEATHER), 22, 5);
+            }
+            if (!this.handler.getSlot(FletchingTableScreenHandler.INGREDIENT_B_SLOT_INDEX).hasStack()) {
+                drawGrayedOutGhostItem(context, new ItemStack(Items.SLIME_BALL), 53, 3);
+            }
+            if (!this.handler.getSlot(FletchingTableScreenHandler.INGREDIENT_C_SLOT_INDEX).hasStack()) {
+                drawGrayedOutGhostItem(context, new ItemStack(Items.STRING), 84, 6);
+            }
+        } else if (activeScheme == ItemInit.HEAVY_HARDENED_BOW_SCHEME) {
+            if (!this.handler.getSlot(FletchingTableScreenHandler.INGREDIENT_A_SLOT_INDEX).hasStack()) {
+                drawGrayedOutGhostItem(context, new ItemStack(Items.IRON_INGOT), 22, 6);
+            }
+            if (!this.handler.getSlot(FletchingTableScreenHandler.INGREDIENT_B_SLOT_INDEX).hasStack()) {
+                drawGrayedOutGhostItem(context, new ItemStack(Items.FLINT_AND_STEEL), 53, 1);
+            }
         } else {
             // Mode A: Projectile Crafting slot icons
             if (!this.handler.getSlot(FletchingTableScreenHandler.INGREDIENT_A_SLOT_INDEX).hasStack()) {
@@ -150,6 +167,10 @@ public class FletchingTableScreen extends HandledScreen<FletchingTableScreenHand
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_iron"), mouseX, mouseY);
                     } else if (activeScheme == ItemInit.NETHER_CROSSBOW_SCHEME) {
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_gold"), mouseX, mouseY);
+                    } else if (activeScheme == ItemInit.HEAVY_BOW_SCHEME) {
+                        context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_leather"), mouseX, mouseY);
+                    } else if (activeScheme == ItemInit.HEAVY_HARDENED_BOW_SCHEME) {
+                        context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_iron_2"), mouseX, mouseY);
                     } else {
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.tail_slot"), mouseX, mouseY);
                     }
@@ -158,15 +179,19 @@ public class FletchingTableScreen extends HandledScreen<FletchingTableScreenHand
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_slime"), mouseX, mouseY);
                     } else if (activeScheme == ItemInit.NETHER_CROSSBOW_SCHEME) {
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_copper"), mouseX, mouseY);
+                    } else if (activeScheme == ItemInit.HEAVY_BOW_SCHEME) {
+                        context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_slime_2"), mouseX, mouseY);
+                    } else if (activeScheme == ItemInit.HEAVY_HARDENED_BOW_SCHEME) {
+                        context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_flint_and_steel"), mouseX, mouseY);
                     } else {
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.shaft_slot"), mouseX, mouseY);
                     }
                 } else if (slot.id == FletchingTableScreenHandler.INGREDIENT_C_SLOT_INDEX) {
-                    if (activeScheme == ItemInit.IRON_CROSSBOW_SCHEME) {
+                    if (activeScheme == ItemInit.IRON_CROSSBOW_SCHEME || activeScheme == ItemInit.HEAVY_BOW_SCHEME) {
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_string"), mouseX, mouseY);
                     } else if (activeScheme == ItemInit.NETHER_CROSSBOW_SCHEME) {
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.req_netherite"), mouseX, mouseY);
-                    } else {
+                    } else if (activeScheme == null) {
                         context.drawTooltip(this.textRenderer, Text.translatable("gui.mastermaxisvanillaplus.fletching_table.head_slot"), mouseX, mouseY);
                     }
                 }
