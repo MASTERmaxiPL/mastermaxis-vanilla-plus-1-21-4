@@ -111,7 +111,7 @@ public class FletchingTableScreen extends HandledScreen<FletchingTableScreenHand
                 drawSlotIcon(context, POINT_SLOT_TEXTURE, 84, 46);
             }
         }
-        // Result slot (Slot 5: 138, 46) is intentionally left completely empty standardly,
+        // Result slot (Slot 5: 138, 46) is intentionally left completely empty by default,
         // and only displays an item when a valid craft/upgrade result is created.
     }
 
