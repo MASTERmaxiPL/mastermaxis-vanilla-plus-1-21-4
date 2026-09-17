@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "mastermaxisvanillaplus:item/heavy_arrow"
+                 },
+    "parent":  "minecraft:item/generated"
+}

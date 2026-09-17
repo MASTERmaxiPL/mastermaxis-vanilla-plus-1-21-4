@@ -15,6 +15,9 @@ import net.minecraft.util.math.BlockPos;
 import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.minecraft.entity.JumpingMount;
 import net.minecraft.util.math.MathHelper;
+import net.mastermaxi.mastermaxisvanillaplus.item.ViewfinderHelper;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.profiler.Profilers;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,9 +32,48 @@ import java.util.function.Function;
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
+    @Shadow @Final private MinecraftClient client;
     @Shadow @Final private static Identifier JUMP_BAR_BACKGROUND_TEXTURE;
     @Shadow @Final private static Identifier JUMP_BAR_COOLDOWN_TEXTURE;
     @Shadow @Final private static Identifier JUMP_BAR_PROGRESS_TEXTURE;
+
+    @Unique
+    private static final Identifier VIEWFINDER_SCOPE = Identifier.of("mastermaxisvanillaplus", "textures/misc/viewfinder_scope.png");
+    @Unique
+    private float viewfinderScale = 0.5F;
+
+    @Inject(
+            method = "renderMiscOverlays(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V",
+            at = @At("TAIL")
+    )
+    private void renderViewfinderOverlay(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        float f = tickCounter.getLastFrameDuration();
+        if (this.client.options.getPerspective().isFirstPerson() && ViewfinderHelper.isUsingViewfinder(this.client.player)) {
+            this.viewfinderScale = MathHelper.lerp(0.5F * f, this.viewfinderScale, 1.125F);
+            this.renderViewfinderScopeOverlay(context, this.viewfinderScale);
+        } else {
+            this.viewfinderScale = 0.5F;
+        }
+    }
+
+    @Unique
+    private void renderViewfinderScopeOverlay(DrawContext context, float scale) {
+        float f = (float)Math.min(context.getScaledWindowWidth(), context.getScaledWindowHeight());
+        float h = Math.min((float)context.getScaledWindowWidth() / f, (float)context.getScaledWindowHeight() / f) * scale;
+        int i = MathHelper.floor(f * h);
+        int j = MathHelper.floor(f * h);
+        int k = (context.getScaledWindowWidth() - i) / 2;
+        int l = (context.getScaledWindowHeight() - j) / 2;
+        int m = k + i;
+        int n = l + j;
+
+        context.drawTexture(RenderLayer::getGuiTextured, VIEWFINDER_SCOPE, k, l, 0.0F, 0.0F, i, j, i, j);
+
+        context.fill(RenderLayer.getGuiOverlay(), 0, n, context.getScaledWindowWidth(), context.getScaledWindowHeight(), -90, -16777216);
+        context.fill(RenderLayer.getGuiOverlay(), 0, 0, context.getScaledWindowWidth(), l, -90, -16777216);
+        context.fill(RenderLayer.getGuiOverlay(), 0, l, k, n, -90, -16777216);
+        context.fill(RenderLayer.getGuiOverlay(), m, l, context.getScaledWindowWidth(), n, -90, -16777216);
+    }
 
     @Inject(method = "renderMountJumpBar", at = @At("HEAD"), cancellable = true)
     private void renderOstrichJumpBar(JumpingMount mount, DrawContext context, int x, CallbackInfo ci) {

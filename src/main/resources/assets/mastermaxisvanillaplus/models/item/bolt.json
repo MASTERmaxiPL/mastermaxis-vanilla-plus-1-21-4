@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "mastermaxisvanillaplus:item/bolt"
+                 },
+    "parent":  "minecraft:item/generated"
+}

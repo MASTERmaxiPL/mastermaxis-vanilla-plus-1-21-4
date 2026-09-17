@@ -26,6 +26,8 @@ public class MASTERmaxisVanillaPlusDataGenerator implements DataGeneratorEntrypo
 		MASTERmaxisVanillaPlus.LOGGER.info("Loot Tables passed");
 		pack.addProvider(RecipeProvider::new);
 		MASTERmaxisVanillaPlus.LOGGER.info("Recipes passed");
+		pack.addProvider(EnchantmentTagProvider::new);
+		MASTERmaxisVanillaPlus.LOGGER.info("Enchantments passed");
 		pack.addProvider(RegistryDataGeneration::new);
 		MASTERmaxisVanillaPlus.LOGGER.info("DataGen passed");
 	}

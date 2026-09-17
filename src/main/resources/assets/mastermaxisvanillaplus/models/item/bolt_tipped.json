@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mastermaxisvanillaplus:item/bolt",
+    "layer1": "mastermaxisvanillaplus:item/tipped_bolt"
+  }
+}

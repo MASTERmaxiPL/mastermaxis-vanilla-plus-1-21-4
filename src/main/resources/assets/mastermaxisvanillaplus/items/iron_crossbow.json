@@ -1,0 +1,54 @@
+{
+    "model":  {
+                  "on_false":  {
+                                   "cases":  [
+                                                 {
+                                                     "model":  {
+                                                                   "model":  "mastermaxisvanillaplus:item/iron_crossbow_bolt",
+                                                                   "type":  "minecraft:model"
+                                                               },
+                                                     "when":  "arrow"
+                                                 },
+                                                 {
+                                                     "model":  {
+                                                                   "model":  "mastermaxisvanillaplus:item/iron_crossbow_bolt",
+                                                                   "type":  "minecraft:model"
+                                                               },
+                                                     "when":  "rocket"
+                                                 }
+                                             ],
+                                   "property":  "minecraft:charge_type",
+                                   "fallback":  {
+                                                    "model":  "mastermaxisvanillaplus:item/iron_crossbow",
+                                                    "type":  "minecraft:model"
+                                                },
+                                   "type":  "minecraft:select"
+                               },
+                  "property":  "minecraft:using_item",
+                  "on_true":  {
+                                  "entries":  [
+                                                  {
+                                                      "model":  {
+                                                                    "model":  "mastermaxisvanillaplus:item/iron_crossbow_pulling_1",
+                                                                    "type":  "minecraft:model"
+                                                                },
+                                                      "threshold":  0.58
+                                                  },
+                                                  {
+                                                      "model":  {
+                                                                    "model":  "mastermaxisvanillaplus:item/iron_crossbow_pulling_2",
+                                                                    "type":  "minecraft:model"
+                                                                },
+                                                      "threshold":  1
+                                                  }
+                                              ],
+                                  "property":  "minecraft:crossbow/pull",
+                                  "fallback":  {
+                                                   "model":  "mastermaxisvanillaplus:item/iron_crossbow_pulling_0",
+                                                   "type":  "minecraft:model"
+                                               },
+                                  "type":  "minecraft:range_dispatch"
+                              },
+                  "type":  "minecraft:condition"
+              }
+}

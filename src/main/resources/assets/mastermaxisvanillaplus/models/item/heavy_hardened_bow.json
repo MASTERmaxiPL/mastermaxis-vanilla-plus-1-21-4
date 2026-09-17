@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "mastermaxisvanillaplus:item/heavy_hardened_bow"
+                 },
+    "parent":  "mastermaxisvanillaplus:item/bow_base"
+}

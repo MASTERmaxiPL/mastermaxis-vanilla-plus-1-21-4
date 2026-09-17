@@ -2,9 +2,14 @@
 	"required": true,
 	"package": "net.mastermaxi.mastermaxisvanillaplus.mixin",
 	"compatibilityLevel": "JAVA_21",
+	"refmap": "mastermaxis-vanilla-plus-refmap.json",
 	"mixins": [
+		"AbstractBlockStateMixin",
 		"AttachedStemBlockMixin",
+		"BowItemMixin",
 		"CactusBlockMixin",
+		"CrossbowItemMixin",
+		"FletchingTableBlockMixin",
 		"FluidBlockMixin",
 		"ItemMixin",
 		"LandPathNodeMakerMixin",
@@ -19,11 +24,16 @@
 		"VanillaSurfaceRulesMixin"
 	],
 	"client": [
+		"AbstractClientPlayerEntityMixin",
 		"BackgroundRendererMixin",
 		"FluidRendererMixin",
+		"HeldItemRendererMixin",
 		"InGameHudMixin",
+		"MinecraftClientMixin",
+		"MouseMixin",
 		"PigEntityRenderStateMixin",
 		"PigEntityRendererMixin",
+		"PlayerEntityRendererMixin",
 		"QuadrupedEntityModelMixin",
 		"WaterBubbleParticleMixin",
 		"WaterSplashParticleMixin"

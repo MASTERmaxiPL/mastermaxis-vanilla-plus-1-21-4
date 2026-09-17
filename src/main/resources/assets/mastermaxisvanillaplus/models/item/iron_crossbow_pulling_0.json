@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "mastermaxisvanillaplus:item/crossbow_iron_pulling_0"
+                 },
+    "parent":  "mastermaxisvanillaplus:item/crossbow_base"
+}

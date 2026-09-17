@@ -43,6 +43,26 @@ public class EntityInit {
                     .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("ostrich_egg")))
     );
 
+    public static final EntityType<HeavyArrowEntity> HEAVY_ARROW = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("heavy_arrow"),
+            EntityType.Builder.<HeavyArrowEntity>create(HeavyArrowEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.5F, 0.5F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(20)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("heavy_arrow")))
+    );
+
+    public static final EntityType<BoltEntity> BOLT = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("bolt"),
+            EntityType.Builder.<BoltEntity>create(BoltEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.5F, 0.5F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(20)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("bolt")))
+    );
+
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering entities for" + MASTERmaxisVanillaPlus.MOD_ID);
         SpawnRestrictionAccessor.callRegister(

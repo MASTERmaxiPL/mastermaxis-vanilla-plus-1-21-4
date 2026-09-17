@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "mastermaxisvanillaplus:item/crossbow_nether_pulling_1"
+                 },
+    "parent":  "mastermaxisvanillaplus:item/crossbow_base"
+}
