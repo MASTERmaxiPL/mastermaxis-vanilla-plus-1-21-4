@@ -4,6 +4,8 @@ import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,21 +16,13 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
 public class MudBallEntity extends ThrownItemEntity implements FlyingItemEntity {
-    private final ItemStack thrownStack;
 
     public MudBallEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
-        this.thrownStack = ItemStack.EMPTY;
     }
 
     public MudBallEntity(EntityType<? extends ThrownItemEntity> entityType, World world, LivingEntity owner, ItemStack thrownStack) {
-        super(entityType, world);
-        this.setOwner(owner);
-        this.thrownStack = thrownStack.copy();
-    }
-
-    public ItemStack getThrownStack() {
-        return this.thrownStack;
+        super(entityType, owner, world, thrownStack);
     }
 
     @Override
@@ -45,6 +39,10 @@ public class MudBallEntity extends ThrownItemEntity implements FlyingItemEntity 
 
             DamageSource mudBallSource = this.getDamageSource();
             target.damage(serverWorld, mudBallSource, 0.5F);
+
+            if (target instanceof LivingEntity livingEntity) {
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 0), this.getEffectCause());
+            }
 
             MASTERmaxisVanillaPlus.LOGGER.info("Mud Ball dealt 2 damage to {}", target.getName().getString());
         }
