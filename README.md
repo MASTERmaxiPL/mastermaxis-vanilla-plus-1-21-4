@@ -1,6 +1,6 @@
-# MASTERmaxis Vanilla+ (The Savanna Update)
+# MASTERmaxis Vanilla+ (The Savanna & Archery Update)
 
-A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Savanna biome with brand-new ecosystems, majestic wildlife, unique flora, rich building blocks, and dynamic environmental hazards.
+A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Savanna biome with brand-new ecosystems, majestic wildlife, unique flora, and rich building blocks, alongside a complete overhaul of ranged combat featuring modular bows, heavy arrows, crossbow tiers, bolts, optic attachments, and an interactive Fletching Table station.
 
 ---
 
@@ -32,7 +32,25 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
    - [Laterite Family](#laterite-family)
    - [Feather Block](#feather-block)
    - [Silted Gravel](#silted-gravel)
-7. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
+7. [Ranged Combat & Archery Overhaul](#-ranged-combat--archery-overhaul)
+   - [Heavy Bow & Heavy Hardened Bow](#heavy-bow--heavy-hardened-bow)
+   - [Heavy Arrows & Tipped Variants](#heavy-arrows--tipped-variants)
+   - [Crossbow Overhaul & Bolt Ammunition](#crossbow-overhaul--bolt-ammunition)
+   - [Iron & Nether Crossbows](#iron--nether-crossbows)
+8. [Viewfinder & Optics System](#-viewfinder--optics-system)
+   - [The Viewfinder](#the-viewfinder)
+   - [Crossbow Scope Attachment & Aiming](#crossbow-scope-attachment--aiming)
+   - [Dynamic Camera Sensitivity Damping](#dynamic-camera-sensitivity-damping)
+9. [Fletching Table Overhaul](#-fletching-table-overhaul)
+   - [Interactive GUI & Persistent Block Storage](#interactive-gui--persistent-block-storage)
+   - [Weapon Upgrading & Attachment Station](#weapon-upgrading--attachment-station)
+   - [Projectile Fletching Station](#projectile-fletching-station)
+10. [Schematics, Curses & World Loot](#-schematics-curses--world-loot)
+    - [Crossbow Schematics](#crossbow-schematics)
+    - [Curse of Welding](#curse-of-welding)
+    - [Dungeon & Structure Loot Tables](#dungeon--structure-loot-tables)
+    - [Fishing Treasures](#fishing-treasures)
+11. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
 
 ---
 
@@ -239,12 +257,147 @@ A durable, warm sedimentary rock forming the bedrock and rock towers of savannas
 
 ---
 
+## 🏹 Ranged Combat & Archery Overhaul
+
+Ranged combat has been expanded with distinct heavy archery gear, dedicated ammunition classifications, projectile damage adjustments, and precision ballistics.
+
+### Heavy Bow & Heavy Hardened Bow
+Engineered for archers demanding high projectile velocity and extended effective range:
+- **Heavy Bow:**
+  - **Pull Duration:** 25 ticks (1.25s, +0.25s compared to a standard 20-tick bow).
+  - **Arrow Velocity:** **1.15x velocity multiplier** (~+4 blocks of projectile range).
+  - **Durability:** 250 uses.
+  - Features custom dynamic pulling textures and standby states.
+- **Heavy Hardened Bow:**
+  - **Pull Duration:** 27 ticks (1.35s).
+  - **Arrow Velocity:** **1.25x velocity multiplier** (~+6 blocks of projectile range).
+  - **Durability:** 320 uses.
+  - Reinforced construction built with iron and heat treatment.
+
+### Heavy Arrows & Tipped Variants
+- **Heavy Arrow (`ItemInit.HEAVY_ARROW`):** Crafted with Iron Nuggets and Ostrich Feathers.
+  - **Damage:** Deals **+1 base damage** over standard arrows (base 3.0 vs vanilla 2.0).
+  - Compatible with all standard bows and heavy bows.
+- **Tipped Heavy Arrows:** All vanilla potion effects can be applied to Heavy Arrows in the crafting table or Fletching Table.
+
+### Crossbow Overhaul & Bolt Ammunition
+Crossbows have been completely rebalanced: **all crossbows now shoot Bolts instead of Arrows**!
+- **Bolt (`ItemInit.BOLT`):** The standard ammunition for crossbows. Crafted with flint, sticks, and feathers (or iron nuggets and sticks in the Fletching Table).
+- **Tipped Bolts:** All potion effects can be applied to bolts using potions and lingering potions. Features dynamic dual-layer rendering with monochromatic potion fluid overlays (`tipped_bolt.png`).
+
+### Iron & Nether Crossbows
+Advanced tiers of crossbow weaponry offering improved stopping power, higher durability, and pinpoint accuracy:
+- **Iron Crossbow:**
+  - **Damage:** **+2 projectile damage bonus** over the vanilla crossbow.
+  - **Loading Duration:** +0.2s (+4 ticks).
+  - **Accuracy:** Reduced bolt spread (lower divergence).
+  - **Durability:** 600 uses.
+- **Nether Crossbow:**
+  - **Damage:** **+4 projectile damage bonus** over the vanilla crossbow.
+  - **Loading Duration:** +0.4s (+8 ticks).
+  - **Accuracy:** Superior flight stabilization and tight clustering.
+  - **Durability:** 800 uses.
+
+---
+
+## 🔭 Viewfinder & Optics System
+
+### The Viewfinder
+The **Viewfinder (`ItemInit.VIEWFINDER`)** is a precision optic device crafted from an **Amethyst Shard** mounted over a **Gold Ingot** in the center column.
+- **Handheld Spyglass:** Can be used directly from the hand via Right Mouse Button (RMB) like a compact spyglass.
+- **Magnification:** Provides an optimal **0.35x FOV multiplier** (~3x zoom) paired with an authentic purple-tinted circular scope vignette (`viewfinder_scope.png`).
+
+### Crossbow Scope Attachment & Aiming
+All crossbow models—Vanilla Crossbow, Iron Crossbow, and Nether Crossbow—can be upgraded with a Viewfinder attachment:
+- **Mounting / Detaching:** Equip or remove the Viewfinder attachment freely inside the [Fletching Table](#-fletching-table-overhaul) (unless bound by the Curse of Welding).
+- **Aiming Controls:**
+  - When holding a **charged** crossbow equipped with a Viewfinder, press and hold the **Left Mouse Button (Attack Key)** or hold **Sneak (Shift)** to look through the scope!
+  - Crossbow scopes project the custom scope overlay and apply 0.35x zoom while keeping the bolt ready to fire.
+  - Press RMB while aiming to loose the projectile, or release LMB/Sneak to lower the optic.
+
+### Dynamic Camera Sensitivity Damping
+- Looking through a high-magnification optic at full mouse speed leads to overshooting and jittery crosshairs.
+- While aiming through a Viewfinder (handheld or crossbow-mounted), camera rotation sensitivity is smoothly scaled down by **0.35x** (`ViewfinderItem.FOV_MULTIPLIER`). This maintains 1:1 focal length angular scaling, making precision aiming feel natural and controlled.
+
+---
+
+## 🎯 Fletching Table Overhaul
+
+The vanilla Fletching Table has been transformed into a fully functional crafting and weapon upgrading station with an interactive GUI and persistent internal inventory:
+
+### Interactive GUI & Persistent Block Storage
+- Right-click any Fletching Table to open its dedicated workstation interface.
+- **Persistent Storage:** Powered by `FletchingTableBlockEntity`. Items placed into the table remain securely inside even when closing the screen—no accidental inventory spills!
+
+### Weapon Upgrading & Attachment Station
+The upper portion of the Fletching Table interface is dedicated to bow and crossbow modifications:
+- **Center Slot:** Weapon slot (Bow or Crossbow).
+- **Left Slot:** Attachment slot (Viewfinder). Inserting or removing a Viewfinder mounts or unmounts the scope on the weapon.
+  - **Item Preservation:** All existing enchantments, durability percentage, and custom anvil names are fully preserved!
+- **Right Slot:** Schematic slot. Insert an **Iron Crossbow Scheme** or **Nether Crossbow Scheme** alongside required alloy materials in the lower slots to forge upgraded crossbows:
+  - **Iron Crossbow Upgrade:** Crossbow + Iron Crossbow Scheme + 3x Iron Ingot + 1x Slimeball + 2x String.
+  - **Nether Crossbow Upgrade:** Iron Crossbow + Nether Crossbow Scheme + 3x Gold Ingot + 5x Copper Ingot + 1x Netherite Ingot.
+  - Schemes and upgrade materials are consumed upon crafting the weapon.
+  - The GUI renders custom grayed-out ghost items guiding the player on required materials.
+
+### Projectile Fletching Station
+The lower slots provide quick, batch fletching for ammunition (`Slot A + Slot B + Slot C = Result`):
+- **4x Arrows:** Feather + Stick + Flint.
+- **4x Heavy Arrows:** Ostrich Feather + Stick + Iron Nugget.
+- **4x Bolts:** (Empty) + Stick + Iron Nugget.
+- **Tipped Projectiles:** Up to 8 Arrows, Heavy Arrows, or Bolts + any Potion, Splash Potion, or Lingering Potion.
+
+---
+
+## 📜 Schematics, Curses & World Loot
+
+### Crossbow Schematics
+Ancient blueprints required to forge military-grade crossbows in the Fletching Table:
+- **Iron Crossbow Scheme (`ItemInit.IRON_CROSSBOW_SCHEME`)**
+- **Nether Crossbow Scheme (`ItemInit.NETHER_CROSSBOW_SCHEME`)**
+
+### Curse of Welding
+- **Curse of Welding (`curse_of_welding`):** A rare weapon curse applicable to crossbows.
+- **Mechanics:** Permanently welds any optic attachment to the weapon. While this curse is present, the Viewfinder cannot be removed from the crossbow in the Fletching Table!
+
+### Dungeon & Structure Loot Tables
+Explore the world to discover crossbow schemes, pre-assembled weapons, and cursed gear:
+- **Iron Crossbow Scheme:**
+  - Stronghold Chests: **5% chance**
+  - Abandoned Mineshafts: **2.5% chance**
+  - Village Fletcher Houses: **3% chance**
+  - Shipwreck Chests: **2% chance**
+- **Nether Crossbow Scheme:**
+  - Nether Fortress (Bridge) Chests: **5% chance**
+  - Bastion Remnant Chests (all types: Treasure, Bridge, Hoglin Stable, Other): **6% chance**
+- **Found Crossbow Weapons:**
+  - **Shipwrecks & Ruined Portals:**
+    - Standard Crossbow: **5% chance** (up to 75% durability; 30% chance for Viewfinder; if scoped, 85% chance of Curse of Welding).
+    - Iron Crossbow: **4% chance** (up to 75% durability; 20% chance for Viewfinder; if scoped, 65% chance of Curse of Welding).
+  - **Bastion Remnants & Nether Fortresses:**
+    - Nether Crossbow: **7% chance** (up to 60% durability; 25% chance for Viewfinder; if scoped, 50% chance of Curse of Welding).
+
+### Fishing Treasures
+- **Curse of Welding Enchanted Books** can be reeled in as rare gameplay treasure through fishing across all biomes.
+
+---
+
 ## 🔨 Crafting & Stonecutting Recipes
 
 ### Notable Crafting Recipes
 
-| Result | Ingredients | Pattern |
+| Result | Ingredients | Pattern / Layout |
 | :--- | :--- | :--- |
+| **Viewfinder** | 1x Amethyst Shard + 1x Gold Ingot | Shaped: Shard above Ingot in middle column |
+| **Heavy Bow** | 1x Bow + 2x Leather + 2x Slimeball + 2x String | Shaped: Leather, Slime, Bow |
+| **Heavy Hardened Bow** | 1x Heavy Bow + 2x Iron Ingot + 1x Flint & Steel | Shaped: Iron, Flint & Steel, Heavy Bow |
+| **Heavy Arrow** (x4) | 1x Iron Nugget + 1x Stick + 1x Ostrich Feather | Shaped: Vertical column (Nugget, Stick, Feather) |
+| **Bolt** (x4) | 1x Flint + 1x Stick + 1x Feather / Ostrich Feather | Shaped: Vertical column (Flint, Stick, Feather) |
+| **Iron Crossbow** | 4x Iron Ingot + 2x String + 1x Slimeball | Shaped: Iron, String, Slime |
+| **Nether Crossbow** | 1x Iron Crossbow + 4x Copper Ingot + 4x Gold Ingot | Shaped: Copper, Gold, Iron Crossbow |
+| **Crossbow w/ Viewfinder** | 1x Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
+| **Iron Crossbow w/ Viewfinder** | 1x Iron Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
+| **Nether Crossbow w/ Viewfinder** | 1x Nether Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
 | **Mud Block** | 4x Mud Ball | 2x2 square |
 | **Feather Block** | 9x Feather / Ostrich Feather | 3x3 square |
 | **Mudstone Bricks** (x4) | 4x Mudstone | 2x2 square |

@@ -30,6 +30,7 @@
 		"HeldItemRendererMixin",
 		"InGameHudMixin",
 		"MinecraftClientMixin",
+		"MouseMixin",
 		"PigEntityRenderStateMixin",
 		"PigEntityRendererMixin",
 		"PlayerEntityRendererMixin",

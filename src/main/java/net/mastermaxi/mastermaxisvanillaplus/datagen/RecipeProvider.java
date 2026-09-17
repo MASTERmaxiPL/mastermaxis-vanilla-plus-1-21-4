@@ -306,13 +306,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ItemInit.VIEWFINDER), conditionsFromItem(ItemInit.VIEWFINDER))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
-                // Viewfinder item: copper ingot + amethyst shard
+                // Viewfinder item: amethyst shard above gold ingot in middle column
                 id = MASTERmaxisVanillaPlus.id("viewfinder");
-                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), MISC, ItemInit.VIEWFINDER)
-                        .input(Items.COPPER_INGOT)
-                        .input(Items.AMETHYST_SHARD)
-                        .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), TOOLS, ItemInit.VIEWFINDER)
+                        .pattern(" A ")
+                        .pattern(" G ")
+                        .input('A', Items.AMETHYST_SHARD)
+                        .input('G', Items.GOLD_INGOT)
                         .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
+                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };
