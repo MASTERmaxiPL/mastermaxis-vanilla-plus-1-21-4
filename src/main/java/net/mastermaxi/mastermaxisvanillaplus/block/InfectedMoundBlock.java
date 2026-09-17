@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-public class InfectedMoundBlock extends Block {
+public class InfectedMoundBlock extends MoundBlock {
     public InfectedMoundBlock(Settings settings) {
         super(settings);
     }

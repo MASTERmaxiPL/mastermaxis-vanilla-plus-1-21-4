@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.mastermaxi.mastermaxisvanillaplus.block.BlockInit;
 import net.mastermaxi.mastermaxisvanillaplus.block.Blocks;
@@ -47,6 +48,12 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		addFlammableBlock(Blocks.BAOBAB_LEAVES, 30, 60);
 		addFlammableBlock(Blocks.BAOBAB_LEAVES_FLOWERS, 30, 60);
 		addFlammableBlock(Blocks.BAOBAB_LEAVES_FRUIT, 30, 60);
+
+		FuelRegistryEvents.BUILD.register((builder, context) -> {
+			int fuelTicks = (int) (context.baseSmeltTime() * 1.2F);
+			builder.add(Blocks.MOUND, fuelTicks);
+			builder.add(Blocks.INFECTED_MOUND, fuelTicks);
+		});
 
 		LOGGER.info("trying to init items");
 		ItemInit.initialize();

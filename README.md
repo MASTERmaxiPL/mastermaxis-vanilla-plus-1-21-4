@@ -118,8 +118,8 @@ Ostriches are tall, swift, flightless birds native to Savannas and Rusty Savanna
 ---
 
 ### Termites & Colonies
-- **Termite Mound:** Natural gravel-like dirt mounds formed by colonies.
-- **Infected Termite Mound:** The beating heart of a living termite colony. Ticks over time and can spread termites to nearby wood blocks.
+- **Termite Mound:** Natural gravel-like dirt mounds formed by colonies. Can be quickly harvested with Shears (0.25s) and used as furnace fuel (smelts 1.2 items per block).
+- **Infected Termite Mound:** The beating heart of a living termite colony. Ticks over time and can spread termites to nearby wood blocks. Also harvests quickly with Shears and can be burned in furnaces.
 - **Infected Wood:** Wood blocks infested by termites.
 - **Termite Trail:** Soil surface paths created by foraging worker termites.
 - **Control:** Introduce Ostriches to hunt the termites, or break the infected mounds to eliminate colonies.
@@ -254,7 +254,7 @@ A durable, warm sedimentary rock forming the bedrock and rock towers of savannas
 - **Fall Damage Negation:** Soft and bouncy—substantially cushions fall damage when landed upon!
 
 ### Silted Gravel
-- A reddish-brown gravel variety affected by gravity. Drops flint and gravel when dug.
+- A reddish-brown gravel variety affected by gravity. Drops flint with identical Fortune scaling as vanilla gravel (10% base up to 100% with Fortune III), or drops itself when mined with Silk Touch.
 
 ---
 
