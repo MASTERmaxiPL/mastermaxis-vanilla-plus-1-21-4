@@ -52,6 +52,7 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
     - [Fishing Treasures](#fishing-treasures)
 11. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
 12. [Creative Inventory Tabs](#-creative-inventory-tabs)
+13. [License](#-license)
 
 ---
 
@@ -89,7 +90,7 @@ A barren, sun-baked wasteland pocket nestled within the savanna climate:
 
 ---
 
-## 🦤 Fauna & Creatures
+## 🐾 Fauna & Creatures
 
 ### The Ostrich
 Ostriches are tall, swift, flightless birds native to Savannas and Rusty Savannas.
@@ -443,3 +444,13 @@ All items and blocks from the mod have been cleanly removed from the default Min
     - **Schematics:** Heavy Bow Scheme, Heavy Hardened Bow Scheme, Iron Crossbow Scheme, Nether Crossbow Scheme.
     - **Ammunition:** Heavy Arrows, Crossbow Bolts, and tipped projectile variants.
 
+---
+
+## 📄 License
+This mod is protected under **All Rights Reserved**.      
+- **Code:** Available for reference and personal use.     
+- **Assets (Textures, Models, Sounds):** All rights       
+reserved. Do not redistribute, copy, or reuse in other      
+mods without explicit permission.
+- **Modpacks:** You are free to include this mod in any   
+public or private modpack!

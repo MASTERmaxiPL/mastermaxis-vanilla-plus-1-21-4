@@ -2,17 +2,17 @@
 	"schemaVersion": 1,
 	"id": "mastermaxisvanillaplus",
 	"version": "${version}",
-	"name": "MASTERmaxis vanilla plus",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "MASTERmaxi's Vanilla+",
+	"description": "A Fabric mod that adds new features and improvements to the vanilla Minecraft experience.",
 	"authors": [
 		"MASTERmaxiPL"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod",
-		"authors_github": "https://github.com/MASTERmaxiPL"
+		"homepage": "https://github.com/MASTERmaxiPL/mastermaxis-vanilla-plus-1-21-4",
+		"sources": "https://github.com/MASTERmaxiPL/mastermaxis-vanilla-plus-1-21-4",
+		"issues": "https://github.com/MASTERmaxiPL/mastermaxis-vanilla-plus-1-21-4/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "All-Rights-Reserved",
 	"icon": "assets/mastermaxisvanillaplus/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -36,6 +36,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"modmenu": "*"
 	}
 }
