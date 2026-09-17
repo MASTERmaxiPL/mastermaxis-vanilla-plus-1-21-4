@@ -1,5 +1,5 @@
-# MASTERmaxis Vanilla+ (The Savanna & Archery Update)
 
+![MASTERmaxisVanilla+](src/main/resources/assets/mastermaxisvanillaplus/title.png "Title")
 A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Savanna biome with brand-new ecosystems, majestic wildlife, unique flora, and rich building blocks, alongside a complete overhaul of ranged combat featuring modular bows, heavy arrows, crossbow tiers, bolts, optic attachments, and an interactive Fletching Table station.
 
 ---
