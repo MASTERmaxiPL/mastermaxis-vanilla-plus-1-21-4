@@ -48,6 +48,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         ))
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.BOLT);
 
+        getOrCreateTagBuilder(ItemTags.BOW_ENCHANTABLE)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_BOW)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_HARDENED_BOW);
+
         getOrCreateTagBuilder(ItemTags.CROSSBOW_ENCHANTABLE)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.IRON_CROSSBOW)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW)
@@ -69,6 +73,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.CROSSBOW_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.IRON_CROSSBOW_VIEWFINDER)
-                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_VIEWFINDER);
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_VIEWFINDER)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_BOW)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_HARDENED_BOW);
     }
 }

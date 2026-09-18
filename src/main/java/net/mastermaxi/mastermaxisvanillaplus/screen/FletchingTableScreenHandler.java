@@ -309,6 +309,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 Item upgraded = getViewfinderCrossbow(weapon.getItem());
                 ItemStack newWeapon = weapon.copyComponentsToNewStack(upgraded, 1);
                 newWeapon.setDamage(weapon.getDamage());
+                newWeapon.set(DataComponentTypes.ENCHANTABLE, upgraded.getComponents().get(DataComponentTypes.ENCHANTABLE));
                 this.tableInventory.setStack(0, newWeapon);
                 player.playSound(SoundEvents.ITEM_SPYGLASS_USE, 1.0f, 1.0f);
             }
@@ -326,6 +327,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 Item base = getBaseCrossbow(weapon.getItem());
                 ItemStack newWeapon = weapon.copyComponentsToNewStack(base, 1);
                 newWeapon.setDamage(weapon.getDamage());
+                newWeapon.set(DataComponentTypes.ENCHANTABLE, base.getComponents().get(DataComponentTypes.ENCHANTABLE));
                 this.tableInventory.setStack(0, newWeapon);
                 player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0f, 1.0f);
             }
@@ -385,6 +387,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                             ItemInit.IRON_CROSSBOW_VIEWFINDER : ItemInit.IRON_CROSSBOW;
                     ItemStack result = weapon.copyComponentsToNewStack(target, 1);
                     result.setDamage(weapon.getDamage());
+                    result.set(DataComponentTypes.ENCHANTABLE, target.getComponents().get(DataComponentTypes.ENCHANTABLE));
                     resultInventory.setStack(0, result);
                     return;
                 }
@@ -398,6 +401,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                             ItemInit.NETHER_CROSSBOW_VIEWFINDER : ItemInit.NETHER_CROSSBOW;
                     ItemStack result = weapon.copyComponentsToNewStack(target, 1);
                     result.setDamage(weapon.getDamage());
+                    result.set(DataComponentTypes.ENCHANTABLE, target.getComponents().get(DataComponentTypes.ENCHANTABLE));
                     resultInventory.setStack(0, result);
                     return;
                 }
@@ -409,6 +413,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
 
                     ItemStack result = weapon.copyComponentsToNewStack(ItemInit.HEAVY_BOW, 1);
                     result.setDamage(Math.min(weapon.getDamage(), ItemInit.HEAVY_BOW.getDefaultStack().getMaxDamage() - 1));
+                    result.set(DataComponentTypes.ENCHANTABLE, ItemInit.HEAVY_BOW.getComponents().get(DataComponentTypes.ENCHANTABLE));
                     resultInventory.setStack(0, result);
                     return;
                 }
@@ -420,6 +425,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
 
                     ItemStack result = weapon.copyComponentsToNewStack(ItemInit.HEAVY_HARDENED_BOW, 1);
                     result.setDamage(Math.min(weapon.getDamage(), ItemInit.HEAVY_HARDENED_BOW.getDefaultStack().getMaxDamage() - 1));
+                    result.set(DataComponentTypes.ENCHANTABLE, ItemInit.HEAVY_HARDENED_BOW.getComponents().get(DataComponentTypes.ENCHANTABLE));
                     resultInventory.setStack(0, result);
                     return;
                 }
@@ -435,27 +441,27 @@ public class FletchingTableScreenHandler extends ScreenHandler {
         ItemStack inB = this.tableInventory.getStack(2);
         ItemStack inC = this.tableInventory.getStack(3);
 
-        // Arrow: Feather + Stick + Flint -> 4 Arrows
-        if (inA.isOf(Items.FEATHER) && inA.getCount() >= 1 &&
+        // Arrow: Feather + Stick + Flint -> 6 Arrows
+        if ((inA.isOf(Items.FEATHER) || inA.isOf(ItemInit.OSTRICH_FEATHER)) && inA.getCount() >= 1 &&
                 inB.isOf(Items.STICK) && inB.getCount() >= 1 &&
                 inC.isOf(Items.FLINT) && inC.getCount() >= 1) {
-            resultInventory.setStack(0, new ItemStack(Items.ARROW, 4));
+            resultInventory.setStack(0, new ItemStack(Items.ARROW, 6));
             return;
         }
 
-        // Heavy Arrow: Ostrich Feather + Stick + Iron Nugget -> 4 Heavy Arrows
+        // Heavy Arrow: Ostrich Feather + Stick + Iron Nugget -> 6 Heavy Arrows
         if (inA.isOf(ItemInit.OSTRICH_FEATHER) && inA.getCount() >= 1 &&
                 inB.isOf(Items.STICK) && inB.getCount() >= 1 &&
                 inC.isOf(Items.IRON_NUGGET) && inC.getCount() >= 1) {
-            resultInventory.setStack(0, new ItemStack(ItemInit.HEAVY_ARROW, 4));
+            resultInventory.setStack(0, new ItemStack(ItemInit.HEAVY_ARROW, 6));
             return;
         }
 
-        // Bolt: empty + Stick + Iron Nugget -> 4 Bolts
+        // Bolt: empty + Stick + Iron Nugget -> 6 Bolts
         if (inA.isEmpty() &&
                 inB.isOf(Items.STICK) && inB.getCount() >= 1 &&
                 inC.isOf(Items.IRON_NUGGET) && inC.getCount() >= 1) {
-            resultInventory.setStack(0, new ItemStack(ItemInit.BOLT, 4));
+            resultInventory.setStack(0, new ItemStack(ItemInit.BOLT, 6));
             return;
         }
 

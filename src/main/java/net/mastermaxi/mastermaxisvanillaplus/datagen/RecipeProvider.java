@@ -209,17 +209,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ItemInit.OSTRICH_FEATHER), conditionsFromItem(ItemInit.OSTRICH_FEATHER))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
-                // Bolt: flint + stick + feather => 4x bolt (crafting table equivalent of crossbow bolt)
+                // Bolt: iron nugget + stick => 4x bolt
                 id = MASTERmaxisVanillaPlus.id("bolt");
                 ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.BOLT, 4)
-                        .pattern("F")
+                        .pattern("I")
                         .pattern("S")
-                        .pattern("P")
-                        .input('F', Items.FLINT)
+                        .input('I', Items.IRON_NUGGET)
                         .input('S', Items.STICK)
-                        .input('P', Ingredient.ofItems(Items.FEATHER, ItemInit.OSTRICH_FEATHER))
-                        .criterion(hasItem(Items.FLINT), conditionsFromItem(Items.FLINT))
-                        .criterion(hasItem(Items.FEATHER), conditionsFromItem(Items.FEATHER))
+                        .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
+                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
                 // Iron Crossbow: 3 iron bars + slimeball + 2 strings

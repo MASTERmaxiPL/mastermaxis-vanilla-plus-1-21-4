@@ -58,24 +58,24 @@ public class ItemInit {
     public static final Item BOLT = register("bolt", new Item.Settings().maxCount(64), BoltItem::new);
 
     // Heavy Bow - upgraded bow with leather + slime + string
-    public static final Item HEAVY_BOW = register("heavy_bow", new Item.Settings().maxDamage(250), HeavyBowItem::new);
+    public static final Item HEAVY_BOW = register("heavy_bow", new Item.Settings().maxDamage(250).enchantable(10), HeavyBowItem::new);
 
     // Heavy Hardened Bow - upgraded with iron + flint&steel
-    public static final Item HEAVY_HARDENED_BOW = register("heavy_hardened_bow", new Item.Settings().maxDamage(320), HeavyHardenedBowItem::new);
+    public static final Item HEAVY_HARDENED_BOW = register("heavy_hardened_bow", new Item.Settings().maxDamage(320).enchantable(15), HeavyHardenedBowItem::new);
 
     // Viewfinder - compact scope item with spyglass-like zoom and purple tint
     public static final Item VIEWFINDER = register("viewfinder", new Item.Settings().maxCount(1), ViewfinderItem::new);
 
     // Iron Crossbow - 3 iron + slimeball + 2 strings
-    public static final Item IRON_CROSSBOW = register("iron_crossbow", new Item.Settings().maxDamage(600).maxCount(1), IronCrossbowItem::new);
+    public static final Item IRON_CROSSBOW = register("iron_crossbow", new Item.Settings().maxDamage(600).maxCount(1).enchantable(10), IronCrossbowItem::new);
 
     // Nether Crossbow - upgraded with gold + copper + slime
-    public static final Item NETHER_CROSSBOW = register("nether_crossbow", new Item.Settings().maxDamage(800).maxCount(1), NetherCrossbowItem::new);
+    public static final Item NETHER_CROSSBOW = register("nether_crossbow", new Item.Settings().maxDamage(800).maxCount(1).enchantable(15), NetherCrossbowItem::new);
 
     // Crossbow with Viewfinder variants
-    public static final Item CROSSBOW_VIEWFINDER = register("crossbow_viewfinder", new Item.Settings().maxDamage(465).maxCount(1), CrossbowViewfinderItem::new);
-    public static final Item IRON_CROSSBOW_VIEWFINDER = register("iron_crossbow_viewfinder", new Item.Settings().maxDamage(600).maxCount(1), IronCrossbowViewfinderItem::new);
-    public static final Item NETHER_CROSSBOW_VIEWFINDER = register("nether_crossbow_viewfinder", new Item.Settings().maxDamage(800).maxCount(1), NetherCrossbowViewfinderItem::new);
+    public static final Item CROSSBOW_VIEWFINDER = register("crossbow_viewfinder", new Item.Settings().maxDamage(465).maxCount(1).enchantable(1), CrossbowViewfinderItem::new);
+    public static final Item IRON_CROSSBOW_VIEWFINDER = register("iron_crossbow_viewfinder", new Item.Settings().maxDamage(600).maxCount(1).enchantable(10), IronCrossbowViewfinderItem::new);
+    public static final Item NETHER_CROSSBOW_VIEWFINDER = register("nether_crossbow_viewfinder", new Item.Settings().maxDamage(800).maxCount(1).enchantable(15), NetherCrossbowViewfinderItem::new);
 
     // Schematics
     public static final Item IRON_CROSSBOW_SCHEME = register("iron_crossbow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.iron_crossbow_scheme.desc")));

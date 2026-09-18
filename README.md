@@ -269,11 +269,13 @@ Engineered for archers demanding high projectile velocity and extended effective
   - **Pull Duration:** 25 ticks (1.25s, +0.25s compared to a standard 20-tick bow).
   - **Arrow Velocity:** **1.15x velocity multiplier** (~+4 blocks of projectile range).
   - **Durability:** 250 uses.
+  - **Enchantability:** 10 (higher chance for top-tier enchantments in Enchanting Table).
   - Features custom dynamic pulling textures and standby states.
 - **Heavy Hardened Bow:**
   - **Pull Duration:** 27 ticks (1.35s).
   - **Arrow Velocity:** **1.25x velocity multiplier** (~+6 blocks of projectile range).
   - **Durability:** 320 uses.
+  - **Enchantability:** 15 (elite enchantability matching netherite gear).
   - Reinforced construction built with iron and heat treatment.
 
 ### Heavy Arrows & Tipped Variants
@@ -284,7 +286,7 @@ Engineered for archers demanding high projectile velocity and extended effective
 
 ### Crossbow Overhaul & Bolt Ammunition
 Crossbows have been completely rebalanced: **all crossbows now shoot Bolts instead of Arrows**!
-- **Bolt (`ItemInit.BOLT`):** The standard ammunition for crossbows. Crafted with flint, sticks, and feathers (or iron nuggets and sticks in the Fletching Table).
+- **Bolt (`ItemInit.BOLT`):** The standard ammunition for crossbows. Crafted with **1x Iron Nugget + 1x Stick** (produces 4x in Crafting Table, or **6x in Fletching Table**).
 - **Tipped Bolts:** All potion effects can be applied to bolts using potions and lingering potions. Features dynamic dual-layer rendering with monochromatic potion fluid overlays (`tipped_bolt.png`).
 
 ### Iron & Nether Crossbows
@@ -294,11 +296,13 @@ Advanced tiers of crossbow weaponry offering improved stopping power, higher dur
   - **Loading Duration:** +0.2s (+4 ticks).
   - **Accuracy:** Reduced bolt spread (lower divergence).
   - **Durability:** 600 uses.
+  - **Enchantability:** 10 (iron-tier enchantability, scaling above vanilla crossbow's 1).
 - **Nether Crossbow:**
   - **Damage:** **+4 projectile damage bonus** over the vanilla crossbow.
   - **Loading Duration:** +0.4s (+8 ticks).
   - **Accuracy:** Superior flight stabilization and tight clustering.
   - **Durability:** 800 uses.
+  - **Enchantability:** 15 (netherite-tier enchantability).
 
 ---
 
@@ -346,9 +350,9 @@ The upper portion of the Fletching Table interface is dedicated to bow and cross
 
 ### Projectile Fletching Station
 The lower slots provide quick, batch fletching for ammunition (`Slot A + Slot B + Slot C = Result`):
-- **4x Arrows:** Feather + Stick + Flint.
-- **4x Heavy Arrows:** Ostrich Feather + Stick + Iron Nugget.
-- **4x Bolts:** (Empty) + Stick + Iron Nugget.
+- **6x Arrows:** Feather + Stick + Flint.
+- **6x Heavy Arrows:** Ostrich Feather + Stick + Iron Nugget.
+- **6x Bolts:** (Empty) + Stick + Iron Nugget.
 - **Tipped Projectiles:** Up to 8 Arrows, Heavy Arrows, or Bolts + any Potion, Splash Potion, or Lingering Potion.
 
 ---
@@ -404,7 +408,7 @@ Explore the world to discover weapon schemes, pre-assembled weapons, and cursed 
 | :--- | :--- | :--- |
 | **Viewfinder** | 1x Amethyst Shard + 1x Gold Ingot | Shaped: Shard above Ingot in middle column |
 | **Heavy Arrow** (x4) | 1x Iron Nugget + 1x Stick + 1x Ostrich Feather | Shaped: Vertical column (Nugget, Stick, Feather) |
-| **Bolt** (x4) | 1x Flint + 1x Stick + 1x Feather / Ostrich Feather | Shaped: Vertical column (Flint, Stick, Feather) |
+| **Bolt** (x4) | 1x Iron Nugget + 1x Stick | Shaped: Iron Nugget above Stick in column |
 | **Iron Crossbow** | 4x Iron Ingot + 2x String + 1x Slimeball | Shaped: Iron, String, Slime |
 | **Nether Crossbow** | 1x Iron Crossbow + 4x Copper Ingot + 4x Gold Ingot | Shaped: Copper, Gold, Iron Crossbow |
 | **Crossbow w/ Viewfinder** | 1x Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
