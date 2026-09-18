@@ -258,7 +258,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
     public static boolean canAcceptViewfinder(ItemStack weapon) {
         if (weapon.isEmpty()) return false;
         Item item = weapon.getItem();
-        return item == Items.CROSSBOW || item == ItemInit.IRON_CROSSBOW || item == ItemInit.NETHER_CROSSBOW;
+        return item == Items.CROSSBOW || item == ItemInit.IRON_CROSSBOW || item == ItemInit.NETHER_CROSSBOW || item == ItemInit.NETHER_CROSSBOW_OXIDIZED;
     }
 
     public static boolean isViewfinderCrossbow(ItemStack weapon) {
@@ -266,13 +266,15 @@ public class FletchingTableScreenHandler extends ScreenHandler {
         Item item = weapon.getItem();
         return item == ItemInit.CROSSBOW_VIEWFINDER ||
                 item == ItemInit.IRON_CROSSBOW_VIEWFINDER ||
-                item == ItemInit.NETHER_CROSSBOW_VIEWFINDER;
+                item == ItemInit.NETHER_CROSSBOW_VIEWFINDER ||
+                item == ItemInit.NETHER_CROSSBOW_OXIDIZED_VIEWFINDER;
     }
 
     public static Item getViewfinderCrossbow(Item base) {
         if (base == Items.CROSSBOW) return ItemInit.CROSSBOW_VIEWFINDER;
         if (base == ItemInit.IRON_CROSSBOW) return ItemInit.IRON_CROSSBOW_VIEWFINDER;
         if (base == ItemInit.NETHER_CROSSBOW) return ItemInit.NETHER_CROSSBOW_VIEWFINDER;
+        if (base == ItemInit.NETHER_CROSSBOW_OXIDIZED) return ItemInit.NETHER_CROSSBOW_OXIDIZED_VIEWFINDER;
         return base;
     }
 
@@ -280,6 +282,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
         if (vf == ItemInit.CROSSBOW_VIEWFINDER) return Items.CROSSBOW;
         if (vf == ItemInit.IRON_CROSSBOW_VIEWFINDER) return ItemInit.IRON_CROSSBOW;
         if (vf == ItemInit.NETHER_CROSSBOW_VIEWFINDER) return ItemInit.NETHER_CROSSBOW;
+        if (vf == ItemInit.NETHER_CROSSBOW_OXIDIZED_VIEWFINDER) return ItemInit.NETHER_CROSSBOW_OXIDIZED;
         return vf;
     }
 

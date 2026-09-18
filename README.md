@@ -303,6 +303,16 @@ Advanced tiers of crossbow weaponry offering improved stopping power, higher dur
   - **Accuracy:** Superior flight stabilization and tight clustering.
   - **Durability:** 800 uses.
   - **Enchantability:** 15 (netherite-tier enchantability).
+  - **Copper Aging & Oxidation:** Forged with copper ingots, the Nether Crossbow naturally oxidizes into an **Oxidized Nether Crossbow** after ~20 minutes (24,000 ticks) of active carrying, accelerating in water and rain.
+  - **Waxing with Honeycomb:** Combine with **Honeycomb** (in a crafting grid or by right-clicking with honeycomb) to wax the crossbow, permanently halting oxidation!
+  - **Axe Scraping:** An oxidized crossbow can be scraped with any **Axe** (in crafting grid or via right-click) to remove oxidation and restore the clean Nether Crossbow.
+- **Oxidized Nether Crossbow (and Scoped Variant):**
+  - **Damage:** **+3 projectile damage bonus** (1 HP / 0.5 hearts less than clean Nether Crossbow).
+  - **Loading Duration:** +0.65s (+13 ticks, 0.25s slower pull time than clean Nether Crossbow).
+  - **Accuracy:** High flight stabilization (0.3f divergence).
+  - **Durability:** 800 uses.
+  - **Enchantability:** 15.
+  - Fully preserves all prior enchantments, durability, and custom anvil names upon transformation!
 
 ---
 

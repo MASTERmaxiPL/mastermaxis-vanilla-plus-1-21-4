@@ -57,7 +57,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.CROSSBOW_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.IRON_CROSSBOW_VIEWFINDER)
-                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_VIEWFINDER);
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_VIEWFINDER)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_OXIDIZED)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_OXIDIZED_VIEWFINDER);
 
         getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.IRON_CROSSBOW)
@@ -65,6 +67,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.CROSSBOW_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.IRON_CROSSBOW_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_VIEWFINDER)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_OXIDIZED)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_OXIDIZED_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_BOW)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_HARDENED_BOW);
 
@@ -74,6 +78,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.CROSSBOW_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.IRON_CROSSBOW_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_VIEWFINDER)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_OXIDIZED)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.NETHER_CROSSBOW_OXIDIZED_VIEWFINDER)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_BOW)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_HARDENED_BOW);
     }

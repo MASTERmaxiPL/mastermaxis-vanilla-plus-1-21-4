@@ -19,6 +19,18 @@ public class ModRecipeSerializers {
             new SpecialCraftingRecipe.SpecialRecipeSerializer<>(TippedHeavyArrowRecipe::new)
     );
 
+    public static final RecipeSerializer<WaxNetherCrossbowRecipe> WAX_NETHER_CROSSBOW = Registry.register(
+            Registries.RECIPE_SERIALIZER,
+            MASTERmaxisVanillaPlus.id("crafting_special_wax_nether_crossbow"),
+            new SpecialCraftingRecipe.SpecialRecipeSerializer<>(WaxNetherCrossbowRecipe::new)
+    );
+
+    public static final RecipeSerializer<ScrapeNetherCrossbowRecipe> SCRAPE_NETHER_CROSSBOW = Registry.register(
+            Registries.RECIPE_SERIALIZER,
+            MASTERmaxisVanillaPlus.id("crafting_special_scrape_nether_crossbow"),
+            new SpecialCraftingRecipe.SpecialRecipeSerializer<>(ScrapeNetherCrossbowRecipe::new)
+    );
+
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering recipe serializers for " + MASTERmaxisVanillaPlus.MOD_ID);
     }

@@ -76,6 +76,8 @@ public class ItemInit {
     public static final Item CROSSBOW_VIEWFINDER = register("crossbow_viewfinder", new Item.Settings().maxDamage(465).maxCount(1).enchantable(1), CrossbowViewfinderItem::new);
     public static final Item IRON_CROSSBOW_VIEWFINDER = register("iron_crossbow_viewfinder", new Item.Settings().maxDamage(600).maxCount(1).enchantable(10), IronCrossbowViewfinderItem::new);
     public static final Item NETHER_CROSSBOW_VIEWFINDER = register("nether_crossbow_viewfinder", new Item.Settings().maxDamage(800).maxCount(1).enchantable(15), NetherCrossbowViewfinderItem::new);
+    public static final Item NETHER_CROSSBOW_OXIDIZED = register("nether_crossbow_oxidized", new Item.Settings().maxDamage(800).maxCount(1).enchantable(15), NetherCrossbowOxidizedItem::new);
+    public static final Item NETHER_CROSSBOW_OXIDIZED_VIEWFINDER = register("nether_crossbow_oxidized_viewfinder", new Item.Settings().maxDamage(800).maxCount(1).enchantable(15), NetherCrossbowOxidizedViewfinderItem::new);
 
     // Schematics
     public static final Item IRON_CROSSBOW_SCHEME = register("iron_crossbow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.iron_crossbow_scheme.desc")));
@@ -120,6 +122,8 @@ public class ItemInit {
             entries.add(CROSSBOW_VIEWFINDER);
             entries.add(IRON_CROSSBOW_VIEWFINDER);
             entries.add(NETHER_CROSSBOW_VIEWFINDER);
+            entries.add(NETHER_CROSSBOW_OXIDIZED);
+            entries.add(NETHER_CROSSBOW_OXIDIZED_VIEWFINDER);
             // Schematics
             entries.add(HEAVY_BOW_SCHEME);
             entries.add(HEAVY_HARDENED_BOW_SCHEME);
@@ -132,6 +136,57 @@ public class ItemInit {
         });
 
         net.minecraft.block.DispenserBlock.registerProjectileBehavior(OSTRICH_EGG);
+
+        // Interaction: Waxing nether crossbow with Honeycomb and scraping oxidized crossbow with Axe
+        net.fabricmc.fabric.api.event.player.UseItemCallback.EVENT.register((player, world, hand) -> {
+            net.minecraft.item.ItemStack held = player.getStackInHand(hand);
+            net.minecraft.util.Hand otherHand = hand == net.minecraft.util.Hand.MAIN_HAND ? net.minecraft.util.Hand.OFF_HAND : net.minecraft.util.Hand.MAIN_HAND;
+            net.minecraft.item.ItemStack other = player.getStackInHand(otherHand);
+
+            // 1. Waxing: using Honeycomb on Nether Crossbow in other hand
+            if (held.isOf(net.minecraft.item.Items.HONEYCOMB)
+                    && other.getItem() instanceof NetherCrossbowItem && !NetherCrossbowItem.isWaxed(other)) {
+                if (!world.isClient()) {
+                    NetherCrossbowItem.setWaxed(other, true);
+                    if (!player.getAbilities().creativeMode) {
+                        held.decrement(1);
+                    }
+                    if (world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+                        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+                                net.minecraft.sound.SoundEvents.ITEM_HONEYCOMB_WAX_ON, net.minecraft.sound.SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        serverWorld.spawnParticles(net.minecraft.particle.ParticleTypes.WAX_ON, player.getX(), player.getY() + 1.0, player.getZ(),
+                                8, 0.3, 0.3, 0.3, 0.1);
+                    }
+                }
+                return net.minecraft.util.ActionResult.SUCCESS;
+            }
+
+            // 2. Scraping: using Axe on Oxidized Nether Crossbow in other hand
+            if (held.isIn(net.minecraft.registry.tag.ItemTags.AXES) && other.getItem() instanceof NetherCrossbowOxidizedItem) {
+                if (!world.isClient()) {
+                    net.minecraft.item.Item restoredItem = other.isOf(NETHER_CROSSBOW_OXIDIZED_VIEWFINDER) ?
+                            NETHER_CROSSBOW_VIEWFINDER : NETHER_CROSSBOW;
+                    net.minecraft.item.ItemStack restored = other.copyComponentsToNewStack(restoredItem, 1);
+                    restored.setDamage(other.getDamage());
+                    restored.set(net.minecraft.component.DataComponentTypes.ENCHANTABLE, restoredItem.getComponents().get(net.minecraft.component.DataComponentTypes.ENCHANTABLE));
+                    NetherCrossbowItem.setOxidizeTime(restored, 0L);
+
+                    player.setStackInHand(otherHand, restored);
+                    if (!player.getAbilities().creativeMode) {
+                        held.damage(1, (net.minecraft.server.world.ServerWorld) world, player instanceof net.minecraft.server.network.ServerPlayerEntity sp ? sp : null, item -> {});
+                    }
+                    if (world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+                        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+                                net.minecraft.sound.SoundEvents.ITEM_AXE_SCRAPE, net.minecraft.sound.SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        serverWorld.spawnParticles(net.minecraft.particle.ParticleTypes.SCRAPE, player.getX(), player.getY() + 1.0, player.getZ(),
+                                8, 0.3, 0.3, 0.3, 0.1);
+                    }
+                }
+                return net.minecraft.util.ActionResult.SUCCESS;
+            }
+
+            return net.minecraft.util.ActionResult.PASS;
+        });
     }
 
     private static void addTippedVariants(net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries entries) {

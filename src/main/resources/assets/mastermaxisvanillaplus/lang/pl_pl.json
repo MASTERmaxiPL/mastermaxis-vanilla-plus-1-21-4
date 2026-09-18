@@ -64,6 +64,9 @@
   "item.mastermaxisvanillaplus.crossbow_viewfinder": "Kusza z Lunetą",
   "item.mastermaxisvanillaplus.iron_crossbow_viewfinder": "Żelazna Kusza z Lunetą",
   "item.mastermaxisvanillaplus.nether_crossbow_viewfinder": "Netherkusza z Lunetą",
+  "item.mastermaxisvanillaplus.nether_crossbow_oxidized": "Utleniona Netherkusza",
+  "item.mastermaxisvanillaplus.nether_crossbow_oxidized_viewfinder": "Utleniona Netherkusza z Lunetą",
+  "tooltip.mastermaxisvanillaplus.waxed": "Nawoskowana",
 
   "item.mastermaxisvanillaplus.iron_crossbow_scheme": "Schemat: Żelazna Kusza",
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Ulepszenie w Stole Łuczniczym: Żelazna kusza",

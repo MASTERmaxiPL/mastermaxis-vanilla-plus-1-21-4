@@ -64,6 +64,9 @@
   "item.mastermaxisvanillaplus.crossbow_viewfinder": "Crossbow with Viewfinder",
   "item.mastermaxisvanillaplus.iron_crossbow_viewfinder": "Iron Crossbow with Viewfinder",
   "item.mastermaxisvanillaplus.nether_crossbow_viewfinder": "Nether Crossbow with Viewfinder",
+  "item.mastermaxisvanillaplus.nether_crossbow_oxidized": "Oxidized Nether Crossbow",
+  "item.mastermaxisvanillaplus.nether_crossbow_oxidized_viewfinder": "Oxidized Nether Crossbow with Viewfinder",
+  "tooltip.mastermaxisvanillaplus.waxed": "Waxed",
 
   "item.mastermaxisvanillaplus.iron_crossbow_scheme": "Iron Crossbow Blueprint",
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Upgrade in Fletching Table: Iron Crossbow",
