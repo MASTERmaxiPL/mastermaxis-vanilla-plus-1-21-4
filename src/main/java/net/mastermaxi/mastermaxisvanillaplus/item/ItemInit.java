@@ -65,6 +65,8 @@ public class ItemInit {
 
     // Viewfinder - compact scope item with spyglass-like zoom and purple tint
     public static final Item VIEWFINDER = register("viewfinder", new Item.Settings().maxCount(1), ViewfinderItem::new);
+    // Pyrotechnic Tube - crossbow attachment enabling fireworks as ammunition
+    public static final Item PYROTECHNIC_TUBE = register("pyrotechnic_tube", new Item.Settings().maxCount(1), PyrotechnicTubeItem::new);
 
     // Iron Crossbow - 3 iron + slimeball + 2 strings
     public static final Item IRON_CROSSBOW = register("iron_crossbow", new Item.Settings().maxDamage(600).maxCount(1).enchantable(10), IronCrossbowItem::new);
@@ -117,6 +119,7 @@ public class ItemInit {
             entries.add(HEAVY_HARDENED_BOW);
             // Crossbows & Optics
             entries.add(VIEWFINDER);
+            entries.add(PYROTECHNIC_TUBE);
             entries.add(IRON_CROSSBOW);
             entries.add(NETHER_CROSSBOW);
             entries.add(CROSSBOW_VIEWFINDER);

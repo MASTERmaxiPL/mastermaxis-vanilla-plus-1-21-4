@@ -3,6 +3,7 @@ package net.mastermaxi.mastermaxisvanillaplus.screen;
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
 import net.mastermaxi.mastermaxisvanillaplus.enchantment.ModEnchantments;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
+import net.mastermaxi.mastermaxisvanillaplus.item.PyrotechnicTubeItem;
 import net.mastermaxi.mastermaxisvanillaplus.item.SchematicItem;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
@@ -92,11 +93,14 @@ public class FletchingTableScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(this.attachmentInventory, 0, 22, 18) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                if (!stack.isOf(ItemInit.VIEWFINDER)) {
-                    return false;
-                }
                 ItemStack weapon = FletchingTableScreenHandler.this.tableInventory.getStack(0);
-                return canAcceptViewfinder(weapon);
+                if (stack.isOf(ItemInit.VIEWFINDER)) {
+                    return canAcceptViewfinder(weapon);
+                }
+                if (stack.isOf(ItemInit.PYROTECHNIC_TUBE)) {
+                    return canAcceptPyrotechnicTube(weapon);
+                }
+                return false;
             }
 
             @Override
@@ -116,8 +120,12 @@ public class FletchingTableScreenHandler extends ScreenHandler {
             @Override
             public void setStack(ItemStack stack) {
                 super.setStack(stack);
-                if (!stack.isEmpty() && stack.isOf(ItemInit.VIEWFINDER) && !updatingWeaponAndAttachment) {
-                    mountViewfinder();
+                if (!stack.isEmpty() && !updatingWeaponAndAttachment) {
+                    if (stack.isOf(ItemInit.VIEWFINDER)) {
+                        mountViewfinder();
+                    } else if (stack.isOf(ItemInit.PYROTECHNIC_TUBE)) {
+                        mountPyrotechnicTube();
+                    }
                 }
             }
 
@@ -129,7 +137,11 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 }
                 super.onTakeItem(player, stack);
                 if (!updatingWeaponAndAttachment) {
-                    unmountViewfinder();
+                    if (stack.isOf(ItemInit.VIEWFINDER)) {
+                        unmountViewfinder();
+                    } else if (stack.isOf(ItemInit.PYROTECHNIC_TUBE)) {
+                        unmountPyrotechnicTube();
+                    }
                 }
             }
         });
@@ -226,8 +238,12 @@ public class FletchingTableScreenHandler extends ScreenHandler {
         updatingWeaponAndAttachment = true;
         try {
             ItemStack weapon = this.tableInventory.getStack(0);
-            if (!weapon.isEmpty() && isViewfinderCrossbow(weapon)) {
-                this.attachmentInventory.setStack(0, new ItemStack(ItemInit.VIEWFINDER));
+            if (!weapon.isEmpty()) {
+                if (isViewfinderCrossbow(weapon)) {
+                    this.attachmentInventory.setStack(0, new ItemStack(ItemInit.VIEWFINDER));
+                } else if (PyrotechnicTubeItem.hasAttachment(weapon)) {
+                    this.attachmentInventory.setStack(0, new ItemStack(ItemInit.PYROTECHNIC_TUBE));
+                }
             }
         } finally {
             updatingWeaponAndAttachment = false;
@@ -258,7 +274,18 @@ public class FletchingTableScreenHandler extends ScreenHandler {
     public static boolean canAcceptViewfinder(ItemStack weapon) {
         if (weapon.isEmpty()) return false;
         Item item = weapon.getItem();
-        return item == Items.CROSSBOW || item == ItemInit.IRON_CROSSBOW || item == ItemInit.NETHER_CROSSBOW || item == ItemInit.NETHER_CROSSBOW_OXIDIZED;
+        return (item == Items.CROSSBOW || item == ItemInit.IRON_CROSSBOW || item == ItemInit.NETHER_CROSSBOW || item == ItemInit.NETHER_CROSSBOW_OXIDIZED)
+                && !PyrotechnicTubeItem.hasAttachment(weapon);
+    }
+
+    public static boolean canAcceptPyrotechnicTube(ItemStack weapon) {
+        if (weapon.isEmpty()) return false;
+        return isCrossbow(weapon) && !PyrotechnicTubeItem.hasAttachment(weapon) && !isViewfinderCrossbow(weapon);
+    }
+
+    public static boolean isCrossbow(ItemStack weapon) {
+        if (weapon.isEmpty()) return false;
+        return weapon.getItem() instanceof CrossbowItem;
     }
 
     public static boolean isViewfinderCrossbow(ItemStack weapon) {
@@ -295,6 +322,8 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 this.attachmentInventory.setStack(0, ItemStack.EMPTY);
             } else if (isViewfinderCrossbow(weapon)) {
                 this.attachmentInventory.setStack(0, new ItemStack(ItemInit.VIEWFINDER));
+            } else if (PyrotechnicTubeItem.hasAttachment(weapon)) {
+                this.attachmentInventory.setStack(0, new ItemStack(ItemInit.PYROTECHNIC_TUBE));
             } else {
                 this.attachmentInventory.setStack(0, ItemStack.EMPTY);
             }
@@ -333,6 +362,38 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 newWeapon.set(DataComponentTypes.ENCHANTABLE, base.getComponents().get(DataComponentTypes.ENCHANTABLE));
                 this.tableInventory.setStack(0, newWeapon);
                 player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0f, 1.0f);
+            }
+        } finally {
+            updatingWeaponAndAttachment = false;
+        }
+        updateResult();
+    }
+
+    private void mountPyrotechnicTube() {
+        updatingWeaponAndAttachment = true;
+        try {
+            ItemStack weapon = this.tableInventory.getStack(0);
+            if (canAcceptPyrotechnicTube(weapon)) {
+                PyrotechnicTubeItem.setAttachment(weapon, true);
+                this.tableInventory.setStack(0, weapon);
+                this.tableInventory.markDirty();
+                player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON.value(), 1.0f, 1.0f);
+            }
+        } finally {
+            updatingWeaponAndAttachment = false;
+        }
+        updateResult();
+    }
+
+    private void unmountPyrotechnicTube() {
+        updatingWeaponAndAttachment = true;
+        try {
+            ItemStack weapon = this.tableInventory.getStack(0);
+            if (PyrotechnicTubeItem.hasAttachment(weapon)) {
+                PyrotechnicTubeItem.setAttachment(weapon, false);
+                this.tableInventory.setStack(0, weapon);
+                this.tableInventory.markDirty();
+                player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON.value(), 1.0f, 1.0f);
             }
         } finally {
             updatingWeaponAndAttachment = false;
@@ -621,6 +682,10 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 } else if (slotStack.isOf(ItemInit.VIEWFINDER) && canAcceptViewfinder(this.tableInventory.getStack(0)) && !this.getSlot(ATTACHMENT_SLOT_INDEX).hasStack()) {
                     ItemStack singleVf = slotStack.split(1);
                     this.getSlot(ATTACHMENT_SLOT_INDEX).setStack(singleVf);
+                    return itemStack;
+                } else if (slotStack.isOf(ItemInit.PYROTECHNIC_TUBE) && canAcceptPyrotechnicTube(this.tableInventory.getStack(0)) && !this.getSlot(ATTACHMENT_SLOT_INDEX).hasStack()) {
+                    ItemStack singleTube = slotStack.split(1);
+                    this.getSlot(ATTACHMENT_SLOT_INDEX).setStack(singleTube);
                     return itemStack;
                 } else if (isWeapon(slotStack) && !this.getSlot(WEAPON_SLOT_INDEX).hasStack()) {
                     ItemStack singleWeapon = slotStack.split(1);

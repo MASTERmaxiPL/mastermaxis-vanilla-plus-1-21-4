@@ -67,6 +67,10 @@
   "item.mastermaxisvanillaplus.nether_crossbow_oxidized": "Oxidized Nether Crossbow",
   "item.mastermaxisvanillaplus.nether_crossbow_oxidized_viewfinder": "Oxidized Nether Crossbow with Viewfinder",
   "tooltip.mastermaxisvanillaplus.waxed": "Waxed",
+  "item.mastermaxisvanillaplus.pyrotechnic_tube": "Pyrotechnic Tube",
+  "item.mastermaxisvanillaplus.pyrotechnic_tube.desc": "§7Crossbow attachment: enables firing fireworks",
+  "tooltip.mastermaxisvanillaplus.attachment.pyrotechnic_tube": "Attachment: Pyrotechnic Tube",
+  "tooltip.mastermaxisvanillaplus.attachment.viewfinder": "Attachment: Viewfinder",
 
   "item.mastermaxisvanillaplus.iron_crossbow_scheme": "Iron Crossbow Blueprint",
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Upgrade in Fletching Table: Iron Crossbow",

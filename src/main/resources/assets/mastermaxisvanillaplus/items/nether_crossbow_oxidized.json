@@ -17,7 +17,7 @@
           "when": "rocket",
           "model": {
             "type": "minecraft:model",
-            "model": "mastermaxisvanillaplus:item/nether_crossbow_oxidized_bolt"
+            "model": "mastermaxisvanillaplus:item/nether_crossbow_oxidized_firework"
           }
         }
       ],

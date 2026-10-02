@@ -285,6 +285,31 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
                         .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Pyrotechnic Tube: Iron block | gunpowder slime ball | Iron block
+                id = MASTERmaxisVanillaPlus.id("pyrotechnic_tube");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.PYROTECHNIC_TUBE)
+                        .pattern("IGI")
+                        .pattern(" S ")
+                        .input('I', Items.IRON_BLOCK)
+                        .input('G', Items.GUNPOWDER)
+                        .input('S', Items.SLIME_BALL)
+                        .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
+                        .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
+                        .criterion(hasItem(Items.SLIME_BALL), conditionsFromItem(Items.SLIME_BALL))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                id = MASTERmaxisVanillaPlus.id("pyrotechnic_tube_alt");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.PYROTECHNIC_TUBE)
+                        .pattern("ISI")
+                        .pattern(" G ")
+                        .input('I', Items.IRON_BLOCK)
+                        .input('G', Items.GUNPOWDER)
+                        .input('S', Items.SLIME_BALL)
+                        .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
+                        .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
+                        .criterion(hasItem(Items.SLIME_BALL), conditionsFromItem(Items.SLIME_BALL))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };
     }

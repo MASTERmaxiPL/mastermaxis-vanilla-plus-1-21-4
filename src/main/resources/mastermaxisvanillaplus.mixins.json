@@ -20,6 +20,7 @@
 		"SpawnRestrictionAccessor",
 		"StemBlockMixin",
 		"SurfaceBuilderMixin",
+		"PlayerEntityMixin",
 		"VanillaBiomeParametersMixin",
 		"VanillaSurfaceRulesMixin"
 	],

@@ -31,6 +31,12 @@ public class ModRecipeSerializers {
             new SpecialCraftingRecipe.SpecialRecipeSerializer<>(ScrapeNetherCrossbowRecipe::new)
     );
 
+    public static final RecipeSerializer<AttachPyrotechnicTubeRecipe> ATTACH_PYROTECHNIC_TUBE = Registry.register(
+            Registries.RECIPE_SERIALIZER,
+            MASTERmaxisVanillaPlus.id("crafting_special_attach_pyrotechnic_tube"),
+            new SpecialCraftingRecipe.SpecialRecipeSerializer<>(AttachPyrotechnicTubeRecipe::new)
+    );
+
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering recipe serializers for " + MASTERmaxisVanillaPlus.MOD_ID);
     }

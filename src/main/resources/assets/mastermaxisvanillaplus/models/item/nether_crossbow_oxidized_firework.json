@@ -1,0 +1,6 @@
+{
+  "parent": "mastermaxisvanillaplus:item/crossbow_base",
+  "textures": {
+    "layer0": "mastermaxisvanillaplus:item/oxydized_nether_crossbow_firework"
+  }
+}

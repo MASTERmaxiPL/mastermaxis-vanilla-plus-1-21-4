@@ -20,7 +20,7 @@
               "when": "rocket",
               "model": {
                 "type": "minecraft:model",
-                "model": "mastermaxisvanillaplus:item/iron_crossbow_bolt"
+                "model": "mastermaxisvanillaplus:item/iron_crossbow_firework"
               }
             }
           ],

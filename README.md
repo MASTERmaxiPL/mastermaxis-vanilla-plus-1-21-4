@@ -1,6 +1,6 @@
 
 ![MASTERmaxisVanilla+](src/main/resources/assets/mastermaxisvanillaplus/title.png "Title")
-A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Savanna biome with brand-new ecosystems, majestic wildlife, unique flora, and rich building blocks, alongside a complete overhaul of ranged combat featuring modular bows, heavy arrows, crossbow tiers, bolts, optic attachments, and an interactive Fletching Table station.
+A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Savanna biome with brand-new ecosystems, majestic wildlife, unique flora, and rich building blocks, alongside a complete overhaul of ranged combat featuring modular bows, heavy arrows, crossbow tiers, bolts, optic & pyrotechnic attachments, and an interactive Fletching Table station.
 
 ---
 
@@ -36,11 +36,13 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
    - [Heavy Bow & Heavy Hardened Bow](#heavy-bow--heavy-hardened-bow)
    - [Heavy Arrows & Tipped Variants](#heavy-arrows--tipped-variants)
    - [Crossbow Overhaul & Bolt Ammunition](#crossbow-overhaul--bolt-ammunition)
-   - [Iron & Nether Crossbows](#iron--nether-crossbows)
-8. [Viewfinder & Optics System](#-viewfinder--optics-system)
+   - [Pyrotechnic Tube & Fireworks Ammunition](#pyrotechnic-tube--fireworks-ammunition)
+   - [Iron, Nether & Oxidized Nether Crossbows](#iron-nether--oxidized-nether-crossbows)
+8. [Crossbow Attachments & Optics System](#-crossbow-attachments--optics-system)
    - [The Viewfinder](#the-viewfinder)
    - [Crossbow Scope Attachment & Aiming](#crossbow-scope-attachment--aiming)
    - [Dynamic Camera Sensitivity Damping](#dynamic-camera-sensitivity-damping)
+   - [Attachment Tooltip Displays](#attachment-tooltip-displays)
 9. [Fletching Table Overhaul](#-fletching-table-overhaul)
    - [Interactive GUI & Persistent Block Storage](#interactive-gui--persistent-block-storage)
    - [Weapon Upgrading & Attachment Station](#weapon-upgrading--attachment-station)
@@ -288,8 +290,16 @@ Engineered for archers demanding high projectile velocity and extended effective
 Crossbows have been completely rebalanced: **all crossbows now shoot Bolts instead of Arrows**!
 - **Bolt (`ItemInit.BOLT`):** The standard ammunition for crossbows. Crafted with **1x Iron Nugget + 1x Stick** (produces 4x in Crafting Table, or **6x in Fletching Table**).
 - **Tipped Bolts:** All potion effects can be applied to bolts using potions and lingering potions. Features dynamic dual-layer rendering with monochromatic potion fluid overlays (`tipped_bolt.png`).
+- **Ammunition Restriction:** Crossbows strictly require Bolts to fire. Fireworks cannot be loaded into standard crossbows unless upgraded with the **Pyrotechnic Tube** attachment.
 
-### Iron & Nether Crossbows
+### Pyrotechnic Tube & Fireworks Ammunition
+- **Pyrotechnic Tube (`ItemInit.PYROTECHNIC_TUBE`):** A specialized military crossbow modification that unlocks the ability to load and launch **Firework Rockets**.
+- **Crossbow Compatibility:** Can be mounted onto any crossbow tier—Standard Vanilla Crossbow, Iron Crossbow, Nether Crossbow, or Oxidized Nether Crossbow.
+- **Mounting & Upgrading:** Install or remove the tube via the [Fletching Table](#-fletching-table-overhaul) attachment slot, or combine the crossbow and tube shapelessly in any crafting grid.
+- **Dedicated Firework Visuals:** All crossbow variants feature dedicated loaded-firework models and textures (including a revamped texture for the standard crossbow), clearly displaying the loaded rocket in first- and third-person view.
+- **Crafting Recipe:** Crafted with **2x Iron Block + 1x Gunpowder + 1x Slimeball** (`Iron Block | Gunpowder | Iron Block` over `Slimeball`, or vice versa).
+
+### Iron, Nether & Oxidized Nether Crossbows
 Advanced tiers of crossbow weaponry offering improved stopping power, higher durability, and pinpoint accuracy:
 - **Iron Crossbow:**
   - **Damage:** **+2 projectile damage bonus** over the vanilla crossbow.
@@ -312,11 +322,11 @@ Advanced tiers of crossbow weaponry offering improved stopping power, higher dur
   - **Accuracy:** High flight stabilization (0.3f divergence).
   - **Durability:** 800 uses.
   - **Enchantability:** 15.
-  - Fully preserves all prior enchantments, durability, and custom anvil names upon transformation!
+  - Fully preserves all prior enchantments, durability, attachments, and custom anvil names upon transformation!
 
 ---
 
-## 🔭 Viewfinder & Optics System
+## 🔭 Crossbow Attachments & Optics System
 
 ### The Viewfinder
 The **Viewfinder (`ItemInit.VIEWFINDER`)** is a precision optic device crafted from an **Amethyst Shard** mounted over a **Gold Ingot** in the center column.
@@ -324,7 +334,7 @@ The **Viewfinder (`ItemInit.VIEWFINDER`)** is a precision optic device crafted f
 - **Magnification:** Provides an optimal **0.35x FOV multiplier** (~3x zoom) paired with an authentic purple-tinted circular scope vignette (`viewfinder_scope.png`).
 
 ### Crossbow Scope Attachment & Aiming
-All crossbow models—Vanilla Crossbow, Iron Crossbow, and Nether Crossbow—can be upgraded with a Viewfinder attachment:
+All crossbow models—Vanilla Crossbow, Iron Crossbow, Nether Crossbow, and Oxidized Nether Crossbow—can be upgraded with a Viewfinder attachment:
 - **Mounting / Detaching:** Equip or remove the Viewfinder attachment freely inside the [Fletching Table](#-fletching-table-overhaul) (unless bound by the Curse of Welding).
 - **Aiming Controls:**
   - When holding a **charged** crossbow equipped with a Viewfinder, press and hold the **Left Mouse Button (Attack Key)** or hold **Sneak (Shift)** to look through the scope!
@@ -334,6 +344,12 @@ All crossbow models—Vanilla Crossbow, Iron Crossbow, and Nether Crossbow—can
 ### Dynamic Camera Sensitivity Damping
 - Looking through a high-magnification optic at full mouse speed leads to overshooting and jittery crosshairs.
 - While aiming through a Viewfinder (handheld or crossbow-mounted), camera rotation sensitivity is smoothly scaled down by **0.35x** (`ViewfinderItem.FOV_MULTIPLIER`). This maintains 1:1 focal length angular scaling, making precision aiming feel natural and controlled.
+
+### Attachment Tooltip Displays
+Crossbows dynamically display their equipped attachments and modifications directly on their item tooltip:
+- **Viewfinder:** Displays a subtle gray `Attachment: Viewfinder` (`Ulepszenie: Luneta celownicza`).
+- **Pyrotechnic Tube:** Displays a gray `Attachment: Pyrotechnic Tube` (`Ulepszenie: Tuba pirotechniczna`).
+- **Waxed State:** Displays a distinctive gold `Waxed` (`Nawoskowana`) tag when treated with honeycomb.
 
 ---
 
@@ -348,7 +364,7 @@ The vanilla Fletching Table has been transformed into a fully functional craftin
 ### Weapon Upgrading & Attachment Station
 The upper portion of the Fletching Table interface is dedicated to bow and crossbow modifications:
 - **Center Slot:** Weapon slot (Bow or Crossbow).
-- **Left Slot:** Attachment slot (Viewfinder). Inserting or removing a Viewfinder mounts or unmounts the scope on the weapon.
+- **Left Slot:** Attachment slot. Supports both the **Viewfinder** and the **Pyrotechnic Tube**. Inserting or removing an attachment mounts or unmounts the upgrade on the weapon.
   - **Item Preservation:** All existing enchantments, durability percentage, and custom anvil names are fully preserved!
 - **Right Slot:** Schematic slot. Insert an **Iron Crossbow Scheme**, **Nether Crossbow Scheme**, **Heavy Bow Scheme**, or **Heavy Hardened Bow Scheme** alongside required alloy materials in the lower slots to forge upgraded weapons:
   - **Heavy Bow Upgrade:** Bow + Heavy Bow Scheme + 2x Leather + 2x Slimeball + 2x String.
@@ -417,13 +433,21 @@ Explore the world to discover weapon schemes, pre-assembled weapons, and cursed 
 | Result | Ingredients | Pattern / Layout |
 | :--- | :--- | :--- |
 | **Viewfinder** | 1x Amethyst Shard + 1x Gold Ingot | Shaped: Shard above Ingot in middle column |
+| **Pyrotechnic Tube** | 2x Iron Block + 1x Gunpowder + 1x Slimeball | Shaped: Iron Block, Gunpowder, Iron Block over Slimeball (or vice versa) |
 | **Heavy Arrow** (x4) | 1x Iron Nugget + 1x Stick + 1x Ostrich Feather | Shaped: Vertical column (Nugget, Stick, Feather) |
 | **Bolt** (x4) | 1x Iron Nugget + 1x Stick | Shaped: Iron Nugget above Stick in column |
 | **Iron Crossbow** | 4x Iron Ingot + 2x String + 1x Slimeball | Shaped: Iron, String, Slime |
 | **Nether Crossbow** | 1x Iron Crossbow + 4x Copper Ingot + 4x Gold Ingot | Shaped: Copper, Gold, Iron Crossbow |
 | **Crossbow w/ Viewfinder** | 1x Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
+| **Crossbow w/ Pyrotechnic Tube** | 1x Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
 | **Iron Crossbow w/ Viewfinder** | 1x Iron Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
+| **Iron Crossbow w/ Pyrotechnic Tube** | 1x Iron Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
 | **Nether Crossbow w/ Viewfinder** | 1x Nether Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
+| **Nether Crossbow w/ Pyrotechnic Tube** | 1x Nether Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
+| **Oxidized Nether Crossbow w/ Viewfinder** | 1x Oxidized Nether Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
+| **Oxidized Nether Crossbow w/ Pyrotechnic Tube** | 1x Oxidized Nether Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
+| **Waxed Nether Crossbow** | 1x Nether Crossbow + 1x Honeycomb | Shapeless (or right-click with Honeycomb) |
+| **Scraped Nether Crossbow** | 1x Oxidized Nether Crossbow + 1x Any Axe | Shapeless (or right-click with Axe) |
 | **Mud Block** | 4x Mud Ball | 2x2 square |
 | **Feather Block** | 9x Feather / Ostrich Feather | 3x3 square |
 | **Mudstone Bricks** (x4) | 4x Mudstone | 2x2 square |
@@ -454,7 +478,7 @@ All items and blocks from the mod have been cleanly removed from the default Min
   - **Representative Icon:** Iron Crossbow (`ItemInit.IRON_CROSSBOW`)
   - **Contents:**
     - **Bows:** Heavy Bow, Heavy Hardened Bow.
-    - **Crossbows & Optics:** Viewfinder, Iron Crossbow, Nether Crossbow, and Viewfinder-mounted variants.
+    - **Crossbows & Attachments:** Viewfinder, Pyrotechnic Tube, Iron Crossbow, Nether Crossbow, Oxidized Nether Crossbow, and attachment-mounted variants.
     - **Schematics:** Heavy Bow Scheme, Heavy Hardened Bow Scheme, Iron Crossbow Scheme, Nether Crossbow Scheme.
     - **Ammunition:** Heavy Arrows, Crossbow Bolts, and tipped projectile variants.
 

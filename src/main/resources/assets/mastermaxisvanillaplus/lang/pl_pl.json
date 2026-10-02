@@ -67,6 +67,10 @@
   "item.mastermaxisvanillaplus.nether_crossbow_oxidized": "Utleniona Netherkusza",
   "item.mastermaxisvanillaplus.nether_crossbow_oxidized_viewfinder": "Utleniona Netherkusza z Lunetą",
   "tooltip.mastermaxisvanillaplus.waxed": "Nawoskowana",
+  "item.mastermaxisvanillaplus.pyrotechnic_tube": "Tuba pirotechniczna",
+  "item.mastermaxisvanillaplus.pyrotechnic_tube.desc": "§7Ulepszenie kuszy: pozwala na wystrzeliwanie fajerwerków",
+  "tooltip.mastermaxisvanillaplus.attachment.pyrotechnic_tube": "Ulepszenie: Tuba pirotechniczna",
+  "tooltip.mastermaxisvanillaplus.attachment.viewfinder": "Ulepszenie: Luneta celownicza",
 
   "item.mastermaxisvanillaplus.iron_crossbow_scheme": "Schemat: Żelazna Kusza",
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Ulepszenie w Stole Łuczniczym: Żelazna kusza",
