@@ -13,6 +13,8 @@ import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.OstrichEntityRenderer;
 import net.mastermaxi.mastermaxisvanillaplus.entity.client.PigMuddedTopEntityModel;
 import net.mastermaxi.mastermaxisvanillaplus.fluid.FluidInit;
+import net.mastermaxi.mastermaxisvanillaplus.model.Ender_Backpack;
+import net.mastermaxi.mastermaxisvanillaplus.model.Iron_Netherite_Backpack;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
@@ -95,10 +97,10 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
 
         // Register backpack and quiver model layers
         EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.model.Leather_Backpack.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.model.Leather_Backpack::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.model.Iron_Netherite_Backpack.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.model.Iron_Netherite_Backpack::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(Iron_Netherite_Backpack.LAYER_LOCATION, Iron_Netherite_Backpack::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.model.Backpack_With_Quiver.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.model.Backpack_With_Quiver::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.model.Backpack_With_Quiver_Arrows.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.model.Backpack_With_Quiver_Arrows::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.model.Ender_Backpack.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.model.Ender_Backpack::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(Ender_Backpack.LAYER_LOCATION, Ender_Backpack::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.model.QuiverModel.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.model.QuiverModel::getTexturedModelData);
 
         // Register backpack entity renderer

@@ -20,11 +20,11 @@ public class Iron_Netherite_Backpack extends Model {
 
         partDefinition.addChild("backpack",
                 ModelPartBuilder.create()
-                        .uv(0, 0).cuboid(-3.0F, -12.0F, 2.0F, 6.0F, 12.0F, 2.0F, new Dilation(0.0F))
-                        .uv(0, 14).cuboid(-3.0F, -7.0F, 4.0F, 6.0F, 7.0F, 2.0F, new Dilation(0.0F))
-                        .uv(16, 0).cuboid(3.0F, -6.0F, 2.0F, 2.0F, 6.0F, 3.0F, new Dilation(0.0F))
-                        .uv(16, 9).cuboid(-5.0F, -6.0F, 2.0F, 2.0F, 6.0F, 3.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(0.0F, 12.0F, 0.0F)
+                        .uv(0, 8).cuboid(-3.0F, -12.0F, 2.0F, 6.0F, 12.0F, 3.0F, new Dilation(0.0F))
+                        .uv(0, 23).cuboid(-3.0F, -7.0F, 5.0F, 6.0F, 7.0F, 2.0F, new Dilation(0.0F))
+                        .uv(22, 14).cuboid(3.0F, -6.0F, 2.0F, 2.0F, 6.0F, 3.0F, new Dilation(0.0F))
+                        .uv(22, 23).cuboid(-5.0F, -6.0F, 2.0F, 2.0F, 6.0F, 3.0F, new Dilation(0.0F)),
+                ModelTransform.pivot(0.0F, 11.0F, 0.0F)
         );
 
         return TexturedModelData.of(modelData, 32, 32);
