@@ -186,5 +186,16 @@
   "item.mastermaxisvanillaplus.heavy_arrow.effect.wind_charged": "Ciężka strzała naładowana wiatrem",
   "item.mastermaxisvanillaplus.heavy_arrow.effect.weaving": "Ciężka strzała tkania",
   "item.mastermaxisvanillaplus.heavy_arrow.effect.oozing": "Ciężka strzała sączenia",
-  "item.mastermaxisvanillaplus.heavy_arrow.effect.infested": "Ciężka strzała zarobaczenia"
+  "item.mastermaxisvanillaplus.heavy_arrow.effect.infested": "Ciężka strzała zarobaczenia",
+
+  "item.mastermaxisvanillaplus.leather_backpack": "Skórzany plecak",
+  "item.mastermaxisvanillaplus.iron_backpack": "Żelazny plecak",
+  "item.mastermaxisvanillaplus.iron_backpack_with_quiver": "Żelazny plecak z kołczanem",
+  "item.mastermaxisvanillaplus.netherite_backpack": "Netherytowy plecak",
+  "item.mastermaxisvanillaplus.ender_backpack": "Plecak Endu",
+  "item.mastermaxisvanillaplus.quiver": "Kołczan",
+  "entity.mastermaxisvanillaplus.backpack": "Plecak",
+  "category.mastermaxisvanillaplus": "Vanilla+",
+  "key.mastermaxisvanillaplus.open_backpack": "Otwórz plecak",
+  "key.mastermaxisvanillaplus.place_backpack": "Postaw plecak"
 }

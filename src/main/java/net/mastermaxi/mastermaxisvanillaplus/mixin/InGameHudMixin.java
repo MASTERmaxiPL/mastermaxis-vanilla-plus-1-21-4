@@ -10,6 +10,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
@@ -53,6 +54,24 @@ public class InGameHudMixin {
             this.renderViewfinderScopeOverlay(context, this.viewfinderScale);
         } else {
             this.viewfinderScale = 0.5F;
+        }
+    }
+
+    @Inject(method = "renderHotbar(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V", at = @At("TAIL"))
+    private void renderQuiverArrowsOnHotbar(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if (this.client.player == null) return;
+
+        ItemStack quiver = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getEquippedQuiver(this.client.player);
+        if (!quiver.isEmpty()) {
+            int total = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getEquippedQuiverTotalArrows(this.client.player);
+            ItemStack firstArrow = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getEquippedQuiverFirstArrow(this.client.player);
+            ItemStack displayStack = firstArrow.isEmpty() ? new ItemStack(net.minecraft.item.Items.ARROW) : firstArrow.copyWithCount(1);
+
+            int x = (context.getScaledWindowWidth() / 2) + 91 + 6;
+            int y = context.getScaledWindowHeight() - 20;
+
+            context.drawItem(displayStack, x, y);
+            context.drawStackOverlay(this.client.textRenderer, displayStack, x, y, String.valueOf(total));
         }
     }
 

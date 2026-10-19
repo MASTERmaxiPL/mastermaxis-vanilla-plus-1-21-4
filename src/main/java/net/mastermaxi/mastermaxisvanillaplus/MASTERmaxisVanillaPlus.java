@@ -55,6 +55,8 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 			builder.add(Blocks.INFECTED_MOUND, fuelTicks);
 		});
 
+		LOGGER.info("trying to init data component types");
+		net.mastermaxi.mastermaxisvanillaplus.component.ModDataComponentTypes.initialize();
 		LOGGER.info("trying to init items");
 		ItemInit.initialize();
 		net.mastermaxi.mastermaxisvanillaplus.recipe.ModRecipeSerializers.initialize();
@@ -68,6 +70,34 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		WorldGenerationInit.initialize();
 		LOGGER.info("trying to init loot table modifiers");
 		net.mastermaxi.mastermaxisvanillaplus.loot.ModLootTableModifiers.initialize();
+		net.mastermaxi.mastermaxisvanillaplus.network.ModNetworking.initialize();
+
+		net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> {
+			if (entity instanceof net.minecraft.entity.player.PlayerEntity player) {
+				io.wispforest.accessories.api.AccessoriesCapability cap = io.wispforest.accessories.api.AccessoriesCapability.get(player);
+				if (cap != null) {
+					io.wispforest.accessories.api.AccessoriesContainer back = cap.getContainers().get("back");
+					if (back != null) {
+						net.minecraft.item.ItemStack stack = back.getAccessories().getStack(0);
+						if (stack.isOf(net.minecraft.item.Items.ELYTRA) && (stack.getMaxDamage() == 0 || stack.getDamage() < stack.getMaxDamage() - 1)) {
+							if (tickElytra) {
+								int nextRoll = entity.getGlidingTicks() + 1;
+								if (!entity.getWorld().isClient && nextRoll % 10 == 0) {
+									if ((nextRoll / 10) % 2 == 0) {
+										stack.damage(1, (net.minecraft.server.world.ServerWorld) entity.getWorld(), null, s -> {});
+										back.markChanged();
+									}
+									entity.emitGameEvent(net.minecraft.world.event.GameEvent.ELYTRA_GLIDE);
+								}
+							}
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		});
+
 		LOGGER.info("Hello Fabric world!");
 	}
 

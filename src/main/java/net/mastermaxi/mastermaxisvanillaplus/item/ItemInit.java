@@ -87,6 +87,14 @@ public class ItemInit {
     public static final Item HEAVY_BOW_SCHEME = register("heavy_bow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.heavy_bow_scheme.desc")));
     public static final Item HEAVY_HARDENED_BOW_SCHEME = register("heavy_hardened_bow_scheme", new Item.Settings().maxCount(1), settings -> new SchematicItem(settings, Text.translatable("item.mastermaxisvanillaplus.heavy_hardened_bow_scheme.desc")));
 
+    // Backpacks & Quiver
+    public static final Item LEATHER_BACKPACK = register("leather_backpack", new Item.Settings(), settings -> new BackpackItem(BackpackItem.BackpackTier.LEATHER, settings));
+    public static final Item IRON_BACKPACK = register("iron_backpack", new Item.Settings(), settings -> new BackpackItem(BackpackItem.BackpackTier.IRON, settings));
+    public static final Item IRON_BACKPACK_WITH_QUIVER = register("iron_backpack_with_quiver", new Item.Settings(), settings -> new BackpackItem(BackpackItem.BackpackTier.IRON_WITH_QUIVER, settings));
+    public static final Item NETHERITE_BACKPACK = register("netherite_backpack", new Item.Settings().fireproof(), settings -> new BackpackItem(BackpackItem.BackpackTier.NETHERITE, settings));
+    public static final Item ENDER_BACKPACK = register("ender_backpack", new Item.Settings(), settings -> new BackpackItem(BackpackItem.BackpackTier.ENDER, settings));
+    public static final Item QUIVER = register("quiver", new Item.Settings(), QuiverItem::new);
+
     private static Item register(String name, Item.Settings itemSettings, ItemCreator creator) {
         Identifier id = MASTERmaxisVanillaPlus.id(name);
         RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, id);
@@ -132,6 +140,14 @@ public class ItemInit {
             entries.add(HEAVY_HARDENED_BOW_SCHEME);
             entries.add(IRON_CROSSBOW_SCHEME);
             entries.add(NETHER_CROSSBOW_SCHEME);
+            // Backpacks & Quiver
+            entries.add(LEATHER_BACKPACK);
+            entries.add(IRON_BACKPACK);
+            entries.add(IRON_BACKPACK_WITH_QUIVER);
+            entries.add(NETHERITE_BACKPACK);
+            entries.add(ENDER_BACKPACK);
+            entries.add(QUIVER);
+
             // Projectiles & Ammunition
             entries.add(HEAVY_ARROW);
             entries.add(BOLT);

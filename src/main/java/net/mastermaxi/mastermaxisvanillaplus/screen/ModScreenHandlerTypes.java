@@ -13,6 +13,21 @@ public class ModScreenHandlerTypes {
             new ScreenHandlerType<>(FletchingTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES)
     );
 
+    public static final ScreenHandlerType<BackpackScreenHandler> BACKPACK = Registry.register(
+            Registries.SCREEN_HANDLER,
+            MASTERmaxisVanillaPlus.id("backpack"),
+            new net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType<>(
+                    BackpackScreenHandler::new,
+                    net.mastermaxi.mastermaxisvanillaplus.network.BackpackPayload.PACKET_CODEC
+            )
+    );
+
+    public static final ScreenHandlerType<QuiverScreenHandler> QUIVER = Registry.register(
+            Registries.SCREEN_HANDLER,
+            MASTERmaxisVanillaPlus.id("quiver"),
+            new ScreenHandlerType<>(QuiverScreenHandler::new, FeatureFlags.VANILLA_FEATURES)
+    );
+
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering ScreenHandlerTypes for " + MASTERmaxisVanillaPlus.MOD_ID);
     }

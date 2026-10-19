@@ -186,5 +186,16 @@
   "item.mastermaxisvanillaplus.heavy_arrow.effect.wind_charged": "Wind Charged Heavy Arrow",
   "item.mastermaxisvanillaplus.heavy_arrow.effect.weaving": "Weaving Heavy Arrow",
   "item.mastermaxisvanillaplus.heavy_arrow.effect.oozing": "Oozing Heavy Arrow",
-  "item.mastermaxisvanillaplus.heavy_arrow.effect.infested": "Infested Heavy Arrow"
+  "item.mastermaxisvanillaplus.heavy_arrow.effect.infested": "Infested Heavy Arrow",
+
+  "item.mastermaxisvanillaplus.leather_backpack": "Leather Backpack",
+  "item.mastermaxisvanillaplus.iron_backpack": "Iron Backpack",
+  "item.mastermaxisvanillaplus.iron_backpack_with_quiver": "Iron Backpack with Quiver",
+  "item.mastermaxisvanillaplus.netherite_backpack": "Netherite Backpack",
+  "item.mastermaxisvanillaplus.ender_backpack": "Ender Backpack",
+  "item.mastermaxisvanillaplus.quiver": "Quiver",
+  "entity.mastermaxisvanillaplus.backpack": "Backpack",
+  "category.mastermaxisvanillaplus": "Vanilla+",
+  "key.mastermaxisvanillaplus.open_backpack": "Open Backpack",
+  "key.mastermaxisvanillaplus.place_backpack": "Place Backpack"
 }

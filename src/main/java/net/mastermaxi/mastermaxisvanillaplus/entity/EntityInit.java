@@ -1,6 +1,7 @@
 package net.mastermaxi.mastermaxisvanillaplus.entity;
 
 import net.mastermaxi.mastermaxisvanillaplus.MASTERmaxisVanillaPlus;
+import net.mastermaxi.mastermaxisvanillaplus.entity.custom.BackpackEntity;
 import net.mastermaxi.mastermaxisvanillaplus.entity.custom.OstrichEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -61,6 +62,16 @@ public class EntityInit {
                     .maxTrackingRange(4)
                     .trackingTickInterval(20)
                     .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("bolt")))
+    );
+
+    public static final EntityType<BackpackEntity> BACKPACK = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("backpack"),
+            EntityType.Builder.create(BackpackEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.6F, 0.6F)
+                    .maxTrackingRange(8)
+                    .trackingTickInterval(5)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("backpack")))
     );
 
     public static void initialize() {
