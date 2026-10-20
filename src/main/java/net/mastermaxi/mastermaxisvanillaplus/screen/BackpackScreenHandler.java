@@ -30,7 +30,7 @@ public class BackpackScreenHandler extends ScreenHandler {
     private final ItemStack backpackStack;
     private final Inventory storageInventory;
     private final Inventory upgradeInventory;
-    private final Inventory quiverInventory;
+    private final SimpleInventory quiverInventory;
 
     public static final TagKey<net.minecraft.item.Item> BACKPACK_UPGRADES_TAG = TagKey.of(RegistryKeys.ITEM, Identifier.of("mastermaxisvanillaplus", "backpack_upgrades"));
 
@@ -97,6 +97,26 @@ public class BackpackScreenHandler extends ScreenHandler {
                     this.quiverInventory.setStack(i, arrows.get(i));
                 }
             }
+            this.quiverInventory.addListener(inv -> {
+                if (this.backpackStack.getItem() instanceof BackpackItem item) {
+                    DefaultedList<ItemStack> arrows = DefaultedList.ofSize(3, ItemStack.EMPTY);
+                    for (int i = 0; i < 3; i++) {
+                        arrows.set(i, this.quiverInventory.getStack(i));
+                    }
+                    item.setStoredQuiverArrows(this.backpackStack, arrows);
+                    if (this.entityId < 0) {
+                        AccessoriesCapability cap = AccessoriesCapability.get(playerInventory.player);
+                        if (cap != null) {
+                            AccessoriesContainer back = cap.getContainers().get("back");
+                            if (back != null) {
+                                ItemStack current = back.getAccessories().getStack(0);
+                                item.setStoredQuiverArrows(current, arrows);
+                                back.markChanged();
+                            }
+                        }
+                    }
+                }
+            });
         } else {
             this.quiverInventory = null;
         }
@@ -112,7 +132,8 @@ public class BackpackScreenHandler extends ScreenHandler {
                     public boolean canInsert(ItemStack stack) {
                         return !(stack.getItem() instanceof BackpackItem)
                                 && !(stack.getItem() instanceof BlockItem bi && bi.getBlock() instanceof ShulkerBoxBlock)
-                                && !(stack.getItem() instanceof BundleItem);
+                                && !(stack.getItem() instanceof BundleItem)
+                                && !(tier.hasQuiver && (stack.isIn(ItemTags.ARROWS) || stack.getItem() instanceof net.mastermaxi.mastermaxisvanillaplus.item.BoltItem));
                     }
                 });
             }
@@ -207,15 +228,14 @@ public class BackpackScreenHandler extends ScreenHandler {
                 }
             } else {
                 // Moving from Player inventory to Backpack
-                boolean inserted = false;
+                boolean inserted;
                 if (this.tier.hasQuiver && (originalStack.isIn(ItemTags.ARROWS) || originalStack.getItem() instanceof net.mastermaxi.mastermaxisvanillaplus.item.BoltItem)) {
                     inserted = this.insertItem(originalStack, totalStorageSlots, totalStorageSlots + totalQuiverSlots, false);
-                }
-                if (!inserted) {
+                } else {
                     inserted = this.insertItem(originalStack, 0, totalStorageSlots, false);
-                }
-                if (!inserted && isAllowedUpgrade(originalStack)) {
-                    inserted = this.insertItem(originalStack, totalStorageSlots + totalQuiverSlots, totalBackpackSlots, false);
+                    if (!inserted && isAllowedUpgrade(originalStack)) {
+                        inserted = this.insertItem(originalStack, totalStorageSlots + totalQuiverSlots, totalBackpackSlots, false);
+                    }
                 }
 
                 if (!inserted) {

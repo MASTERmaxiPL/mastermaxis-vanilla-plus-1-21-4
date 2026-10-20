@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.packet.c2s.play.CloseHandledScreenC2SPacket;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -28,6 +29,20 @@ public abstract class InventoryScreenMixin extends HandledScreen<PlayerScreenHan
 
     public InventoryScreenMixin(PlayerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
+    }
+
+    @Inject(method = "init", at = @At("HEAD"))
+    private void ensurePreviousScreenClosed(CallbackInfo ci) {
+        if (this.client != null && this.client.player != null) {
+            if (this.client.player.currentScreenHandler != this.client.player.playerScreenHandler) {
+                int syncId = this.client.player.currentScreenHandler.syncId;
+                if (this.client.getNetworkHandler() != null) {
+                    this.client.getNetworkHandler().sendPacket(new CloseHandledScreenC2SPacket(syncId));
+                }
+                this.client.player.currentScreenHandler.onClosed(this.client.player);
+                this.client.player.currentScreenHandler = this.client.player.playerScreenHandler;
+            }
+        }
     }
 
     @Inject(method = "drawBackground", at = @At("TAIL"))

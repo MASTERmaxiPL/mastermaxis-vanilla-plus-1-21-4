@@ -60,8 +60,11 @@ public class ModNetworking {
                 AccessoriesCapability cap = AccessoriesCapability.get(player);
                 if (cap != null) {
                     AccessoriesContainer back = cap.getContainers().get("back");
-                    if (back != null && back.getAccessories().getStack(0).getItem() instanceof BackpackItem) {
-                        return ActionResult.SUCCESS;
+                    if (back != null) {
+                        ItemStack stack = back.getAccessories().getStack(0);
+                        if (stack.getItem() instanceof BackpackItem || stack.getItem() instanceof QuiverItem) {
+                            return ActionResult.SUCCESS;
+                        }
                     }
                 }
                 return ActionResult.PASS;
@@ -125,7 +128,7 @@ public class ModNetworking {
         if (back == null) return false;
 
         ItemStack stack = back.getAccessories().getStack(0);
-        if (!(stack.getItem() instanceof BackpackItem)) return false;
+        if (!(stack.getItem() instanceof BackpackItem || stack.getItem() instanceof QuiverItem)) return false;
 
         BlockPos placePos = hitResult.getBlockPos().offset(hitResult.getSide());
         World world = player.getWorld();

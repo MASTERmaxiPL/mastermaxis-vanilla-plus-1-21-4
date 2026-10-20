@@ -112,6 +112,7 @@ public class BackpackEntityRenderer extends EntityRenderer<BackpackEntity, Backp
         } else if (stack.getItem() instanceof QuiverItem) {
             Identifier texture = state.hasArrows ? QUIVER_ARROWS_TEXTURE : QUIVER_EMPTY_TEXTURE;
             this.quiverModel.setArrowsVisible(state.hasArrows);
+            this.quiverModel.setVertical(true);
             VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(texture));
             this.quiverModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
         }

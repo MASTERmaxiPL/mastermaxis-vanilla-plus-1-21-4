@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class BackSlot extends Slot {
@@ -44,17 +45,20 @@ public class BackSlot extends Slot {
         if (back != null) {
             ItemStack oldStack = back.getAccessories().getStack(0);
 
-            // Swap dropping logic: if old item was backpack/quiver and new item is backpack/quiver
-            if (!player.getWorld().isClient && !oldStack.isEmpty() && !stack.isEmpty() && oldStack != stack) {
-                if (oldStack.getItem() instanceof BackpackItem oldBackpack && (stack.getItem() instanceof BackpackItem || stack.getItem() instanceof QuiverItem)) {
+            if (!player.getWorld().isClient && !oldStack.isEmpty() && oldStack != stack) {
+                if (oldStack.getItem() instanceof BackpackItem oldBackpack) {
                     oldBackpack.dropStoredItems(player.getWorld(), player, oldStack);
-                } else if (oldStack.getItem() instanceof QuiverItem oldQuiver && (stack.getItem() instanceof BackpackItem || stack.getItem() instanceof QuiverItem)) {
+                } else if (oldStack.getItem() instanceof QuiverItem oldQuiver) {
                     oldQuiver.dropStoredArrows(player.getWorld(), player, oldStack);
                 }
             }
 
             back.getAccessories().setStack(0, stack);
             back.markChanged();
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.playerScreenHandler.syncState();
+                serverPlayer.currentScreenHandler.syncState();
+            }
         }
     }
 
@@ -77,9 +81,21 @@ public class BackSlot extends Slot {
     public ItemStack takeStack(int amount) {
         AccessoriesContainer back = getBackContainer();
         if (back != null) {
+            ItemStack oldStack = back.getAccessories().getStack(0);
+            if (!player.getWorld().isClient && !oldStack.isEmpty()) {
+                if (oldStack.getItem() instanceof BackpackItem oldBackpack) {
+                    oldBackpack.dropStoredItems(player.getWorld(), player, oldStack);
+                } else if (oldStack.getItem() instanceof QuiverItem oldQuiver) {
+                    oldQuiver.dropStoredArrows(player.getWorld(), player, oldStack);
+                }
+            }
             ItemStack taken = back.getAccessories().removeStack(0, amount);
             if (!taken.isEmpty()) {
                 markDirty();
+            }
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.playerScreenHandler.syncState();
+                serverPlayer.currentScreenHandler.syncState();
             }
             return taken;
         }

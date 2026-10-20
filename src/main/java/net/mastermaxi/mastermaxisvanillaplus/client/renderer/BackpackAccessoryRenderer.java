@@ -96,6 +96,7 @@ public class BackpackAccessoryRenderer implements AccessoryRenderer {
             boolean hasArrows = QuiverItem.getTotalArrows(stack) > 0;
             Identifier texture = hasArrows ? BackpackEntityRenderer.QUIVER_ARROWS_TEXTURE : BackpackEntityRenderer.QUIVER_EMPTY_TEXTURE;
             this.quiverModel.setArrowsVisible(hasArrows);
+            this.quiverModel.setVertical(false);
             VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(texture));
             this.quiverModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
         }

@@ -6,7 +6,9 @@ import net.mastermaxi.mastermaxisvanillaplus.item.BackpackItem;
 import net.mastermaxi.mastermaxisvanillaplus.item.QuiverItem;
 import net.mastermaxi.mastermaxisvanillaplus.network.BackpackPayload;
 import net.mastermaxi.mastermaxisvanillaplus.screen.BackpackScreenHandler;
+import net.mastermaxi.mastermaxisvanillaplus.screen.QuiverScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MovementType;
@@ -78,7 +80,9 @@ public class BackpackEntity extends Entity {
         }
 
         ItemStack entityStack = this.getBackpackStack();
-        if (!(entityStack.getItem() instanceof BackpackItem backpackItem)) {
+        boolean isBackpack = entityStack.getItem() instanceof BackpackItem;
+        boolean isQuiver = entityStack.getItem() instanceof QuiverItem;
+        if (!isBackpack && !isQuiver) {
             return ActionResult.PASS;
         }
 
@@ -90,8 +94,8 @@ public class BackpackEntity extends Entity {
             if (back != null) {
                 ItemStack currentWorn = back.getAccessories().getStack(0);
 
-                if (currentWorn.getItem() instanceof BackpackItem) {
-                    // Swap worn backpack with the entity's backpack on this block
+                if (currentWorn.getItem() instanceof BackpackItem || currentWorn.getItem() instanceof QuiverItem) {
+                    // Swap worn backpack/quiver with the entity's stack on this block
                     ItemStack wornCopy = currentWorn.copy();
                     back.getAccessories().setStack(0, entityStack.copy());
                     back.markChanged();
@@ -99,7 +103,7 @@ public class BackpackEntity extends Entity {
                     this.getWorld().playSound(null, getX(), getY(), getZ(),
                             SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                     return ActionResult.SUCCESS;
-                } else if (currentWorn.getItem() instanceof QuiverItem || currentWorn.isOf(Items.ELYTRA)) {
+                } else if (currentWorn.isOf(Items.ELYTRA)) {
                     // Try to find free slot in player inventory, else drop into world
                     ItemStack wornCopy = currentWorn.copy();
                     if (!player.getInventory().insertStack(wornCopy)) {
@@ -127,24 +131,38 @@ public class BackpackEntity extends Entity {
                 }
             }
         } else {
-            // Normal Right Click: Open the backpack inventory
+            // Normal Right Click: Open the inventory
             if (player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.openHandledScreen(new ExtendedScreenHandlerFactory<BackpackPayload>() {
-                    @Override
-                    public BackpackPayload getScreenOpeningData(ServerPlayerEntity player) {
-                        return new BackpackPayload(backpackItem.getTier().ordinal(), getId());
-                    }
+                if (isBackpack && entityStack.getItem() instanceof BackpackItem backpackItem) {
+                    serverPlayer.openHandledScreen(new ExtendedScreenHandlerFactory<BackpackPayload>() {
+                        @Override
+                        public BackpackPayload getScreenOpeningData(ServerPlayerEntity player) {
+                            return new BackpackPayload(backpackItem.getTier().ordinal(), getId());
+                        }
 
-                    @Override
-                    public Text getDisplayName() {
-                        return entityStack.getName();
-                    }
+                        @Override
+                        public Text getDisplayName() {
+                            return entityStack.getName();
+                        }
 
-                    @Override
-                    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-                        return new BackpackScreenHandler(syncId, playerInventory, entityStack, backpackItem.getTier(), getId());
-                    }
-                });
+                        @Override
+                        public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                            return new BackpackScreenHandler(syncId, playerInventory, entityStack, backpackItem.getTier(), getId());
+                        }
+                    });
+                } else if (isQuiver) {
+                    serverPlayer.openHandledScreen(new NamedScreenHandlerFactory() {
+                        @Override
+                        public Text getDisplayName() {
+                            return entityStack.getName();
+                        }
+
+                        @Override
+                        public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                            return new QuiverScreenHandler(syncId, playerInventory, entityStack, getId());
+                        }
+                    });
+                }
             }
             return ActionResult.SUCCESS;
         }
@@ -165,6 +183,12 @@ public class BackpackEntity extends Entity {
             if (backpackItem.getTier() != BackpackItem.BackpackTier.ENDER) {
                 backpackItem.dropStoredItems(world, (source.getAttacker() instanceof PlayerEntity p) ? p : null, getX(), getY(), getZ(), stack);
             }
+        } else if (stack.getItem() instanceof QuiverItem quiverItem) {
+            // Drop quiver item
+            this.dropStack(world, stack.copy());
+
+            // Drop stored arrows
+            quiverItem.dropStoredArrows(world, (source.getAttacker() instanceof PlayerEntity p) ? p : null, getX(), getY(), getZ(), stack);
         }
 
         this.getWorld().playSound(null, getX(), getY(), getZ(),

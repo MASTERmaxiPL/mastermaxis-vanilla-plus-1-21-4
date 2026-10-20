@@ -5,6 +5,8 @@
 	"refmap": "mastermaxis-vanilla-plus-refmap.json",
 	"mixins": [
 		"AbstractBlockStateMixin",
+		"ArmorSlotMixin",
+		"EquippableComponentMixin",
 		"AttachedStemBlockMixin",
 		"BowItemMixin",
 		"CactusBlockMixin",

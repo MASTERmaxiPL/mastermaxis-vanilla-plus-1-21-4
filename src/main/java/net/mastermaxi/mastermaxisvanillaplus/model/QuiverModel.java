@@ -32,6 +32,22 @@ public class QuiverModel extends Model {
         this.arrows.visible = visible;
     }
 
+    public void setVertical(boolean vertical) {
+        if (vertical) {
+            this.quiver.roll = 0.0F;
+            this.quiver.pitch = 0.0F;
+            this.quiver.yaw = 0.0F;
+            this.quiver.pivotY = 7.0F;
+            this.quiver.pivotZ = -3.5F;
+        } else {
+            this.quiver.roll = -0.5235988F;
+            this.quiver.pitch = 0.0F;
+            this.quiver.yaw = 0.0F;
+            this.quiver.pivotY = 5.0F;
+            this.quiver.pivotZ = 0.0F;
+        }
+    }
+
     public ModelPart getQuiver() {
         return this.quiver;
     }

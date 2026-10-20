@@ -5,7 +5,6 @@ import io.wispforest.accessories.api.AccessoriesContainer;
 import net.mastermaxi.mastermaxisvanillaplus.item.QuiverItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.ItemTags;
@@ -16,14 +15,20 @@ import net.minecraft.util.collection.DefaultedList;
 public class QuiverScreenHandler extends ScreenHandler {
 
     private final ItemStack quiverStack;
-    private final Inventory quiverInventory;
+    private final SimpleInventory quiverInventory;
+    private final int entityId;
 
     public QuiverScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ItemStack.EMPTY);
+        this(syncId, playerInventory, ItemStack.EMPTY, -1);
     }
 
     public QuiverScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack stack) {
+        this(syncId, playerInventory, stack, -1);
+    }
+
+    public QuiverScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack stack, int entityId) {
         super(ModScreenHandlerTypes.QUIVER, syncId);
+        this.entityId = entityId;
 
         ItemStack target = stack;
         if (target.isEmpty()) {
@@ -44,6 +49,29 @@ public class QuiverScreenHandler extends ScreenHandler {
                 this.quiverInventory.setStack(i, arrows.get(i));
             }
         }
+
+        this.quiverInventory.addListener(inv -> {
+            if (!this.quiverStack.isEmpty()) {
+                DefaultedList<ItemStack> arrows = DefaultedList.ofSize(QuiverItem.SLOTS, ItemStack.EMPTY);
+                for (int i = 0; i < QuiverItem.SLOTS; i++) {
+                    arrows.set(i, this.quiverInventory.getStack(i));
+                }
+                QuiverItem.setStoredArrows(this.quiverStack, arrows);
+
+                AccessoriesCapability cap = AccessoriesCapability.get(playerInventory.player);
+                if (cap != null) {
+                    AccessoriesContainer back = cap.getContainers().get("back");
+                    if (back != null) back.markChanged();
+                }
+
+                if (this.entityId >= 0) {
+                    net.minecraft.entity.Entity e = playerInventory.player.getWorld().getEntityById(this.entityId);
+                    if (e instanceof net.mastermaxi.mastermaxisvanillaplus.entity.custom.BackpackEntity bEntity) {
+                        bEntity.setBackpackStack(this.quiverStack);
+                    }
+                }
+            }
+        });
 
         // Add 4 arrow slots (shifted 1px left to x={49, 69, 89, 109}, 1px down to y=4)
         int[] slotX = {49, 69, 89, 109};
@@ -75,6 +103,10 @@ public class QuiverScreenHandler extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
+        if (this.entityId >= 0) {
+            net.minecraft.entity.Entity e = player.getWorld().getEntityById(this.entityId);
+            return e instanceof net.mastermaxi.mastermaxisvanillaplus.entity.custom.BackpackEntity && e.isAlive() && e.squaredDistanceTo(player) <= 64.0;
+        }
         return true;
     }
 
@@ -136,6 +168,13 @@ public class QuiverScreenHandler extends ScreenHandler {
             if (cap != null) {
                 AccessoriesContainer back = cap.getContainers().get("back");
                 if (back != null) back.markChanged();
+            }
+
+            if (this.entityId >= 0) {
+                net.minecraft.entity.Entity e = player.getWorld().getEntityById(this.entityId);
+                if (e instanceof net.mastermaxi.mastermaxisvanillaplus.entity.custom.BackpackEntity bEntity) {
+                    bEntity.setBackpackStack(this.quiverStack);
+                }
             }
         }
     }

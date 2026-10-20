@@ -4,19 +4,16 @@ import io.wispforest.accessories.api.AccessoriesCapability;
 import io.wispforest.accessories.api.AccessoriesContainer;
 import io.wispforest.accessories.api.Accessory;
 import io.wispforest.accessories.api.AccessoryRegistry;
-import net.mastermaxi.mastermaxisvanillaplus.screen.QuiverScreenHandler;
+import net.mastermaxi.mastermaxisvanillaplus.component.ModDataComponentTypes;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
@@ -39,77 +36,50 @@ public class QuiverItem extends Item implements Accessory {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack held = player.getStackInHand(hand);
 
-        if (player.isSneaking()) {
-            AccessoriesCapability capability = AccessoriesCapability.get(player);
-            if (capability == null) return ActionResult.PASS;
+        AccessoriesCapability capability = AccessoriesCapability.get(player);
+        if (capability == null) return ActionResult.PASS;
 
-            AccessoriesContainer back = capability.getContainers().get("back");
-            if (back == null) return ActionResult.PASS;
+        AccessoriesContainer back = capability.getContainers().get("back");
+        if (back == null) return ActionResult.PASS;
 
-            ItemStack current = back.getAccessories().getStack(0);
+        ItemStack current = back.getAccessories().getStack(0);
 
-            if (current.isEmpty()) {
-                if (!world.isClient) {
-                    back.getAccessories().setStack(0, held.copy());
-                    back.markChanged();
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
-                }
-                player.setStackInHand(hand, ItemStack.EMPTY);
-                return ActionResult.SUCCESS;
-            } else if (current.getItem() instanceof BackpackItem oldBackpack) {
-                if (!world.isClient) {
-                    oldBackpack.dropStoredItems(world, player, current);
-                    ItemStack old = current.copy();
-                    back.getAccessories().setStack(0, held.copy());
-                    player.setStackInHand(hand, old);
-                    back.markChanged();
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
-                } else {
-                    player.setStackInHand(hand, current.copy());
-                }
-                return ActionResult.SUCCESS;
-            } else if (current.getItem() instanceof QuiverItem oldQuiver) {
-                if (!world.isClient) {
-                    oldQuiver.dropStoredArrows(world, player, current);
-                    ItemStack old = current.copy();
-                    back.getAccessories().setStack(0, held.copy());
-                    player.setStackInHand(hand, old);
-                    back.markChanged();
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
-                } else {
-                    player.setStackInHand(hand, current.copy());
-                }
-                return ActionResult.SUCCESS;
-            } else if (current.isOf(Items.ELYTRA)) {
-                if (!world.isClient) {
-                    ItemStack old = current.copy();
-                    back.getAccessories().setStack(0, held.copy());
-                    player.setStackInHand(hand, old);
-                    back.markChanged();
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
-                } else {
-                    player.setStackInHand(hand, current.copy());
-                }
-                return ActionResult.SUCCESS;
-            }
-        } else {
-            // Open Quiver GUI
+        if (current.isEmpty()) {
             if (!world.isClient) {
-                player.openHandledScreen(new NamedScreenHandlerFactory() {
-                    @Override
-                    public Text getDisplayName() {
-                        return Text.translatable("item.mastermaxisvanillaplus.quiver");
-                    }
-
-                    @Override
-                    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-                        return new QuiverScreenHandler(syncId, playerInventory, held);
-                    }
-                });
+                back.getAccessories().setStack(0, held.copy());
+                back.markChanged();
+                world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.playerScreenHandler.syncState();
+                    serverPlayer.currentScreenHandler.syncState();
+                }
+            }
+            player.setStackInHand(hand, ItemStack.EMPTY);
+            return ActionResult.SUCCESS;
+        } else if (current.getItem() instanceof BackpackItem || current.getItem() instanceof QuiverItem || current.isOf(Items.ELYTRA)) {
+            if (!world.isClient) {
+                if (current.getItem() instanceof BackpackItem oldBackpack) {
+                    oldBackpack.dropStoredItems(world, player, current);
+                } else if (current.getItem() instanceof QuiverItem oldQuiver) {
+                    oldQuiver.dropStoredArrows(world, player, current);
+                }
+                ItemStack old = current.copy();
+                back.getAccessories().setStack(0, held.copy());
+                player.setStackInHand(hand, old);
+                back.markChanged();
+                world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        current.isOf(Items.ELYTRA) ? SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA.value() : SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
+                        SoundCategory.PLAYERS, 1.0F, 1.0F);
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.playerScreenHandler.syncState();
+                    serverPlayer.currentScreenHandler.syncState();
+                }
+            } else {
+                current.remove(DataComponentTypes.CONTAINER);
+                current.remove(ModDataComponentTypes.QUIVER);
+                current.remove(ModDataComponentTypes.UPGRADES);
+                player.setStackInHand(hand, current.copy());
             }
             return ActionResult.SUCCESS;
         }
@@ -125,7 +95,18 @@ public class QuiverItem extends Item implements Accessory {
     }
 
     public static void setStoredArrows(ItemStack stack, DefaultedList<ItemStack> arrows) {
-        stack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(arrows));
+        boolean hasArrows = false;
+        for (ItemStack arrow : arrows) {
+            if (!arrow.isEmpty()) {
+                hasArrows = true;
+                break;
+            }
+        }
+        if (hasArrows) {
+            stack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(arrows));
+        } else {
+            stack.remove(DataComponentTypes.CONTAINER);
+        }
     }
 
     @Override
@@ -138,17 +119,20 @@ public class QuiverItem extends Item implements Accessory {
     }
 
     public void dropStoredArrows(World world, PlayerEntity player, double x, double y, double z, ItemStack quiverStack) {
+        if (world.isClient) return;
         DefaultedList<ItemStack> list = getStoredArrows(quiverStack);
         for (ItemStack stack : list) {
             if (!stack.isEmpty()) {
+                ItemStack drop = stack.copy();
+                stack.setCount(0);
                 if (player != null) {
-                    player.dropItem(stack, true, false);
-                } else if (!world.isClient) {
-                    net.minecraft.util.ItemScatterer.spawn(world, x, y, z, stack);
+                    player.dropItem(drop, true, false);
+                } else {
+                    net.minecraft.util.ItemScatterer.spawn(world, x, y, z, drop);
                 }
             }
         }
-        quiverStack.set(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT);
+        quiverStack.remove(DataComponentTypes.CONTAINER);
     }
 
     public static ItemStack peekFirstArrow(ItemStack quiverStack) {

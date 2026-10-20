@@ -33,6 +33,13 @@ public abstract class PlayerScreenHandlerMixin extends ScreenHandler {
             Slot slot = this.slots.get(slotIndex);
             if (slot.hasStack()) {
                 ItemStack original = slot.getStack();
+                if (!player.getWorld().isClient) {
+                    if (original.getItem() instanceof net.mastermaxi.mastermaxisvanillaplus.item.BackpackItem oldBackpack) {
+                        oldBackpack.dropStoredItems(player.getWorld(), player, original);
+                    } else if (original.getItem() instanceof net.mastermaxi.mastermaxisvanillaplus.item.QuiverItem oldQuiver) {
+                        oldQuiver.dropStoredArrows(player.getWorld(), player, original);
+                    }
+                }
                 ItemStack copy = original.copy();
                 if (!this.insertItem(original, 9, 45, false)) {
                     cir.setReturnValue(ItemStack.EMPTY);
@@ -42,6 +49,10 @@ public abstract class PlayerScreenHandlerMixin extends ScreenHandler {
                     slot.setStack(ItemStack.EMPTY);
                 } else {
                     slot.markDirty();
+                }
+                if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
+                    serverPlayer.playerScreenHandler.syncState();
+                    serverPlayer.currentScreenHandler.syncState();
                 }
                 cir.setReturnValue(copy);
             }
@@ -56,6 +67,10 @@ public abstract class PlayerScreenHandlerMixin extends ScreenHandler {
                             slot.setStack(ItemStack.EMPTY);
                         } else {
                             slot.markDirty();
+                        }
+                        if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
+                            serverPlayer.playerScreenHandler.syncState();
+                            serverPlayer.currentScreenHandler.syncState();
                         }
                         cir.setReturnValue(copy);
                     }
