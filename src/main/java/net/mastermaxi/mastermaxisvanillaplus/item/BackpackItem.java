@@ -22,7 +22,7 @@ public class BackpackItem extends Item implements Accessory {
 
     public enum BackpackTier {
         LEATHER(9, 1, false),
-        IRON(18, 1, false),
+        IRON(18, 2, false),
         IRON_WITH_QUIVER(18, 2, true),
         NETHERITE(27, 3, false),
         ENDER(27, 3, false);

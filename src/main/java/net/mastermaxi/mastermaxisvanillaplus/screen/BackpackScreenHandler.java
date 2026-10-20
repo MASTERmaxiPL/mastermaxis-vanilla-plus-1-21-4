@@ -131,18 +131,18 @@ public class BackpackScreenHandler extends ScreenHandler {
             }
         }
 
-        // Add Upgrade Slots (right column, shifted by 2px)
+        // Add Upgrade Slots (right column, shifted 1px left to 187, 1px up)
         int upgradeY;
         if (this.tier.hasQuiver) {
-            upgradeY = 37;
+            upgradeY = 36;
         } else if (this.tier == BackpackItem.BackpackTier.ENDER) {
-            upgradeY = 22;
+            upgradeY = 21;
         } else {
-            upgradeY = 19;
+            upgradeY = 18;
         }
 
         for (int i = 0; i < this.tier.upgradeSlots; i++) {
-            this.addSlot(new Slot(this.upgradeInventory, i, 188, upgradeY + i * 18) {
+            this.addSlot(new Slot(this.upgradeInventory, i, 187, upgradeY + i * 18) {
                 @Override
                 public boolean canInsert(ItemStack stack) {
                     return isAllowedUpgrade(stack);
