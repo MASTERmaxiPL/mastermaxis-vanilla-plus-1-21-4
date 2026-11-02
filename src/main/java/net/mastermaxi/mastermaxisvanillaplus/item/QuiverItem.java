@@ -45,9 +45,10 @@ public class QuiverItem extends Item implements Accessory {
         ItemStack current = back.getAccessories().getStack(0);
 
         if (current.isEmpty()) {
+            player.setStackInHand(hand, ItemStack.EMPTY);
+            back.getAccessories().setStack(0, held.copy());
+            back.markChanged();
             if (!world.isClient) {
-                back.getAccessories().setStack(0, held.copy());
-                back.markChanged();
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                 if (player instanceof ServerPlayerEntity serverPlayer) {
@@ -55,19 +56,18 @@ public class QuiverItem extends Item implements Accessory {
                     serverPlayer.currentScreenHandler.syncState();
                 }
             }
-            player.setStackInHand(hand, ItemStack.EMPTY);
-            return ActionResult.SUCCESS;
+            return ActionResult.SUCCESS.withNewHandStack(ItemStack.EMPTY);
         } else if (current.getItem() instanceof BackpackItem || current.getItem() instanceof QuiverItem || current.isOf(Items.ELYTRA)) {
+            ItemStack old = current.copy();
+            back.getAccessories().setStack(0, held.copy());
+            back.markChanged();
             if (!world.isClient) {
-                if (current.getItem() instanceof BackpackItem oldBackpack) {
-                    oldBackpack.dropStoredItems(world, player, current);
-                } else if (current.getItem() instanceof QuiverItem oldQuiver) {
-                    oldQuiver.dropStoredArrows(world, player, current);
+                if (old.getItem() instanceof BackpackItem oldBackpack) {
+                    oldBackpack.dropStoredItems(world, player, old);
+                } else if (old.getItem() instanceof QuiverItem oldQuiver) {
+                    oldQuiver.dropStoredArrows(world, player, old);
                 }
-                ItemStack old = current.copy();
-                back.getAccessories().setStack(0, held.copy());
                 player.setStackInHand(hand, old);
-                back.markChanged();
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
                         current.isOf(Items.ELYTRA) ? SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA.value() : SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
                         SoundCategory.PLAYERS, 1.0F, 1.0F);
@@ -75,13 +75,14 @@ public class QuiverItem extends Item implements Accessory {
                     serverPlayer.playerScreenHandler.syncState();
                     serverPlayer.currentScreenHandler.syncState();
                 }
+                return ActionResult.SUCCESS.withNewHandStack(old);
             } else {
-                current.remove(DataComponentTypes.CONTAINER);
-                current.remove(ModDataComponentTypes.QUIVER);
-                current.remove(ModDataComponentTypes.UPGRADES);
-                player.setStackInHand(hand, current.copy());
+                old.remove(DataComponentTypes.CONTAINER);
+                old.remove(ModDataComponentTypes.QUIVER);
+                old.remove(ModDataComponentTypes.UPGRADES);
+                player.setStackInHand(hand, old);
+                return ActionResult.SUCCESS.withNewHandStack(old);
             }
-            return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;
@@ -133,16 +134,6 @@ public class QuiverItem extends Item implements Accessory {
             }
         }
         quiverStack.remove(DataComponentTypes.CONTAINER);
-    }
-
-    public static ItemStack peekFirstArrow(ItemStack quiverStack) {
-        DefaultedList<ItemStack> arrows = getStoredArrows(quiverStack);
-        for (ItemStack arrow : arrows) {
-            if (!arrow.isEmpty()) {
-                return arrow;
-            }
-        }
-        return ItemStack.EMPTY;
     }
 
     public static int getTotalArrows(ItemStack quiverStack) {

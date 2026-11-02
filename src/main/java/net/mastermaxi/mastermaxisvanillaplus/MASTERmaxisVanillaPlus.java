@@ -15,17 +15,10 @@ import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemGroupsInit;
 import net.mastermaxi.mastermaxisvanillaplus.world.gen.WorldGenerationInit;
 import net.minecraft.block.Block;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.mastermaxi.mastermaxisvanillaplus.component.ModDataComponentTypes;
-import net.mastermaxi.mastermaxisvanillaplus.item.BackpackItem;
-import net.mastermaxi.mastermaxisvanillaplus.item.QuiverItem;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,63 +102,29 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 			return false;
 		});
 
-		UseItemCallback.EVENT.register((player, world, hand) -> {
-			ItemStack held = player.getStackInHand(hand);
-			if (!held.isOf(Items.ELYTRA)) {
-				return ActionResult.PASS;
+		LOGGER.info("Hello Fabric world!");
+		io.wispforest.accessories.api.AccessoryRegistry.register(net.minecraft.item.Items.ELYTRA, new io.wispforest.accessories.api.Accessory() {
+			@Override
+			public boolean canEquipFromUse(net.minecraft.item.ItemStack stack) {
+				return false;
 			}
-
-			io.wispforest.accessories.api.AccessoriesCapability capability = io.wispforest.accessories.api.AccessoriesCapability.get(player);
-			if (capability == null) return ActionResult.PASS;
-
-			io.wispforest.accessories.api.AccessoriesContainer back = capability.getContainers().get("back");
-			if (back == null) return ActionResult.PASS;
-
-			ItemStack current = back.getAccessories().getStack(0);
-
-			if (current.isEmpty()) {
-				if (!world.isClient) {
-					back.getAccessories().setStack(0, held.copy());
-					back.markChanged();
-					world.playSound(null, player.getX(), player.getY(), player.getZ(),
-							SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
-					if (player instanceof ServerPlayerEntity serverPlayer) {
-						serverPlayer.playerScreenHandler.syncState();
-						serverPlayer.currentScreenHandler.syncState();
-					}
-				}
-				player.setStackInHand(hand, ItemStack.EMPTY);
-				return ActionResult.SUCCESS;
-			} else if (current.getItem() instanceof BackpackItem || current.getItem() instanceof QuiverItem || current.isOf(Items.ELYTRA)) {
-				if (!world.isClient) {
-					if (current.getItem() instanceof BackpackItem oldBackpack) {
-						oldBackpack.dropStoredItems(world, player, current);
-					} else if (current.getItem() instanceof QuiverItem oldQuiver) {
-						oldQuiver.dropStoredArrows(world, player, current);
-					}
-					ItemStack old = current.copy();
-					back.getAccessories().setStack(0, held.copy());
-					player.setStackInHand(hand, old);
-					back.markChanged();
-					world.playSound(null, player.getX(), player.getY(), player.getZ(),
-							SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
-					if (player instanceof ServerPlayerEntity serverPlayer) {
-						serverPlayer.playerScreenHandler.syncState();
-						serverPlayer.currentScreenHandler.syncState();
-					}
-				} else {
-					current.remove(DataComponentTypes.CONTAINER);
-					current.remove(ModDataComponentTypes.QUIVER);
-					current.remove(ModDataComponentTypes.UPGRADES);
-					player.setStackInHand(hand, current.copy());
-				}
-				return ActionResult.SUCCESS;
-			}
-
-			return ActionResult.PASS;
 		});
 
-		LOGGER.info("Hello Fabric world!");
+		net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register(
+				(handler, server) -> net.mastermaxi.mastermaxisvanillaplus.item.BackpackUpgradeHelper.onPlayerDisconnect(handler.player)
+		);
+		net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.AFTER_RESPAWN.register(
+				(oldPlayer, newPlayer, alive) -> net.mastermaxi.mastermaxisvanillaplus.item.BackpackUpgradeHelper.onPlayerRespawn(oldPlayer)
+		);
+
+		FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+				container -> ResourceManagerHelper.registerBuiltinResourcePack(
+						id("mastermaxis-vanilla-plus-extras"),
+						container,
+						Text.literal("mastermaxis vanilla plus extras"),
+						ResourcePackActivationType.NORMAL
+				)
+		);
 	}
 
 	public static Identifier id(String path) {

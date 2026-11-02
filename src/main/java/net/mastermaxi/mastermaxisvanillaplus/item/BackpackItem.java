@@ -4,6 +4,7 @@ import io.wispforest.accessories.api.AccessoriesCapability;
 import io.wispforest.accessories.api.AccessoriesContainer;
 import io.wispforest.accessories.api.Accessory;
 import io.wispforest.accessories.api.AccessoryRegistry;
+import io.wispforest.accessories.api.slot.SlotReference;
 import net.mastermaxi.mastermaxisvanillaplus.component.ModDataComponentTypes;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
@@ -25,7 +26,7 @@ public class BackpackItem extends Item implements Accessory {
     public enum BackpackTier {
         LEATHER(9, 1, false),
         IRON(18, 2, false),
-        IRON_WITH_QUIVER(18, 2, true),
+        IRON_WITH_QUIVER(18, 1, true),
         NETHERITE(27, 3, false),
         ENDER(27, 3, false);
 
@@ -58,6 +59,20 @@ public class BackpackItem extends Item implements Accessory {
     }
 
     @Override
+    public void tick(ItemStack stack, SlotReference reference) {
+        if (!reference.entity().getWorld().isClient && reference.entity() instanceof ServerPlayerEntity player) {
+            BackpackUpgradeHelper.tick(player, stack, this);
+        }
+    }
+
+    @Override
+    public void onUnequip(ItemStack stack, SlotReference reference) {
+        if (!reference.entity().getWorld().isClient && reference.entity() instanceof ServerPlayerEntity player) {
+            BackpackUpgradeHelper.onUnequip(player);
+        }
+    }
+
+    @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack heldStack = player.getStackInHand(hand);
 
@@ -74,9 +89,10 @@ public class BackpackItem extends Item implements Accessory {
         ItemStack current = backContainer.getAccessories().getStack(0);
 
         if (current.isEmpty()) {
+            player.setStackInHand(hand, ItemStack.EMPTY);
+            backContainer.getAccessories().setStack(0, heldStack.copy());
+            backContainer.markChanged();
             if (!world.isClient) {
-                backContainer.getAccessories().setStack(0, heldStack.copy());
-                backContainer.markChanged();
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                 if (player instanceof ServerPlayerEntity serverPlayer) {
@@ -84,19 +100,18 @@ public class BackpackItem extends Item implements Accessory {
                     serverPlayer.currentScreenHandler.syncState();
                 }
             }
-            player.setStackInHand(hand, ItemStack.EMPTY);
-            return ActionResult.SUCCESS;
+            return ActionResult.SUCCESS.withNewHandStack(ItemStack.EMPTY);
         } else if (current.getItem() instanceof BackpackItem || current.getItem() instanceof QuiverItem || current.isOf(Items.ELYTRA)) {
+            ItemStack oldStack = current.copy();
+            backContainer.getAccessories().setStack(0, heldStack.copy());
+            backContainer.markChanged();
             if (!world.isClient) {
-                if (current.getItem() instanceof BackpackItem oldBackpack) {
-                    oldBackpack.dropStoredItems(world, player, current);
-                } else if (current.getItem() instanceof QuiverItem oldQuiver) {
-                    oldQuiver.dropStoredArrows(world, player, current);
+                if (oldStack.getItem() instanceof BackpackItem oldBackpack) {
+                    oldBackpack.dropStoredItems(world, player, oldStack);
+                } else if (oldStack.getItem() instanceof QuiverItem oldQuiver) {
+                    oldQuiver.dropStoredArrows(world, player, oldStack);
                 }
-                ItemStack oldStack = current.copy();
-                backContainer.getAccessories().setStack(0, heldStack.copy());
                 player.setStackInHand(hand, oldStack);
-                backContainer.markChanged();
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
                         current.isOf(Items.ELYTRA) ? SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA.value() : SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
                         SoundCategory.PLAYERS, 1.0F, 1.0F);
@@ -104,13 +119,14 @@ public class BackpackItem extends Item implements Accessory {
                     serverPlayer.playerScreenHandler.syncState();
                     serverPlayer.currentScreenHandler.syncState();
                 }
+                return ActionResult.SUCCESS.withNewHandStack(oldStack);
             } else {
-                current.remove(DataComponentTypes.CONTAINER);
-                current.remove(ModDataComponentTypes.QUIVER);
-                current.remove(ModDataComponentTypes.UPGRADES);
-                player.setStackInHand(hand, current.copy());
+                oldStack.remove(DataComponentTypes.CONTAINER);
+                oldStack.remove(ModDataComponentTypes.QUIVER);
+                oldStack.remove(ModDataComponentTypes.UPGRADES);
+                player.setStackInHand(hand, oldStack);
+                return ActionResult.SUCCESS.withNewHandStack(oldStack);
             }
-            return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;

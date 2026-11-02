@@ -100,35 +100,18 @@ public class QuiverHelper {
         }
     }
 
-    public static int getEquippedQuiverTotalArrows(PlayerEntity player) {
+
+    public static DefaultedList<ItemStack> getEquippedQuiverArrows(PlayerEntity player) {
         ItemStack quiver = getEquippedQuiver(player);
-        if (quiver.isEmpty()) return 0;
+        if (quiver.isEmpty()) {
+            return DefaultedList.ofSize(3, ItemStack.EMPTY);
+        }
 
         if (quiver.getItem() instanceof QuiverItem) {
-            return QuiverItem.getTotalArrows(quiver);
+            return QuiverItem.getStoredArrows(quiver);
         } else if (quiver.getItem() instanceof BackpackItem backpack && backpack.getTier().hasQuiver) {
-            DefaultedList<ItemStack> arrows = backpack.getStoredQuiverArrows(quiver);
-            int total = 0;
-            for (ItemStack a : arrows) {
-                if (!a.isEmpty()) total += a.getCount();
-            }
-            return total;
+            return backpack.getStoredQuiverArrows(quiver);
         }
-        return 0;
-    }
-
-    public static ItemStack getEquippedQuiverFirstArrow(PlayerEntity player) {
-        ItemStack quiver = getEquippedQuiver(player);
-        if (quiver.isEmpty()) return ItemStack.EMPTY;
-
-        if (quiver.getItem() instanceof QuiverItem) {
-            return QuiverItem.peekFirstArrow(quiver);
-        } else if (quiver.getItem() instanceof BackpackItem backpack && backpack.getTier().hasQuiver) {
-            DefaultedList<ItemStack> arrows = backpack.getStoredQuiverArrows(quiver);
-            for (ItemStack a : arrows) {
-                if (!a.isEmpty()) return a;
-            }
-        }
-        return ItemStack.EMPTY;
+        return DefaultedList.ofSize(3, ItemStack.EMPTY);
     }
 }

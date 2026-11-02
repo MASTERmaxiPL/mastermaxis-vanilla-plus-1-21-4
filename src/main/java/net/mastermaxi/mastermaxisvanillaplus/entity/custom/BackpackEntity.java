@@ -176,19 +176,17 @@ public class BackpackEntity extends Entity {
 
         ItemStack stack = this.getBackpackStack();
         if (stack.getItem() instanceof BackpackItem backpackItem) {
-            // Drop backpack item
-            this.dropStack(world, stack.copy());
-
             // Drop stored items unless Ender Backpack
             if (backpackItem.getTier() != BackpackItem.BackpackTier.ENDER) {
                 backpackItem.dropStoredItems(world, (source.getAttacker() instanceof PlayerEntity p) ? p : null, getX(), getY(), getZ(), stack);
             }
-        } else if (stack.getItem() instanceof QuiverItem quiverItem) {
-            // Drop quiver item
+            // Drop backpack item (empty now)
             this.dropStack(world, stack.copy());
-
-            // Drop stored arrows
+        } else if (stack.getItem() instanceof QuiverItem quiverItem) {
+            // Drop stored arrows first, emptying stack
             quiverItem.dropStoredArrows(world, (source.getAttacker() instanceof PlayerEntity p) ? p : null, getX(), getY(), getZ(), stack);
+            // Drop quiver item (empty now)
+            this.dropStack(world, stack.copy());
         }
 
         this.getWorld().playSound(null, getX(), getY(), getZ(),

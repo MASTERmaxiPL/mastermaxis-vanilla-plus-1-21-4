@@ -37,6 +37,8 @@ public class ModNetworking {
         // Register payloads
         PayloadTypeRegistry.playC2S().register(OpenBackpackC2SPayload.ID, OpenBackpackC2SPayload.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(PlaceBackpackC2SPayload.ID, PlaceBackpackC2SPayload.PACKET_CODEC);
+        PayloadTypeRegistry.playS2C().register(PlayBackpackJukeboxS2CPayload.ID, PlayBackpackJukeboxS2CPayload.PACKET_CODEC);
+        PayloadTypeRegistry.playS2C().register(StopBackpackJukeboxS2CPayload.ID, StopBackpackJukeboxS2CPayload.PACKET_CODEC);
 
         // Open Backpack Key Packet Handler
         ServerPlayNetworking.registerGlobalReceiver(OpenBackpackC2SPayload.ID, (payload, context) -> {
@@ -77,6 +79,12 @@ public class ModNetworking {
             }
 
             return ActionResult.PASS;
+        });
+
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+            if (net.mastermaxi.mastermaxisvanillaplus.item.BackpackUpgradeHelper.isPlayingJukebox(handler.player)) {
+                net.mastermaxi.mastermaxisvanillaplus.item.BackpackUpgradeHelper.stopJukebox(handler.player, true);
+            }
         });
     }
 

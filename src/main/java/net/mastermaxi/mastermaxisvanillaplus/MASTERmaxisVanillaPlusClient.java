@@ -22,6 +22,7 @@ import net.minecraft.world.biome.FoliageColors;
 
 public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
     @Override
+    @SuppressWarnings("resource")
     public void onInitializeClient() {
         System.out.println("Registering Renderers");
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MUDSTONE_DOOR, RenderLayer.getCutout());
@@ -139,6 +140,30 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
                 net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(new net.mastermaxi.mastermaxisvanillaplus.network.PlaceBackpackC2SPayload());
             }
         });
+
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(
+                net.mastermaxi.mastermaxisvanillaplus.network.PlayBackpackJukeboxS2CPayload.ID,
+                (payload, context) -> context.client().execute(() -> {
+                    net.minecraft.client.world.ClientWorld world = context.client().world;
+                    if (world != null) {
+                        net.minecraft.entity.Entity entity = world.getEntityById(payload.entityId());
+                        if (entity instanceof net.minecraft.entity.player.PlayerEntity player) {
+                            net.mastermaxi.mastermaxisvanillaplus.client.sound.BackpackJukeboxSoundManager.play(player, payload.song());
+                        }
+                    }
+                })
+        );
+
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(
+                net.mastermaxi.mastermaxisvanillaplus.network.StopBackpackJukeboxS2CPayload.ID,
+                (payload, context) -> context.client().execute(
+                        () -> net.mastermaxi.mastermaxisvanillaplus.client.sound.BackpackJukeboxSoundManager.stop(payload.entityId())
+                )
+        );
+
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register(
+                (handler, client) -> net.mastermaxi.mastermaxisvanillaplus.client.sound.BackpackJukeboxSoundManager.stopAll()
+        );
     }
 
     public static net.minecraft.client.option.KeyBinding KEY_OPEN_BACKPACK;

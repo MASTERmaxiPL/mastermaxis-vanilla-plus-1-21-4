@@ -23,7 +23,6 @@
 		"StemBlockMixin",
 		"SurfaceBuilderMixin",
 		"PlayerEntityMixin",
-		"PlayerScreenHandlerMixin",
 		"RangedWeaponItemMixin",
 		"VanillaBiomeParametersMixin",
 		"VanillaSurfaceRulesMixin"
@@ -31,7 +30,6 @@
 	"client": [
 		"AbstractClientPlayerEntityMixin",
 		"BackgroundRendererMixin",
-		"CreativeInventoryScreenMixin",
 		"FluidRendererMixin",
 		"HeldItemRendererMixin",
 		"InGameHudMixin",

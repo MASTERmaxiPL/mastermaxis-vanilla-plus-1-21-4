@@ -1,6 +1,6 @@
 
 ![MASTERmaxisVanilla+](src/main/resources/assets/mastermaxisvanillaplus/title.png "Title")
-A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Savanna biome with brand-new ecosystems, majestic wildlife, unique flora, and rich building blocks, alongside a complete overhaul of ranged combat featuring modular bows, heavy arrows, crossbow tiers, bolts, optic & pyrotechnic attachments, and an interactive Fletching Table station.
+A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Savanna biome with brand-new ecosystems, majestic wildlife, unique flora, and rich building blocks, alongside a complete overhaul of ranged combat featuring modular bows, heavy arrows, crossbow tiers, bolts, optic & pyrotechnic attachments, an interactive Fletching Table station, and an integrated **Back Slot & Backpacks system** (powered by Accessories API) offering wearable backpacks, functional upgrades, deployable world entities, dedicated quivers, and Elytra back-slot flight.
 
 ---
 
@@ -52,9 +52,20 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
     - [Curse of Welding](#curse-of-welding)
     - [Dungeon & Structure Loot Tables](#dungeon--structure-loot-tables)
     - [Fishing Treasures](#fishing-treasures)
-11. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
-12. [Creative Inventory Tabs](#-creative-inventory-tabs)
-13. [License](#-license)
+11. [Back Slot & Accessories Integration](#-back-slot--accessories-integration)
+    - [Accessories API & The Back Slot](#accessories-api--the-back-slot)
+    - [Elytra Back Slot Flight](#elytra-back-slot-flight)
+    - [Equipping & Swapping Rules](#equipping--swapping-rules)
+12. [Backpacks & Quivers](#-backpacks--quivers)
+    - [Backpack Tiers & Capacities](#backpack-tiers--capacities)
+    - [The Quiver & HUD Overlay](#the-quiver--hud-overlay)
+    - [World Entity Placement & Controls](#world-entity-placement--controls)
+    - [Backpack Upgrade System](#backpack-upgrade-system)
+    - [Storage Rules & Anti-Nesting](#storage-rules--anti-nesting)
+    - [Built-in Resource Pack: mastermaxis vanilla plus extras](#built-in-resource-pack-mastermaxis-vanilla-plus-extras)
+13. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
+14. [Creative Inventory Tabs](#-creative-inventory-tabs)
+15. [License](#-license)
 
 ---
 
@@ -426,6 +437,79 @@ Explore the world to discover weapon schemes, pre-assembled weapons, and cursed 
 
 ---
 
+## 🎒 Back Slot & Accessories Integration
+
+Powered by the **Accessories API**, this mod seamlessly integrates a dedicated **Back Slot** into the player's accessory inventory, providing full compatibility with accessories ecosystem mods and eliminating the need to sacrifice chestplate armor for back-mounted gear.
+
+### Accessories API & The Back Slot
+- **Slot Type:** Automatically registers into the standard `back` accessory slot.
+- **Accessory Screen:** Accessible through the default Accessories screen or inventory widget.
+- **Direct Equipping:** Simply right-click any Backpack, Quiver, or Elytra while holding it in your hand to automatically equip it into the Back Slot!
+
+### Elytra Back Slot Flight
+- **Wear Armor and Fly Simultaneously:** Elytra can now be placed directly into the Back Slot, allowing you to wear full Netherite, Diamond, or custom chestplate armor while retaining complete gliding capabilities!
+- **Authentic Physics & Durability:** Gliding mechanics, kinetic damage calculations, roll rates, and flight sounds are fully supported. Durability damage is scaled and applied directly to the Elytra in the Back Slot while gliding.
+
+### Equipping & Swapping Rules
+- **Direct Hand Swapping:** Right-clicking a new backpack or quiver while wearing one will automatically swap the items.
+- **Safety Spill Protection:** When a worn backpack or quiver is replaced or unequipped, its contents are safely dropped into the world around the player so items are never lost.
+- **Curse of Binding Support:** Items bearing the Curse of Binding cannot be swapped out from the Back Slot in survival mode.
+
+---
+
+## 🎒 Backpacks & Quivers
+
+A modular, upgradeable, and deployable portable storage system that enhances long expeditions and mining trips without trivializing inventory management.
+
+### Backpack Tiers & Capacities
+
+| Backpack Tier | Storage Capacity | Upgrade Slots | Special Attributes |
+| :--- | :--- | :--- | :--- |
+| **Leather Backpack** | **9 Slots** (1 row) | **1 Upgrade Slot** | Lightweight starter pack. |
+| **Iron Backpack** | **18 Slots** (2 rows) | **1 Upgrade Slot** | Sturdy mid-tier storage. |
+| **Iron Backpack w/ Quiver** | **18 Slots** (2 rows) | **2 Upgrade Slots** | Built-in side quiver; automatically feeds arrows/bolts. |
+| **Netherite Backpack** | **27 Slots** (3 rows) | **3 Upgrade Slots** | Fireproof; immune to lava and fire. |
+| **Ender Backpack** | **Ender Chest Sync** | **3 Upgrade Slots** | Directly links to personal Ender Chest inventory; items stay 100% safe. |
+
+### The Quiver & HUD Overlay
+The **Quiver (`ItemInit.QUIVER`)** is a dedicated back-worn container tailored for archers:
+- **Capacity:** Stores up to **3 full stacks of ammunition** (Arrows, Heavy Arrows, Bolts, and tipped variants).
+- **Auto-Feeding Priority:** When firing any Bow, Heavy Bow, or Crossbow, ammunition is pulled directly from the equipped Quiver before touching the player's main inventory.
+- **In-Game HUD Counter:** When wearing a Quiver or an Iron Backpack with Quiver, an intuitive on-screen HUD widget dynamically renders next to the player's hotbar, displaying the currently loaded projectile icon and real-time remaining ammunition count.
+
+### World Entity Placement & Controls
+Backpacks aren't just inventory items—they exist as physical 3D entities in the world!
+- **Instant Hotkey Open:** Press **`B`** (configurable in Options -> Controls) to instantly open the inventory of your currently worn backpack without unequipping it.
+- **Ground Deployment:** Press **`V`** (configurable, or Shift + Right-Click) to place the equipped backpack down into the world onto any solid surface as an interactive block-like entity.
+- **Retrieval:** Sneak and Right-Click (Shift + PPM) an entity backpack in the world to pick it back up directly into your Back Slot. If your Back Slot is already occupied, the new backpack swaps with your worn one.
+- **Breaking & Loot Drops:** Hitting/breaking a placed backpack causes it to drop the backpack item along with all stored contents (except the Ender Backpack, which only drops the item while its contents remain safely preserved inside your personal Ender Chest).
+
+### Backpack Upgrade System
+Backpacks feature dedicated auxiliary upgrade slots on the left side of their interface. Insert supported utility items to grant powerful passive capabilities:
+
+- **Crafting Table Upgrade (`minecraft:crafting_table`):**
+  - Unlocks an expandable **3x3 Crafting Grid** on the right side of the backpack GUI. Craft items on the fly wherever you are!
+- **Lantern & Soul Lantern Upgrade (`minecraft:lantern` / `minecraft:soul_lantern`):**
+  - Built-in integration with **LambDynamicLights**! Worn backpacks emit real-time dynamic light around the player (**Luminance 15** for standard Lantern, **Luminance 10** for Soul Lantern), illuminating caves and night expeditions hands-free.
+- **Jukebox Upgrade (`minecraft:jukebox`):**
+  - Turn your backpack into a portable sound system! Insert any vanilla or modded Music Disc to stream music directly while traveling. Produces synchronized musical note particles and broadcasts tunes to all nearby players.
+- **Magnet Upgrade (`minecraft:compass`):**
+  - Attracts dropped item entities within a **3-block radius** and automatically feeds them directly into available backpack inventory slots.
+
+### Storage Rules & Anti-Nesting
+To maintain vanilla balance and eliminate recursive storage exploit loops:
+- **No Shulker Boxes & Bundles:** Shulker Boxes, Bundles, and other Backpacks cannot be placed inside backpacks.
+- **No Backpack Inception:** Backpacks cannot be stored inside other backpacks, bundles, or shulker boxes.
+
+### Built-in Resource Pack: mastermaxis vanilla plus extras
+The mod comes bundled with an optional built-in resource pack:
+- **Name:** `mastermaxis vanilla plus extras`
+- **Description:** Improved GUIs
+- **Features:** Provides refreshed, sleek alternative visual redesigns for all backpack tier user interfaces.
+- **Activation:** Open **Options -> Resource Packs**, locate `mastermaxis vanilla plus extras` under "Available", and move it to "Selected" to enjoy alternative GUI aesthetics anytime!
+
+---
+
 ## 🔨 Crafting & Stonecutting Recipes
 
 ### Notable Crafting Recipes
@@ -480,6 +564,7 @@ All items and blocks from the mod have been cleanly removed from the default Min
     - **Bows:** Heavy Bow, Heavy Hardened Bow.
     - **Crossbows & Attachments:** Viewfinder, Pyrotechnic Tube, Iron Crossbow, Nether Crossbow, Oxidized Nether Crossbow, and attachment-mounted variants.
     - **Schematics:** Heavy Bow Scheme, Heavy Hardened Bow Scheme, Iron Crossbow Scheme, Nether Crossbow Scheme.
+    - **Backpacks & Storage:** Leather Backpack, Iron Backpack, Iron Backpack with Quiver, Netherite Backpack, Ender Backpack, Quiver.
     - **Ammunition:** Heavy Arrows, Crossbow Bolts, and tipped projectile variants.
 
 ---

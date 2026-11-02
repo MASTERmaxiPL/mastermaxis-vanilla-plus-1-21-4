@@ -63,15 +63,28 @@ public class InGameHudMixin {
 
         ItemStack quiver = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getEquippedQuiver(this.client.player);
         if (!quiver.isEmpty()) {
-            int total = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getEquippedQuiverTotalArrows(this.client.player);
-            ItemStack firstArrow = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getEquippedQuiverFirstArrow(this.client.player);
-            ItemStack displayStack = firstArrow.isEmpty() ? new ItemStack(net.minecraft.item.Items.ARROW) : firstArrow.copyWithCount(1);
+            net.minecraft.util.collection.DefaultedList<ItemStack> arrows = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getEquippedQuiverArrows(this.client.player);
 
-            int x = (context.getScaledWindowWidth() / 2) + 91 + 6;
+            int baseX = (context.getScaledWindowWidth() / 2) + 91 + 6;
+            if (this.client.player.getMainArm().getOpposite() == net.minecraft.util.Arm.RIGHT && !this.client.player.getOffHandStack().isEmpty()) {
+                baseX += 29;
+            }
             int y = context.getScaledWindowHeight() - 20;
 
-            context.drawItem(displayStack, x, y);
-            context.drawStackOverlay(this.client.textRenderer, displayStack, x, y, String.valueOf(total));
+            int drawnCount = 0;
+            for (ItemStack arrow : arrows) {
+                if (!arrow.isEmpty()) {
+                    int x = baseX + drawnCount * 20;
+                    context.drawItem(arrow, x, y);
+                    context.drawStackOverlay(this.client.textRenderer, arrow, x, y, String.valueOf(arrow.getCount()));
+                    drawnCount++;
+                }
+            }
+            if (drawnCount == 0) {
+                ItemStack emptyArrow = new ItemStack(net.minecraft.item.Items.ARROW);
+                context.drawItem(emptyArrow, baseX, y);
+                context.drawStackOverlay(this.client.textRenderer, emptyArrow, baseX, y, "0");
+            }
         }
     }
 
