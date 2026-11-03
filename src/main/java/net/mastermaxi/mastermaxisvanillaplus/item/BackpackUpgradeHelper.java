@@ -80,14 +80,14 @@ public class BackpackUpgradeHelper {
     public static void tick(ServerPlayerEntity player, ItemStack backpackStack, BackpackItem bp) {
         DefaultedList<ItemStack> upgrades = bp.getStoredUpgrades(backpackStack);
         boolean hasJukebox = false;
-        boolean hasCompass = false;
+        boolean hasMagnet = false;
 
         for (ItemStack u : upgrades) {
             if (u.isOf(Items.JUKEBOX)) hasJukebox = true;
-            else if (u.isOf(Items.COMPASS)) hasCompass = true;
+            else if (u.isOf(ItemInit.MAGNET)) hasMagnet = true;
         }
 
-        if (hasCompass) {
+        if (hasMagnet) {
             tickMagnet(player, backpackStack, bp);
         }
 

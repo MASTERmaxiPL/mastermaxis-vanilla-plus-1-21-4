@@ -5,6 +5,7 @@ import io.wispforest.accessories.api.AccessoriesContainer;
 import net.mastermaxi.mastermaxisvanillaplus.entity.custom.BackpackEntity;
 import net.mastermaxi.mastermaxisvanillaplus.item.BackpackItem;
 import net.mastermaxi.mastermaxisvanillaplus.item.BackpackUpgradeHelper;
+import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.mastermaxi.mastermaxisvanillaplus.network.BackpackPayload;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.jukebox.JukeboxSong;
@@ -64,7 +65,7 @@ public class BackpackScreenHandler extends ScreenHandler {
                 || stack.isOf(Items.LANTERN)
                 || stack.isOf(Items.SOUL_LANTERN)
                 || stack.isOf(Items.JUKEBOX)
-                || stack.isOf(Items.COMPASS)
+                || stack.isOf(ItemInit.MAGNET)
                 || stack.isIn(BACKPACK_UPGRADES_TAG);
     }
 

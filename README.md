@@ -493,8 +493,9 @@ Backpacks feature dedicated auxiliary upgrade slots on the left side of their in
   - Built-in integration with **LambDynamicLights**! Worn backpacks emit real-time dynamic light around the player (**Luminance 15** for standard Lantern, **Luminance 10** for Soul Lantern), illuminating caves and night expeditions hands-free.
 - **Jukebox Upgrade (`minecraft:jukebox`):**
   - Turn your backpack into a portable sound system! Insert any vanilla or modded Music Disc to stream music directly while traveling. Produces synchronized musical note particles and broadcasts tunes to all nearby players.
-- **Magnet Upgrade (`minecraft:compass`):**
+- **Magnet Upgrade (`mastermaxisvanillaplus:magnet`):**
   - Attracts dropped item entities within a **3-block radius** and automatically feeds them directly into available backpack inventory slots.
+  - Also functions as a versatile handheld tool! When held in either the main hand or off-hand, the **Magnet** pulls nearby dropped items within an **8-block radius** smoothly toward the player for effortless gathering.
 
 ### Storage Rules & Anti-Nesting
 To maintain vanilla balance and eliminate recursive storage exploit loops:
@@ -564,7 +565,7 @@ All items and blocks from the mod have been cleanly removed from the default Min
     - **Bows:** Heavy Bow, Heavy Hardened Bow.
     - **Crossbows & Attachments:** Viewfinder, Pyrotechnic Tube, Iron Crossbow, Nether Crossbow, Oxidized Nether Crossbow, and attachment-mounted variants.
     - **Schematics:** Heavy Bow Scheme, Heavy Hardened Bow Scheme, Iron Crossbow Scheme, Nether Crossbow Scheme.
-    - **Backpacks & Storage:** Leather Backpack, Iron Backpack, Iron Backpack with Quiver, Netherite Backpack, Ender Backpack, Quiver.
+    - **Backpacks & Storage:** Leather Backpack, Iron Backpack, Iron Backpack with Quiver, Netherite Backpack, Ender Backpack, Quiver, Magnet.
     - **Ammunition:** Heavy Arrows, Crossbow Bolts, and tipped projectile variants.
 
 ---

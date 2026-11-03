@@ -94,6 +94,7 @@ public class ItemInit {
     public static final Item NETHERITE_BACKPACK = register("netherite_backpack", new Item.Settings().fireproof(), settings -> new BackpackItem(BackpackItem.BackpackTier.NETHERITE, settings));
     public static final Item ENDER_BACKPACK = register("ender_backpack", new Item.Settings(), settings -> new BackpackItem(BackpackItem.BackpackTier.ENDER, settings));
     public static final Item QUIVER = register("quiver", new Item.Settings(), QuiverItem::new);
+    public static final Item MAGNET = register("magnet", new Item.Settings().maxCount(1), MagnetItem::new);
 
     private static Item register(String name, Item.Settings itemSettings, ItemCreator creator) {
         Identifier id = MASTERmaxisVanillaPlus.id(name);
@@ -118,6 +119,7 @@ public class ItemInit {
             entries.add(BAOBAB_STEW);
             entries.add(TRUFFLE);
             entries.add(TRUFFLE_PORKCHOP);
+            entries.add(MAGNET);
         });
 
         // Combat Tab: Vanilla+ Combat (bows, crossbows, schematics, arrows)
@@ -140,13 +142,14 @@ public class ItemInit {
             entries.add(HEAVY_HARDENED_BOW_SCHEME);
             entries.add(IRON_CROSSBOW_SCHEME);
             entries.add(NETHER_CROSSBOW_SCHEME);
-            // Backpacks & Quiver
+            // Backpacks & Quiver & Magnet
             entries.add(LEATHER_BACKPACK);
             entries.add(IRON_BACKPACK);
             entries.add(IRON_BACKPACK_WITH_QUIVER);
             entries.add(NETHERITE_BACKPACK);
             entries.add(ENDER_BACKPACK);
             entries.add(QUIVER);
+            entries.add(MAGNET);
 
             // Projectiles & Ammunition
             entries.add(HEAVY_ARROW);
