@@ -80,41 +80,57 @@ public class BackpackEntityRenderer extends EntityRenderer<BackpackEntity, Backp
         // Place on block and orient
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - state.yaw));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
-        matrices.translate(0.0, -0.75, 0.0);
-
         if (stack.getItem() instanceof BackpackItem backpackItem) {
             switch (backpackItem.getTier()) {
                 case LEATHER -> {
+                    matrices.push();
+                    matrices.translate(0.0, -10.0 / 16.0, -4.0 / 16.0);
                     VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(LEATHER_TEXTURE));
                     this.leatherModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
+                    matrices.pop();
                 }
                 case IRON -> {
+                    matrices.push();
+                    matrices.translate(0.0, -11.0 / 16.0, -4.5 / 16.0);
                     VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(IRON_TEXTURE));
                     this.ironNetheriteModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
+                    matrices.pop();
                 }
                 case IRON_WITH_QUIVER -> {
+                    matrices.push();
+                    matrices.translate(1.0 / 16.0, -10.0 / 16.0, -4.0 / 16.0);
                     VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(IRON_QUIVER_TEXTURE));
                     this.ironQuiverModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
                     if (state.hasArrows) {
                         VertexConsumer arrowVc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(BACKPACK_ARROW_TEXTURE));
                         this.ironQuiverArrowsModel.render(matrices, arrowVc, light, OverlayTexture.DEFAULT_UV);
                     }
+                    matrices.pop();
                 }
                 case NETHERITE -> {
+                    matrices.push();
+                    matrices.translate(0.0, -11.0 / 16.0, -4.5 / 16.0);
                     VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(NETHERITE_TEXTURE));
                     this.ironNetheriteModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
+                    matrices.pop();
                 }
                 case ENDER -> {
+                    matrices.push();
+                    matrices.translate(0.0, -11.0 / 16.0, -4.5 / 16.0);
                     VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ENDER_TEXTURE));
                     this.enderModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
+                    matrices.pop();
                 }
             }
         } else if (stack.getItem() instanceof QuiverItem) {
+            matrices.push();
+            matrices.translate(0.0, -0.75, 0.0);
             Identifier texture = state.hasArrows ? QUIVER_ARROWS_TEXTURE : QUIVER_EMPTY_TEXTURE;
             this.quiverModel.setArrowsVisible(state.hasArrows);
             this.quiverModel.setVertical(true);
             VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(texture));
             this.quiverModel.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
+            matrices.pop();
         }
 
         matrices.pop();

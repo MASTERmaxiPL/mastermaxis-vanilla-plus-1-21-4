@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.SnowballItem;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -25,11 +24,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@SuppressWarnings({"unused", "ConstantValue"})
 @Mixin(Item.class)
-public class ItemMixin {
+public abstract class ItemMixin {
     @Inject(method = "getMaxCount", at = @At("HEAD"), cancellable = true)
     private void modifyMaxCount(CallbackInfoReturnable<Integer> ci) {
-        if ((Object) this instanceof SnowballItem) {
+        if ((Object) this == Items.SNOWBALL) {
             ci.setReturnValue(64);
         }
     }
@@ -90,7 +90,6 @@ public class ItemMixin {
             } else {
                 old.remove(DataComponentTypes.CONTAINER);
                 old.remove(ModDataComponentTypes.QUIVER);
-                old.remove(ModDataComponentTypes.UPGRADES);
             }
 
             ItemStack newHand;

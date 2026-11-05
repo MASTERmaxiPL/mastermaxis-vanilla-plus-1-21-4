@@ -58,6 +58,8 @@ public class BackpackItem extends Item implements Accessory {
         return false;
     }
 
+    public static final ThreadLocal<Boolean> IS_PLACING_AS_ENTITY = ThreadLocal.withInitial(() -> false);
+
     @Override
     public void tick(ItemStack stack, SlotReference reference) {
         if (!reference.entity().getWorld().isClient && reference.entity() instanceof ServerPlayerEntity player) {
@@ -69,6 +71,55 @@ public class BackpackItem extends Item implements Accessory {
     public void onUnequip(ItemStack stack, SlotReference reference) {
         if (!reference.entity().getWorld().isClient && reference.entity() instanceof ServerPlayerEntity player) {
             BackpackUpgradeHelper.onUnequip(player);
+
+            if (!IS_PLACING_AS_ENTITY.get() && "back".equals(reference.slotName())) {
+                if (this.tier != BackpackTier.ENDER) {
+                    if (stack.contains(DataComponentTypes.CONTAINER) || (this.tier.hasQuiver && stack.contains(ModDataComponentTypes.QUIVER))) {
+                        dropStoredItems(player.getWorld(), player, stack);
+                        clearContainerFromPlayerBackpacks(player, this);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void clearContainerFromPlayerBackpacks(ServerPlayerEntity player, BackpackItem backpackItem) {
+        if (player.currentScreenHandler != null) {
+            ItemStack cursor = player.currentScreenHandler.getCursorStack();
+            if (cursor.getItem() == backpackItem && cursor.contains(DataComponentTypes.CONTAINER)) {
+                cursor.remove(DataComponentTypes.CONTAINER);
+                if (backpackItem.getTier().hasQuiver) {
+                    cursor.remove(ModDataComponentTypes.QUIVER);
+                }
+            }
+        }
+
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            ItemStack invStack = player.getInventory().getStack(i);
+            if (invStack.getItem() == backpackItem && invStack.contains(DataComponentTypes.CONTAINER)) {
+                invStack.remove(DataComponentTypes.CONTAINER);
+                if (backpackItem.getTier().hasQuiver) {
+                    invStack.remove(ModDataComponentTypes.QUIVER);
+                }
+            }
+        }
+
+        java.util.List<net.minecraft.entity.ItemEntity> dropped = player.getWorld().getEntitiesByClass(
+                net.minecraft.entity.ItemEntity.class,
+                player.getBoundingBox().expand(3.0),
+                e -> e.getStack().getItem() == backpackItem && e.getStack().contains(DataComponentTypes.CONTAINER)
+        );
+        for (net.minecraft.entity.ItemEntity itemEntity : dropped) {
+            ItemStack dropStack = itemEntity.getStack();
+            dropStack.remove(DataComponentTypes.CONTAINER);
+            if (backpackItem.getTier().hasQuiver) {
+                dropStack.remove(ModDataComponentTypes.QUIVER);
+            }
+        }
+
+        player.playerScreenHandler.syncState();
+        if (player.currentScreenHandler != null) {
+            player.currentScreenHandler.syncState();
         }
     }
 
@@ -123,7 +174,6 @@ public class BackpackItem extends Item implements Accessory {
             } else {
                 oldStack.remove(DataComponentTypes.CONTAINER);
                 oldStack.remove(ModDataComponentTypes.QUIVER);
-                oldStack.remove(ModDataComponentTypes.UPGRADES);
                 player.setStackInHand(hand, oldStack);
                 return ActionResult.SUCCESS.withNewHandStack(oldStack);
             }
@@ -163,21 +213,6 @@ public class BackpackItem extends Item implements Accessory {
             }
         }
         backpackStack.remove(DataComponentTypes.CONTAINER);
-
-        // Drop upgrade items
-        DefaultedList<ItemStack> upgrades = getStoredUpgrades(backpackStack);
-        for (ItemStack stack : upgrades) {
-            if (!stack.isEmpty()) {
-                ItemStack drop = stack.copy();
-                stack.setCount(0);
-                if (player != null) {
-                    player.dropItem(drop, true, false);
-                } else {
-                    net.minecraft.util.ItemScatterer.spawn(world, x, y, z, drop);
-                }
-            }
-        }
-        backpackStack.remove(ModDataComponentTypes.UPGRADES);
 
         // Drop quiver arrows if present
         if (this.tier.hasQuiver) {

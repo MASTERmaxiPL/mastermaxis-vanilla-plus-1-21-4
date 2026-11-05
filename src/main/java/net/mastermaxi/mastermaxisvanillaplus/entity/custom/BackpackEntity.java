@@ -97,8 +97,16 @@ public class BackpackEntity extends Entity {
                 if (currentWorn.getItem() instanceof BackpackItem || currentWorn.getItem() instanceof QuiverItem) {
                     // Swap worn backpack/quiver with the entity's stack on this block
                     ItemStack wornCopy = currentWorn.copy();
-                    back.getAccessories().setStack(0, entityStack.copy());
-                    back.markChanged();
+                    BackpackItem.IS_PLACING_AS_ENTITY.set(true);
+                    try {
+                        back.getAccessories().setStack(0, entityStack.copy());
+                        if (back.getAccessories() instanceof io.wispforest.accessories.impl.ExpandedSimpleContainer esc) {
+                            esc.setPreviousItem(0, entityStack.copy());
+                        }
+                        back.markChanged();
+                    } finally {
+                        BackpackItem.IS_PLACING_AS_ENTITY.set(false);
+                    }
                     this.setBackpackStack(wornCopy);
                     this.getWorld().playSound(null, getX(), getY(), getZ(),
                             SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);

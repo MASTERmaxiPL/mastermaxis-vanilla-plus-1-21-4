@@ -145,8 +145,16 @@ public class ModNetworking {
         entity.refreshPositionAndAngles(placePos.getX() + 0.5, placePos.getY(), placePos.getZ() + 0.5, player.getYaw() + 180.0F, 0.0F);
         entity.setBackpackStack(stack.copy());
 
-        back.getAccessories().setStack(0, ItemStack.EMPTY);
-        back.markChanged();
+        BackpackItem.IS_PLACING_AS_ENTITY.set(true);
+        try {
+            back.getAccessories().setStack(0, ItemStack.EMPTY);
+            if (back.getAccessories() instanceof io.wispforest.accessories.impl.ExpandedSimpleContainer esc) {
+                esc.setPreviousItem(0, ItemStack.EMPTY);
+            }
+            back.markChanged();
+        } finally {
+            BackpackItem.IS_PLACING_AS_ENTITY.set(false);
+        }
 
         world.spawnEntity(entity);
         world.playSound(null, entity.getX(), entity.getY(), entity.getZ(),

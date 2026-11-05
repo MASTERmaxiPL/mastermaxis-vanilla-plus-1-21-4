@@ -104,7 +104,7 @@ public class BackpackUpgradeHelper {
 
         List<ItemEntity> items = player.getWorld().getEntitiesByClass(
                 ItemEntity.class, box,
-                e -> e.isAlive() && !e.cannotPickup()
+                e -> MagnetItem.canAttract(e, player)
         );
 
         if (items.isEmpty()) return;

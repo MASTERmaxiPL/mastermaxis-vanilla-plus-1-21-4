@@ -13,6 +13,7 @@
 		"CrossbowItemMixin",
 		"FletchingTableBlockMixin",
 		"FluidBlockMixin",
+		"ItemEntityAccessor",
 		"ItemMixin",
 		"LandPathNodeMakerMixin",
 		"LivingEntityMixin",

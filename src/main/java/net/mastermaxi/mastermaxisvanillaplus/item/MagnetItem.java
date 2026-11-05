@@ -3,7 +3,6 @@ package net.mastermaxi.mastermaxisvanillaplus.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
@@ -30,8 +29,9 @@ public class MagnetItem extends Item {
         }
 
         // Only attract items when held in main hand or off-hand
-        boolean isOffHand = (slot == PlayerInventory.OFF_HAND_SLOT);
-        if (!selected && !isOffHand) {
+        boolean isMainHand = (player.getMainHandStack() == stack);
+        boolean isOffHand = (player.getOffHandStack() == stack);
+        if (!isMainHand && !isOffHand) {
             return;
         }
 
@@ -47,7 +47,7 @@ public class MagnetItem extends Item {
 
         List<ItemEntity> items = world.getEntitiesByClass(
                 ItemEntity.class, box,
-                e -> e.isAlive() && !e.cannotPickup()
+                e -> canAttract(e, player)
         );
 
         if (items.isEmpty()) {
@@ -61,15 +61,37 @@ public class MagnetItem extends Item {
             Vec3d diff = targetPos.subtract(itemPos);
             double dist = diff.length();
 
-            if (dist < 1.2) {
+            if (dist < 1.5) {
+                itemEntity.resetPickupDelay();
                 itemEntity.onPlayerCollision(player);
             } else if (dist <= ATTRACTION_RADIUS) {
-                double speed = 0.35 + (ATTRACTION_RADIUS - dist) * 0.02;
-                Vec3d motion = diff.normalize().multiply(Math.min(speed, 0.65));
+                double speed = 0.45 + (ATTRACTION_RADIUS - dist) * 0.03;
+                Vec3d motion = diff.normalize().multiply(Math.min(speed, 0.75));
                 itemEntity.setVelocity(motion);
                 itemEntity.velocityDirty = true;
                 itemEntity.velocityModified = true;
             }
         }
+    }
+
+    public static boolean canAttract(ItemEntity itemEntity, PlayerEntity player) {
+        if (!itemEntity.isAlive()) {
+            return false;
+        }
+
+        int pickupDelay = ((net.mastermaxi.mastermaxisvanillaplus.mixin.ItemEntityAccessor) itemEntity).getPickupDelay();
+        // Never attract items marked with infinite delay
+        if (pickupDelay >= 32767) {
+            return false;
+        }
+
+        // If thrown by this player, wait a very brief moment (5 ticks / 0.25s) before dragging back
+        // instead of vanilla's 40 ticks (2.0s)
+        if (itemEntity.getOwner() == player) {
+            return pickupDelay <= 35;
+        }
+
+        // For non-player drops (block drops, mob drops, chest drops, etc.), start dragging immediately
+        return true;
     }
 }

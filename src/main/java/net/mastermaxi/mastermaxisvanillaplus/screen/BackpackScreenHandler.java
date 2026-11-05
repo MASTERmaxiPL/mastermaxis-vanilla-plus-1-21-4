@@ -69,6 +69,13 @@ public class BackpackScreenHandler extends ScreenHandler {
                 || stack.isIn(BACKPACK_UPGRADES_TAG);
     }
 
+    public static boolean isRestrictedStorageItem(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) return false;
+        return stack.getItem() instanceof BackpackItem
+                || (stack.getItem() instanceof BlockItem bi && bi.getBlock() instanceof ShulkerBoxBlock)
+                || stack.getItem() instanceof BundleItem;
+    }
+
     // Client-side constructor called by ExtendedScreenHandlerType
     public BackpackScreenHandler(int syncId, PlayerInventory playerInventory, BackpackPayload payload) {
         this(syncId, playerInventory, ItemStack.EMPTY, BackpackItem.BackpackTier.values()[payload.tierOrdinal()], payload.entityId());
@@ -199,10 +206,29 @@ public class BackpackScreenHandler extends ScreenHandler {
                 this.addSlot(new Slot(this.storageInventory, index, 12 + c * 18, storageStartY + r * 18) {
                     @Override
                     public boolean canInsert(ItemStack stack) {
-                        return !(stack.getItem() instanceof BackpackItem)
-                                && !(stack.getItem() instanceof BlockItem bi && bi.getBlock() instanceof ShulkerBoxBlock)
-                                && !(stack.getItem() instanceof BundleItem)
-                                && !(tier.hasQuiver && (stack.isIn(ItemTags.ARROWS) || stack.getItem() instanceof net.mastermaxi.mastermaxisvanillaplus.item.BoltItem));
+                        if (isRestrictedStorageItem(stack)) {
+                            return false;
+                        }
+                        if (tier.hasQuiver && (stack.isIn(ItemTags.ARROWS) || stack.getItem() instanceof net.mastermaxi.mastermaxisvanillaplus.item.BoltItem)) {
+                            return false;
+                        }
+                        return super.canInsert(stack);
+                    }
+
+                    @Override
+                    public boolean canTakeItems(PlayerEntity playerEntity) {
+                        if (tier == BackpackItem.BackpackTier.ENDER && isRestrictedStorageItem(getStack())) {
+                            return false;
+                        }
+                        return super.canTakeItems(playerEntity);
+                    }
+
+                    @Override
+                    public boolean canTakePartial(PlayerEntity playerEntity) {
+                        if (tier == BackpackItem.BackpackTier.ENDER && isRestrictedStorageItem(getStack())) {
+                            return false;
+                        }
+                        return super.canTakePartial(playerEntity);
                     }
                 });
             }
@@ -297,13 +323,23 @@ public class BackpackScreenHandler extends ScreenHandler {
         if (this.entityId >= 0) {
             Entity e = player.getWorld().getEntityById(this.entityId);
             return e instanceof BackpackEntity && e.isAlive() && e.squaredDistanceTo(player) <= 64.0;
+        } else {
+            AccessoriesCapability cap = AccessoriesCapability.get(player);
+            if (cap != null) {
+                AccessoriesContainer back = cap.getContainers().get("back");
+                if (back != null) {
+                    ItemStack current = back.getAccessories().getStack(0);
+                    return current.getItem() instanceof BackpackItem;
+                }
+            }
+            return false;
         }
-        return true;
     }
 
 
     public ItemStack insertIntoStorage(ItemStack stack) {
         if (stack.isEmpty()) return stack;
+        if (isRestrictedStorageItem(stack)) return stack;
         int totalStorageSlots = this.tier.inventorySlots;
         // 1. Try merge with existing matching stacks
         for (int i = 0; i < totalStorageSlots; i++) {
@@ -417,6 +453,9 @@ public class BackpackScreenHandler extends ScreenHandler {
                 }
             } else if (slotIndex < totalBackpackContainerSlots) {
                 // Moving from Backpack Storage/Quiver/Upgrade to Player inventory
+                if (!slot.canTakeItems(player)) {
+                    return ItemStack.EMPTY;
+                }
                 if (!this.insertItem(originalStack, playerInvStart, totalSlots, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -427,11 +466,13 @@ public class BackpackScreenHandler extends ScreenHandler {
                     inserted = this.insertItem(originalStack, totalStorageSlots, totalStorageSlots + totalQuiverSlots, false);
                 } else if (isAllowedUpgrade(originalStack)) {
                     inserted = this.insertItem(originalStack, totalStorageSlots + totalQuiverSlots, totalBackpackContainerSlots, false);
-                    if (!inserted) {
+                    if (!inserted && !isRestrictedStorageItem(originalStack)) {
                         inserted = this.insertItem(originalStack, 0, totalStorageSlots, false);
                     }
-                } else {
+                } else if (!isRestrictedStorageItem(originalStack)) {
                     inserted = this.insertItem(originalStack, 0, totalStorageSlots, false);
+                } else {
+                    inserted = false;
                 }
 
                 if (!inserted) {

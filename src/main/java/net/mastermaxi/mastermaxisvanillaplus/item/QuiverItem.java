@@ -79,7 +79,6 @@ public class QuiverItem extends Item implements Accessory {
             } else {
                 old.remove(DataComponentTypes.CONTAINER);
                 old.remove(ModDataComponentTypes.QUIVER);
-                old.remove(ModDataComponentTypes.UPGRADES);
                 player.setStackInHand(hand, old);
                 return ActionResult.SUCCESS.withNewHandStack(old);
             }
