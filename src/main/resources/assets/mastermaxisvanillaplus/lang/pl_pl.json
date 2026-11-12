@@ -71,6 +71,13 @@
   "item.mastermaxisvanillaplus.pyrotechnic_tube.desc": "§7Ulepszenie kuszy: pozwala na wystrzeliwanie fajerwerków",
   "tooltip.mastermaxisvanillaplus.attachment.pyrotechnic_tube": "Ulepszenie: Tuba pirotechniczna",
   "tooltip.mastermaxisvanillaplus.attachment.viewfinder": "Ulepszenie: Luneta celownicza",
+  "item.mastermaxisvanillaplus.prismarine_arrow_rest": "Pryzmarynowa podstawka",
+  "item.mastermaxisvanillaplus.prismarine_arrow_rest.desc": "§7Ulepszenie łuku: pozwala wystrzeliwać pryzmarynowe strzały",
+  "tooltip.mastermaxisvanillaplus.attachment.prismarine_arrow_rest": "Ulepszenie: Pryzmarynowa podstawka",
+  "item.mastermaxisvanillaplus.prismarine_arrow": "Pryzmarynowa strzała",
+  "item.mastermaxisvanillaplus.prismarine_heavy_arrow": "Ciężka pryzmarynowa strzała",
+  "entity.mastermaxisvanillaplus.prismarine_arrow": "Pryzmarynowa strzała",
+  "entity.mastermaxisvanillaplus.prismarine_heavy_arrow": "Ciężka pryzmarynowa strzała",
 
   "item.mastermaxisvanillaplus.iron_crossbow_scheme": "Schemat: Żelazna Kusza",
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Ulepszenie w Stole Łuczniczym: Żelazna kusza",

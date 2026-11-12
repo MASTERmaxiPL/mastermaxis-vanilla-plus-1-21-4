@@ -27,6 +27,13 @@ public class HeavyArrowItem extends ArrowItem {
     }
 
     @Override
+    public net.minecraft.entity.projectile.ProjectileEntity createEntity(World world, net.minecraft.util.math.Position pos, ItemStack stack, net.minecraft.util.math.Direction direction) {
+        HeavyArrowEntity arrowEntity = new HeavyArrowEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount(1), null);
+        arrowEntity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
+        return arrowEntity;
+    }
+
+    @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         PotionContentsComponent potionContentsComponent = stack.get(DataComponentTypes.POTION_CONTENTS);
         if (potionContentsComponent != null) {

@@ -22,11 +22,30 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import net.mastermaxi.mastermaxisvanillaplus.item.PrismarineArrowRestItem;
+import net.minecraft.item.BowItem;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @SuppressWarnings({"unused", "ConstantValue"})
 @Mixin(Item.class)
 public abstract class ItemMixin {
+    @Inject(method = "appendTooltip", at = @At("HEAD"))
+    private void injectBowAttachmentTooltip(
+            ItemStack stack,
+            Item.TooltipContext context,
+            java.util.List<Text> tooltip,
+            TooltipType type,
+            CallbackInfo ci
+    ) {
+        if (stack.getItem() instanceof BowItem && PrismarineArrowRestItem.hasAttachment(stack)) {
+            tooltip.add(Text.translatable("tooltip.mastermaxisvanillaplus.attachment.prismarine_arrow_rest").formatted(Formatting.GRAY));
+        }
+    }
+
     @Inject(method = "getMaxCount", at = @At("HEAD"), cancellable = true)
     private void modifyMaxCount(CallbackInfoReturnable<Integer> ci) {
         if ((Object) this == Items.SNOWBALL) {

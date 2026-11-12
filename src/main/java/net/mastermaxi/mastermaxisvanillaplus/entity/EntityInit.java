@@ -64,6 +64,26 @@ public class EntityInit {
                     .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("bolt")))
     );
 
+    public static final EntityType<PrismarineArrowEntity> PRISMARINE_ARROW = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("prismarine_arrow"),
+            EntityType.Builder.<PrismarineArrowEntity>create(PrismarineArrowEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.5F, 0.5F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(20)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("prismarine_arrow")))
+    );
+
+    public static final EntityType<PrismarineHeavyArrowEntity> PRISMARINE_HEAVY_ARROW = Registry.register(
+            Registries.ENTITY_TYPE,
+            MASTERmaxisVanillaPlus.id("prismarine_heavy_arrow"),
+            EntityType.Builder.<PrismarineHeavyArrowEntity>create(PrismarineHeavyArrowEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.5F, 0.5F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(20)
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, MASTERmaxisVanillaPlus.id("prismarine_heavy_arrow")))
+    );
+
     public static final EntityType<BackpackEntity> BACKPACK = Registry.register(
             Registries.ENTITY_TYPE,
             MASTERmaxisVanillaPlus.id("backpack"),

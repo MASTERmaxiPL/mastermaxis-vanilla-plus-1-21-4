@@ -310,6 +310,42 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
                         .criterion(hasItem(Items.SLIME_BALL), conditionsFromItem(Items.SLIME_BALL))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Prismarine Arrow: prismarine shard + stick + feather => 4x prismarine arrow
+                id = MASTERmaxisVanillaPlus.id("prismarine_arrow");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.PRISMARINE_ARROW, 4)
+                        .pattern("P")
+                        .pattern("S")
+                        .pattern("F")
+                        .input('P', Items.PRISMARINE_SHARD)
+                        .input('S', Items.STICK)
+                        .input('F', Ingredient.ofItems(Items.FEATHER, ItemInit.OSTRICH_FEATHER))
+                        .criterion(hasItem(Items.PRISMARINE_SHARD), conditionsFromItem(Items.PRISMARINE_SHARD))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Prismarine Heavy Arrow: prismarine shard + stick + ostrich feather => 4x prismarine heavy arrow
+                id = MASTERmaxisVanillaPlus.id("prismarine_heavy_arrow");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.PRISMARINE_HEAVY_ARROW, 4)
+                        .pattern("P")
+                        .pattern("S")
+                        .pattern("F")
+                        .input('P', Items.PRISMARINE_SHARD)
+                        .input('S', Items.STICK)
+                        .input('F', ItemInit.OSTRICH_FEATHER)
+                        .criterion(hasItem(Items.PRISMARINE_SHARD), conditionsFromItem(Items.PRISMARINE_SHARD))
+                        .criterion(hasItem(ItemInit.OSTRICH_FEATHER), conditionsFromItem(ItemInit.OSTRICH_FEATHER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Prismarine Arrow Rest: gold ingot + prismarine shard
+                id = MASTERmaxisVanillaPlus.id("prismarine_arrow_rest");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.PRISMARINE_ARROW_REST)
+                        .pattern(" G ")
+                        .pattern(" P ")
+                        .input('G', Items.GOLD_INGOT)
+                        .input('P', Items.PRISMARINE_SHARD)
+                        .criterion(hasItem(Items.PRISMARINE_SHARD), conditionsFromItem(Items.PRISMARINE_SHARD))
+                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };
     }

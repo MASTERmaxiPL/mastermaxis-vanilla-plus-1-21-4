@@ -14,24 +14,20 @@ public class HeavyArrowEntity extends ArrowEntity {
         this.setDamage(this.getDamage() + 1.0);
     }
 
-    @SuppressWarnings("unused")
     public HeavyArrowEntity(World world, double x, double y, double z, ItemStack stack, @Nullable ItemStack shotFrom) {
-        super(world, x, y, z, stack, shotFrom);
+        super(EntityInit.HEAVY_ARROW, world);
+        ProjectileEntityHelper.initProjectilePos(this, x, y, z, world, stack, shotFrom);
         this.setDamage(this.getDamage() + 1.0);
     }
 
     public HeavyArrowEntity(World world, LivingEntity owner, ItemStack stack, @Nullable ItemStack shotFrom) {
-        super(world, owner, stack, shotFrom);
+        super(EntityInit.HEAVY_ARROW, world);
+        ProjectileEntityHelper.initProjectile(this, owner, world, stack, shotFrom);
         this.setDamage(this.getDamage() + 1.0);
     }
 
     @Override
     protected ItemStack getDefaultItemStack() {
         return new ItemStack(ItemInit.HEAVY_ARROW);
-    }
-
-    @Override
-    public double getDamage() {
-        return super.getDamage();
     }
 }

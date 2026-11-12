@@ -13,13 +13,14 @@ public class BoltEntity extends ArrowEntity {
         super(entityType, world);
     }
 
-    @SuppressWarnings("unused")
     public BoltEntity(World world, double x, double y, double z, ItemStack stack, @Nullable ItemStack shotFrom) {
-        super(world, x, y, z, stack, shotFrom);
+        super(EntityInit.BOLT, world);
+        ProjectileEntityHelper.initProjectilePos(this, x, y, z, world, stack, shotFrom);
     }
 
     public BoltEntity(World world, LivingEntity owner, ItemStack stack, @Nullable ItemStack shotFrom) {
-        super(world, owner, stack, shotFrom);
+        super(EntityInit.BOLT, world);
+        ProjectileEntityHelper.initProjectile(this, owner, world, stack, shotFrom);
     }
 
     @Override

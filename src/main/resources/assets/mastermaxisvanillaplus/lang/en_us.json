@@ -71,6 +71,13 @@
   "item.mastermaxisvanillaplus.pyrotechnic_tube.desc": "§7Crossbow attachment: enables firing fireworks",
   "tooltip.mastermaxisvanillaplus.attachment.pyrotechnic_tube": "Attachment: Pyrotechnic Tube",
   "tooltip.mastermaxisvanillaplus.attachment.viewfinder": "Attachment: Viewfinder",
+  "item.mastermaxisvanillaplus.prismarine_arrow_rest": "Prismarine Arrow Rest",
+  "item.mastermaxisvanillaplus.prismarine_arrow_rest.desc": "§7Bow attachment: enables firing prismarine arrows",
+  "tooltip.mastermaxisvanillaplus.attachment.prismarine_arrow_rest": "Attachment: Prismarine Arrow Rest",
+  "item.mastermaxisvanillaplus.prismarine_arrow": "Prismarine Arrow",
+  "item.mastermaxisvanillaplus.prismarine_heavy_arrow": "Prismarine Heavy Arrow",
+  "entity.mastermaxisvanillaplus.prismarine_arrow": "Prismarine Arrow",
+  "entity.mastermaxisvanillaplus.prismarine_heavy_arrow": "Prismarine Heavy Arrow",
 
   "item.mastermaxisvanillaplus.iron_crossbow_scheme": "Iron Crossbow Blueprint",
   "item.mastermaxisvanillaplus.iron_crossbow_scheme.desc": "§7Upgrade in Fletching Table: Iron Crossbow",
