@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "F": "mastermaxisvanillaplus:ostrich_feather",
+    "P": "minecraft:prismarine_shard",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "P",
+    "S",
+    "F"
+  ],
+  "result": {
+    "count": 4,
+    "id": "mastermaxisvanillaplus:prismarine_heavy_arrow"
+  }
+}

@@ -31,6 +31,13 @@ public class BoltItem extends ArrowItem {
     }
 
     @Override
+    public net.minecraft.entity.projectile.ProjectileEntity createEntity(World world, net.minecraft.util.math.Position pos, ItemStack stack, net.minecraft.util.math.Direction direction) {
+        BoltEntity bolt = new BoltEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount(1), null);
+        bolt.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
+        return bolt;
+    }
+
+    @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         PotionContentsComponent potionContentsComponent = stack.get(DataComponentTypes.POTION_CONTENTS);
         if (potionContentsComponent != null) {

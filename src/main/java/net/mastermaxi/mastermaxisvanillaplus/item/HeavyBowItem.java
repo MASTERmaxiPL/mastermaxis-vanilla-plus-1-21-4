@@ -52,8 +52,10 @@ public class HeavyBowItem extends BowItem {
 
     @Override
     public Predicate<ItemStack> getProjectiles() {
-        // Can shoot any arrow, including Heavy Arrow
-        return stack -> stack.isIn(ItemTags.ARROWS);
+        // Can shoot standard arrows and Heavy Arrows, but not Prismarine Arrows without rest
+        return stack -> stack.isIn(ItemTags.ARROWS)
+                && !stack.isOf(ItemInit.PRISMARINE_ARROW)
+                && !stack.isOf(ItemInit.PRISMARINE_HEAVY_ARROW);
     }
 
     @Override

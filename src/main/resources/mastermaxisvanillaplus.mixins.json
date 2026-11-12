@@ -18,6 +18,7 @@
 		"LandPathNodeMakerMixin",
 		"LivingEntityMixin",
 		"OreFeatureMixin",
+		"PersistentProjectileEntityAccessor",
 		"PigEntityMixin",
 		"SaplingBlockMixin",
 		"SpawnRestrictionAccessor",

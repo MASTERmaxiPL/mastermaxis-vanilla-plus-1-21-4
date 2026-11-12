@@ -37,6 +37,12 @@ public class ModRecipeSerializers {
             new SpecialCraftingRecipe.SpecialRecipeSerializer<>(AttachPyrotechnicTubeRecipe::new)
     );
 
+    public static final RecipeSerializer<AttachPrismarineArrowRestRecipe> ATTACH_PRISMARINE_ARROW_REST = Registry.register(
+            Registries.RECIPE_SERIALIZER,
+            MASTERmaxisVanillaPlus.id("crafting_special_attach_prismarine_arrow_rest"),
+            new SpecialCraftingRecipe.SpecialRecipeSerializer<>(AttachPrismarineArrowRestRecipe::new)
+    );
+
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering recipe serializers for " + MASTERmaxisVanillaPlus.MOD_ID);
     }

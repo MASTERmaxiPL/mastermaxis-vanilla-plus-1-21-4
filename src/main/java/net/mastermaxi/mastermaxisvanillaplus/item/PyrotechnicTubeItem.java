@@ -39,10 +39,19 @@ public class PyrotechnicTubeItem extends Item {
         NbtCompound nbt = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
         if (attached) {
             nbt.putBoolean(NBT_KEY, true);
+            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
         } else {
             nbt.remove(NBT_KEY);
+            if (nbt.isEmpty()) {
+                stack.remove(DataComponentTypes.CUSTOM_DATA);
+            } else {
+                stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            }
         }
-        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+    }
+
+    public static java.util.function.Predicate<ItemStack> getCrossbowProjectilePredicate(boolean hasTube) {
+        return stack -> stack.getItem() instanceof BoltItem || (hasTube && stack.isOf(net.minecraft.item.Items.FIREWORK_ROCKET));
     }
 
     @Override

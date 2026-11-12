@@ -37,9 +37,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags.FEATHERS)
                 .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.OSTRICH_FEATHER);
 
-        // Heavy arrow is also an arrow (for bow compatibility)
+        // Heavy arrow and prismarine arrows are also arrows (for bow compatibility)
         getOrCreateTagBuilder(ItemTags.ARROWS)
-                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_ARROW);
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.HEAVY_ARROW)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.PRISMARINE_ARROW)
+                .add(net.mastermaxi.mastermaxisvanillaplus.item.ItemInit.PRISMARINE_HEAVY_ARROW);
 
         // Bolts tag - used by crossbows instead of arrows
         getOrCreateTagBuilder(net.minecraft.registry.tag.TagKey.of(

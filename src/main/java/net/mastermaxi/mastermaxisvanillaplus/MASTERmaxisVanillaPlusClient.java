@@ -20,6 +20,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.world.biome.FoliageColors;
 
+@SuppressWarnings("unused")
 public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
     @Override
     @SuppressWarnings("resource")
@@ -47,9 +48,14 @@ public class MASTERmaxisVanillaPlusClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntityInit.OSTRICH_EGG, FlyingItemEntityRenderer::new);
 
-        // Register renderers for new shooting entities
-        EntityRendererRegistry.register(EntityInit.HEAVY_ARROW, net.minecraft.client.render.entity.ArrowEntityRenderer::new);
-        EntityRendererRegistry.register(EntityInit.BOLT, net.minecraft.client.render.entity.ArrowEntityRenderer::new);
+        // Register custom models and renderers for shooting entities
+        EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.entity.client.BoltEntityModel.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.entity.client.BoltEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(net.mastermaxi.mastermaxisvanillaplus.entity.client.PrismarineArrowEntityModel.LAYER_LOCATION, net.mastermaxi.mastermaxisvanillaplus.entity.client.PrismarineArrowEntityModel::getTexturedModelData);
+
+        EntityRendererRegistry.register(EntityInit.HEAVY_ARROW, net.mastermaxi.mastermaxisvanillaplus.entity.client.HeavyArrowEntityRenderer::new);
+        EntityRendererRegistry.register(EntityInit.BOLT, net.mastermaxi.mastermaxisvanillaplus.entity.client.BoltEntityRenderer::new);
+        EntityRendererRegistry.register(EntityInit.PRISMARINE_ARROW, net.mastermaxi.mastermaxisvanillaplus.entity.client.PrismarineArrowEntityRenderer::new);
+        EntityRendererRegistry.register(EntityInit.PRISMARINE_HEAVY_ARROW, net.mastermaxi.mastermaxisvanillaplus.entity.client.PrismarineArrowEntityRenderer::new);
 
         FluidRenderHandlerRegistry.INSTANCE.register(FluidInit.MUD_WATER_STILL, FluidInit.MUD_WATER_FLOWING, SimpleFluidRenderHandler.coloredWater(0x5C3A1E));
         System.out.println("Mud Water renderer registered!");

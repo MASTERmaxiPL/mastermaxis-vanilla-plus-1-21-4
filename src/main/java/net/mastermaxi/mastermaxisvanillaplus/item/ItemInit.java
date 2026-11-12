@@ -67,6 +67,12 @@ public class ItemInit {
     public static final Item VIEWFINDER = register("viewfinder", new Item.Settings().maxCount(1), ViewfinderItem::new);
     // Pyrotechnic Tube - crossbow attachment enabling fireworks as ammunition
     public static final Item PYROTECHNIC_TUBE = register("pyrotechnic_tube", new Item.Settings().maxCount(1), PyrotechnicTubeItem::new);
+    // Prismarine Arrow Rest - bow attachment enabling prismarine arrows
+    public static final Item PRISMARINE_ARROW_REST = register("prismarine_arrow_rest", new Item.Settings().maxCount(1), PrismarineArrowRestItem::new);
+
+    // Prismarine Arrows
+    public static final Item PRISMARINE_ARROW = register("prismarine_arrow", new Item.Settings().maxCount(64), PrismarineArrowItem::new);
+    public static final Item PRISMARINE_HEAVY_ARROW = register("prismarine_heavy_arrow", new Item.Settings().maxCount(64), PrismarineHeavyArrowItem::new);
 
     // Iron Crossbow - 3 iron + slimeball + 2 strings
     public static final Item IRON_CROSSBOW = register("iron_crossbow", new Item.Settings().maxDamage(600).maxCount(1).enchantable(10), IronCrossbowItem::new);
@@ -130,6 +136,7 @@ public class ItemInit {
             // Crossbows & Optics
             entries.add(VIEWFINDER);
             entries.add(PYROTECHNIC_TUBE);
+            entries.add(PRISMARINE_ARROW_REST);
             entries.add(IRON_CROSSBOW);
             entries.add(NETHER_CROSSBOW);
             entries.add(CROSSBOW_VIEWFINDER);
@@ -154,10 +161,14 @@ public class ItemInit {
             // Projectiles & Ammunition
             entries.add(HEAVY_ARROW);
             entries.add(BOLT);
+            entries.add(PRISMARINE_ARROW);
+            entries.add(PRISMARINE_HEAVY_ARROW);
             addTippedVariants(entries);
         });
 
         net.minecraft.block.DispenserBlock.registerProjectileBehavior(OSTRICH_EGG);
+        net.minecraft.block.DispenserBlock.registerProjectileBehavior(PRISMARINE_ARROW);
+        net.minecraft.block.DispenserBlock.registerProjectileBehavior(PRISMARINE_HEAVY_ARROW);
 
         // Interaction: Waxing nether crossbow with Honeycomb and scraping oxidized crossbow with Axe
         net.fabricmc.fabric.api.event.player.UseItemCallback.EVENT.register((player, world, hand) -> {
