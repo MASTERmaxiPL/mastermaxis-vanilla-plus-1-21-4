@@ -41,18 +41,3 @@ replay_*.log
 
 # datagen
 src/main/generated/
-
-assets/minecraft
-
-assets/fabric-events-interaction-v0
-
-io/
-
-assets/accessories
-data/accessories
-accessories-common.mixins.json
-accessories-fabric.accesswidener
-accessories.accesswidener
-accessories-fabric.mixins.json
-AccessoriesTags.java
-*-refmap.json
