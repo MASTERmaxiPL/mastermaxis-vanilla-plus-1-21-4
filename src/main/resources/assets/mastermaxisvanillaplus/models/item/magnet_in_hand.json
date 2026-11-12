@@ -1,0 +1,6 @@
+{
+  "parent": "mastermaxisvanillaplus:item/bow_base",
+  "textures": {
+    "layer0": "mastermaxisvanillaplus:item/magnet"
+  }
+}

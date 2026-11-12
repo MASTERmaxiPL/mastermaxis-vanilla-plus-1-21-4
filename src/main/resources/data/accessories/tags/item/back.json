@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:elytra",
+    "mastermaxisvanillaplus:leather_backpack",
+    "mastermaxisvanillaplus:iron_backpack",
+    "mastermaxisvanillaplus:iron_backpack_with_quiver",
+    "mastermaxisvanillaplus:netherite_backpack",
+    "mastermaxisvanillaplus:ender_backpack",
+    "mastermaxisvanillaplus:quiver"
+  ]
+}

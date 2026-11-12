@@ -20,8 +20,17 @@ public abstract class PlayerEntityMixin {
 
     @Inject(method = "getProjectileType", at = @At("HEAD"), cancellable = true)
     private void injectCrossbowProjectileType(ItemStack weapon, CallbackInfoReturnable<ItemStack> cir) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
+        if (weapon.getItem() instanceof RangedWeaponItem rangedWeapon) {
+            ItemStack quiverArrow = net.mastermaxi.mastermaxisvanillaplus.item.QuiverHelper.getArrowForShooting(player, rangedWeapon.getProjectiles());
+            if (!quiverArrow.isEmpty()) {
+                cir.setReturnValue(quiverArrow);
+                return;
+            }
+        }
+
         if (weapon.getItem() instanceof CrossbowItem) {
-            PlayerEntity player = (PlayerEntity) (Object) this;
             boolean hasTube = PyrotechnicTubeItem.hasAttachment(weapon);
             Predicate<ItemStack> predicate = stack -> stack.getItem() instanceof BoltItem || (hasTube && stack.isOf(Items.FIREWORK_ROCKET));
 

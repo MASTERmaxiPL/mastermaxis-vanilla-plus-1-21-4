@@ -1,0 +1,282 @@
+package net.mastermaxi.mastermaxisvanillaplus.item;
+
+import io.wispforest.accessories.api.AccessoriesCapability;
+import io.wispforest.accessories.api.AccessoriesContainer;
+import io.wispforest.accessories.api.Accessory;
+import io.wispforest.accessories.api.AccessoryRegistry;
+import io.wispforest.accessories.api.slot.SlotReference;
+import net.mastermaxi.mastermaxisvanillaplus.component.ModDataComponentTypes;
+import net.minecraft.component.ComponentType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.World;
+
+public class BackpackItem extends Item implements Accessory {
+
+    public enum BackpackTier {
+        LEATHER(9, 1, false),
+        IRON(18, 2, false),
+        IRON_WITH_QUIVER(18, 1, true),
+        NETHERITE(27, 3, false),
+        ENDER(27, 3, false);
+
+        public final int inventorySlots;
+        public final int upgradeSlots;
+        public final boolean hasQuiver;
+
+        BackpackTier(int inventorySlots, int upgradeSlots, boolean hasQuiver) {
+            this.inventorySlots = inventorySlots;
+            this.upgradeSlots = upgradeSlots;
+            this.hasQuiver = hasQuiver;
+        }
+    }
+
+    private final BackpackTier tier;
+
+    public BackpackItem(BackpackTier tier, Settings settings) {
+        super(settings.maxCount(1));
+        this.tier = tier;
+        AccessoryRegistry.register(this, this);
+    }
+
+    public BackpackTier getTier() {
+        return this.tier;
+    }
+
+    @Override
+    public boolean canEquipFromUse(ItemStack stack) {
+        return false;
+    }
+
+    public static final ThreadLocal<Boolean> IS_PLACING_AS_ENTITY = ThreadLocal.withInitial(() -> false);
+
+    @Override
+    public void tick(ItemStack stack, SlotReference reference) {
+        if (!reference.entity().getWorld().isClient && reference.entity() instanceof ServerPlayerEntity player) {
+            BackpackUpgradeHelper.tick(player, stack, this);
+        }
+    }
+
+    @Override
+    public void onUnequip(ItemStack stack, SlotReference reference) {
+        if (!reference.entity().getWorld().isClient && reference.entity() instanceof ServerPlayerEntity player) {
+            BackpackUpgradeHelper.onUnequip(player);
+
+            if (!IS_PLACING_AS_ENTITY.get() && "back".equals(reference.slotName())) {
+                if (this.tier != BackpackTier.ENDER) {
+                    if (stack.contains(DataComponentTypes.CONTAINER) || (this.tier.hasQuiver && stack.contains(ModDataComponentTypes.QUIVER))) {
+                        dropStoredItems(player.getWorld(), player, stack);
+                        clearContainerFromPlayerBackpacks(player, this);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void clearContainerFromPlayerBackpacks(ServerPlayerEntity player, BackpackItem backpackItem) {
+        if (player.currentScreenHandler != null) {
+            ItemStack cursor = player.currentScreenHandler.getCursorStack();
+            if (cursor.getItem() == backpackItem && cursor.contains(DataComponentTypes.CONTAINER)) {
+                cursor.remove(DataComponentTypes.CONTAINER);
+                if (backpackItem.getTier().hasQuiver) {
+                    cursor.remove(ModDataComponentTypes.QUIVER);
+                }
+            }
+        }
+
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            ItemStack invStack = player.getInventory().getStack(i);
+            if (invStack.getItem() == backpackItem && invStack.contains(DataComponentTypes.CONTAINER)) {
+                invStack.remove(DataComponentTypes.CONTAINER);
+                if (backpackItem.getTier().hasQuiver) {
+                    invStack.remove(ModDataComponentTypes.QUIVER);
+                }
+            }
+        }
+
+        java.util.List<net.minecraft.entity.ItemEntity> dropped = player.getWorld().getEntitiesByClass(
+                net.minecraft.entity.ItemEntity.class,
+                player.getBoundingBox().expand(3.0),
+                e -> e.getStack().getItem() == backpackItem && e.getStack().contains(DataComponentTypes.CONTAINER)
+        );
+        for (net.minecraft.entity.ItemEntity itemEntity : dropped) {
+            ItemStack dropStack = itemEntity.getStack();
+            dropStack.remove(DataComponentTypes.CONTAINER);
+            if (backpackItem.getTier().hasQuiver) {
+                dropStack.remove(ModDataComponentTypes.QUIVER);
+            }
+        }
+
+        player.playerScreenHandler.syncState();
+        if (player.currentScreenHandler != null) {
+            player.currentScreenHandler.syncState();
+        }
+    }
+
+    @Override
+    public ActionResult use(World world, PlayerEntity player, Hand hand) {
+        ItemStack heldStack = player.getStackInHand(hand);
+
+        AccessoriesCapability capability = AccessoriesCapability.get(player);
+        if (capability == null) {
+            return ActionResult.PASS;
+        }
+
+        AccessoriesContainer backContainer = capability.getContainers().get("back");
+        if (backContainer == null) {
+            return ActionResult.PASS;
+        }
+
+        ItemStack current = backContainer.getAccessories().getStack(0);
+
+        if (current.isEmpty()) {
+            player.setStackInHand(hand, ItemStack.EMPTY);
+            backContainer.getAccessories().setStack(0, heldStack.copy());
+            backContainer.markChanged();
+            if (!world.isClient) {
+                world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.playerScreenHandler.syncState();
+                    serverPlayer.currentScreenHandler.syncState();
+                }
+            }
+            return ActionResult.SUCCESS.withNewHandStack(ItemStack.EMPTY);
+        } else if (current.getItem() instanceof BackpackItem || current.getItem() instanceof QuiverItem || current.isOf(Items.ELYTRA)) {
+            ItemStack oldStack = current.copy();
+            backContainer.getAccessories().setStack(0, heldStack.copy());
+            backContainer.markChanged();
+            if (!world.isClient) {
+                if (oldStack.getItem() instanceof BackpackItem oldBackpack) {
+                    oldBackpack.dropStoredItems(world, player, oldStack);
+                } else if (oldStack.getItem() instanceof QuiverItem oldQuiver) {
+                    oldQuiver.dropStoredArrows(world, player, oldStack);
+                }
+                player.setStackInHand(hand, oldStack);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        current.isOf(Items.ELYTRA) ? SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA.value() : SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
+                        SoundCategory.PLAYERS, 1.0F, 1.0F);
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.playerScreenHandler.syncState();
+                    serverPlayer.currentScreenHandler.syncState();
+                }
+                return ActionResult.SUCCESS.withNewHandStack(oldStack);
+            } else {
+                oldStack.remove(DataComponentTypes.CONTAINER);
+                oldStack.remove(ModDataComponentTypes.QUIVER);
+                player.setStackInHand(hand, oldStack);
+                return ActionResult.SUCCESS.withNewHandStack(oldStack);
+            }
+        }
+
+        return ActionResult.PASS;
+    }
+
+    @Override
+    public boolean canBeNested() {
+        return false;
+    }
+
+    public void dropStoredItems(World world, PlayerEntity player, ItemStack backpackStack) {
+        dropStoredItems(world, player, player != null ? player.getX() : 0.0, player != null ? player.getY() : 0.0, player != null ? player.getZ() : 0.0, backpackStack);
+    }
+
+    public void dropStoredItems(World world, PlayerEntity player, double x, double y, double z, ItemStack backpackStack) {
+        if (world.isClient) return;
+
+        if (this.tier == BackpackTier.ENDER) {
+            // Ender Chest items are personal and never dropped into world
+            return;
+        }
+
+        // Drop storage items
+        DefaultedList<ItemStack> items = getStoredItems(backpackStack);
+        for (ItemStack stack : items) {
+            if (!stack.isEmpty()) {
+                ItemStack drop = stack.copy();
+                stack.setCount(0);
+                if (player != null) {
+                    player.dropItem(drop, true, false);
+                } else {
+                    net.minecraft.util.ItemScatterer.spawn(world, x, y, z, drop);
+                }
+            }
+        }
+        backpackStack.remove(DataComponentTypes.CONTAINER);
+
+        // Drop quiver arrows if present
+        if (this.tier.hasQuiver) {
+            DefaultedList<ItemStack> arrows = getStoredQuiverArrows(backpackStack);
+            for (ItemStack stack : arrows) {
+                if (!stack.isEmpty()) {
+                    ItemStack drop = stack.copy();
+                    stack.setCount(0);
+                    if (player != null) {
+                        player.dropItem(drop, true, false);
+                    } else {
+                        net.minecraft.util.ItemScatterer.spawn(world, x, y, z, drop);
+                    }
+                }
+            }
+            backpackStack.remove(ModDataComponentTypes.QUIVER);
+        }
+    }
+
+    public DefaultedList<ItemStack> getStoredItems(ItemStack stack) {
+        DefaultedList<ItemStack> list = DefaultedList.ofSize(this.tier.inventorySlots, ItemStack.EMPTY);
+        ContainerComponent component = stack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT);
+        component.copyTo(list);
+        return list;
+    }
+
+    private void setContainerComponent(ItemStack stack, ComponentType<ContainerComponent> type, DefaultedList<ItemStack> items) {
+        boolean hasItems = false;
+        for (ItemStack item : items) {
+            if (!item.isEmpty()) {
+                hasItems = true;
+                break;
+            }
+        }
+        if (hasItems) {
+            stack.set(type, ContainerComponent.fromStacks(items));
+        } else {
+            stack.remove(type);
+        }
+    }
+
+    public void setStoredItems(ItemStack stack, DefaultedList<ItemStack> items) {
+        setContainerComponent(stack, DataComponentTypes.CONTAINER, items);
+    }
+
+    public DefaultedList<ItemStack> getStoredUpgrades(ItemStack stack) {
+        DefaultedList<ItemStack> list = DefaultedList.ofSize(this.tier.upgradeSlots, ItemStack.EMPTY);
+        ContainerComponent component = stack.getOrDefault(ModDataComponentTypes.UPGRADES, ContainerComponent.DEFAULT);
+        component.copyTo(list);
+        return list;
+    }
+
+    public void setStoredUpgrades(ItemStack stack, DefaultedList<ItemStack> upgrades) {
+        setContainerComponent(stack, ModDataComponentTypes.UPGRADES, upgrades);
+    }
+
+    public DefaultedList<ItemStack> getStoredQuiverArrows(ItemStack stack) {
+        DefaultedList<ItemStack> list = DefaultedList.ofSize(3, ItemStack.EMPTY);
+        ContainerComponent component = stack.getOrDefault(ModDataComponentTypes.QUIVER, ContainerComponent.DEFAULT);
+        component.copyTo(list);
+        return list;
+    }
+
+    public void setStoredQuiverArrows(ItemStack stack, DefaultedList<ItemStack> arrows) {
+        setContainerComponent(stack, ModDataComponentTypes.QUIVER, arrows);
+    }
+}

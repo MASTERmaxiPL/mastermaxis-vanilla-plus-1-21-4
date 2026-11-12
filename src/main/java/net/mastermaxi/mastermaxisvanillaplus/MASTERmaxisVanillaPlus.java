@@ -15,6 +15,10 @@ import net.mastermaxi.mastermaxisvanillaplus.item.ItemInit;
 import net.mastermaxi.mastermaxisvanillaplus.item.ItemGroupsInit;
 import net.mastermaxi.mastermaxisvanillaplus.world.gen.WorldGenerationInit;
 import net.minecraft.block.Block;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +59,8 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 			builder.add(Blocks.INFECTED_MOUND, fuelTicks);
 		});
 
+		LOGGER.info("trying to init data component types");
+		net.mastermaxi.mastermaxisvanillaplus.component.ModDataComponentTypes.initialize();
 		LOGGER.info("trying to init items");
 		ItemInit.initialize();
 		net.mastermaxi.mastermaxisvanillaplus.recipe.ModRecipeSerializers.initialize();
@@ -68,7 +74,57 @@ public class MASTERmaxisVanillaPlus implements ModInitializer {
 		WorldGenerationInit.initialize();
 		LOGGER.info("trying to init loot table modifiers");
 		net.mastermaxi.mastermaxisvanillaplus.loot.ModLootTableModifiers.initialize();
+		net.mastermaxi.mastermaxisvanillaplus.network.ModNetworking.initialize();
+
+		net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> {
+			if (entity instanceof net.minecraft.entity.player.PlayerEntity player) {
+				io.wispforest.accessories.api.AccessoriesCapability cap = io.wispforest.accessories.api.AccessoriesCapability.get(player);
+				if (cap != null) {
+					io.wispforest.accessories.api.AccessoriesContainer back = cap.getContainers().get("back");
+					if (back != null) {
+						net.minecraft.item.ItemStack stack = back.getAccessories().getStack(0);
+						if (stack.isOf(net.minecraft.item.Items.ELYTRA) && (stack.getMaxDamage() == 0 || stack.getDamage() < stack.getMaxDamage() - 1)) {
+							if (tickElytra) {
+								int nextRoll = entity.getGlidingTicks() + 1;
+								if (!entity.getWorld().isClient && nextRoll % 10 == 0) {
+									if ((nextRoll / 10) % 2 == 0) {
+										stack.damage(1, (net.minecraft.server.world.ServerWorld) entity.getWorld(), null, s -> {});
+										back.markChanged();
+									}
+									entity.emitGameEvent(net.minecraft.world.event.GameEvent.ELYTRA_GLIDE);
+								}
+							}
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		});
+
 		LOGGER.info("Hello Fabric world!");
+		io.wispforest.accessories.api.AccessoryRegistry.register(net.minecraft.item.Items.ELYTRA, new io.wispforest.accessories.api.Accessory() {
+			@Override
+			public boolean canEquipFromUse(net.minecraft.item.ItemStack stack) {
+				return false;
+			}
+		});
+
+		net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register(
+				(handler, server) -> net.mastermaxi.mastermaxisvanillaplus.item.BackpackUpgradeHelper.onPlayerDisconnect(handler.player)
+		);
+		net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.AFTER_RESPAWN.register(
+				(oldPlayer, newPlayer, alive) -> net.mastermaxi.mastermaxisvanillaplus.item.BackpackUpgradeHelper.onPlayerRespawn(oldPlayer)
+		);
+
+		FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+				container -> ResourceManagerHelper.registerBuiltinResourcePack(
+						id("mastermaxis-vanilla-plus-extras"),
+						container,
+						Text.literal("mastermaxis vanilla plus extras"),
+						ResourcePackActivationType.NORMAL
+				)
+		);
 	}
 
 	public static Identifier id(String path) {
