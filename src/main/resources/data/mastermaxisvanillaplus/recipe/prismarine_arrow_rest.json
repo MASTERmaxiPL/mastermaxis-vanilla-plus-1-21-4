@@ -2,12 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "G": "minecraft:gold_ingot",
-    "P": "minecraft:prismarine_shard"
+    "C": "minecraft:prismarine_crystals",
+    "N": "minecraft:gold_nugget",
+    "S": "minecraft:prismarine_shard"
   },
   "pattern": [
-    " G ",
-    " P "
+    "NNC",
+    "NSN",
+    "CNN"
   ],
   "result": {
     "count": 1,

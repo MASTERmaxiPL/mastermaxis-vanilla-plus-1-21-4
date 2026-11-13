@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "#minecraft:bundles",
+    "L": "minecraft:leather",
+    "R": "minecraft:rabbit_hide",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "SRS",
+    "LBL",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "mastermaxisvanillaplus:leather_backpack"
+  }
+}

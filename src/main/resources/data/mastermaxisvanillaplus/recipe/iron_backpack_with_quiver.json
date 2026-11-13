@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "mastermaxisvanillaplus:iron_backpack",
+    "mastermaxisvanillaplus:quiver"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mastermaxisvanillaplus:iron_backpack_with_quiver"
+  }
+}
