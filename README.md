@@ -35,11 +35,13 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
 7. [Ranged Combat & Archery Overhaul](#-ranged-combat--archery-overhaul)
    - [Heavy Bow & Heavy Hardened Bow](#heavy-bow--heavy-hardened-bow)
    - [Heavy Arrows & Tipped Variants](#heavy-arrows--tipped-variants)
+   - [Prismarine Arrows & Underwater Archery](#prismarine-arrows--underwater-archery)
    - [Crossbow Overhaul & Bolt Ammunition](#crossbow-overhaul--bolt-ammunition)
    - [Pyrotechnic Tube & Fireworks Ammunition](#pyrotechnic-tube--fireworks-ammunition)
    - [Iron, Nether & Oxidized Nether Crossbows](#iron-nether--oxidized-nether-crossbows)
-8. [Crossbow Attachments & Optics System](#-crossbow-attachments--optics-system)
+8. [Weapon Attachments & Optics System](#-weapon-attachments--optics-system)
    - [The Viewfinder](#the-viewfinder)
+   - [Prismarine Arrow Rest](#prismarine-arrow-rest)
    - [Crossbow Scope Attachment & Aiming](#crossbow-scope-attachment--aiming)
    - [Dynamic Camera Sensitivity Damping](#dynamic-camera-sensitivity-damping)
    - [Attachment Tooltip Displays](#attachment-tooltip-displays)
@@ -61,6 +63,7 @@ A vanilla-friendly expansion mod for Minecraft Fabric 1.21.4 that revamps the Sa
     - [The Quiver & HUD Overlay](#the-quiver--hud-overlay)
     - [World Entity Placement & Controls](#world-entity-placement--controls)
     - [Backpack Upgrade System](#backpack-upgrade-system)
+    - [Crafting Progression & Disassembly](#crafting-progression--disassembly)
     - [Storage Rules & Anti-Nesting](#storage-rules--anti-nesting)
     - [Built-in Resource Pack: mastermaxis vanilla plus extras](#built-in-resource-pack-mastermaxis-vanilla-plus-extras)
 13. [Crafting & Stonecutting Recipes](#-crafting--stonecutting-recipes)
@@ -297,6 +300,16 @@ Engineered for archers demanding high projectile velocity and extended effective
   - Compatible with all standard bows and heavy bows.
 - **Tipped Heavy Arrows:** All vanilla potion effects can be applied to Heavy Arrows in the crafting table or Fletching Table.
 
+### Prismarine Arrows & Underwater Archery
+Engineered specifically for aquatic combat, Prismarine Arrows and Prismarine Heavy Arrows conquer the traditional limitation of archery in water:
+- **Custom Projectile Models:** Features dedicated custom 3D models with a distinct cyan-blue prismarine shard tip and aerodynamic fletching.
+- **Underwater Ballistics:**
+  - **Negligible Water Drag:** Water drag is reduced to **0.99F** (compared to vanilla's punishing 0.6F drag), allowing prismarine projectiles to cut cleanly through water without abruptly stalling.
+  - **Ballistics Tuning:** Heavier gravity (**0.075** vs vanilla 0.05) and slightly tuned launch velocity (**0.85x**) give it an authentic, weighty arc tailored for short-to-medium range aquatic engagements.
+- **Prismarine Arrow (`ItemInit.PRISMARINE_ARROW`):** Standard aquatic arrow crafted from a Prismarine Shard, Stick, and Feather (or Ostrich Feather).
+- **Prismarine Heavy Arrow (`ItemInit.PRISMARINE_HEAVY_ARROW`):** Combines full underwater flight with a **+1 base damage bonus** (base 3.0). Crafted with a Prismarine Shard, Stick, and an Ostrich Feather.
+- **Shooting Requirement:** Standard vanilla and heavy bows cannot fire prismarine arrows without an equipped **Prismarine Arrow Rest** attachment (and Prismarine Heavy Arrows require both a Heavy Bow and an Arrow Rest).
+
 ### Crossbow Overhaul & Bolt Ammunition
 Crossbows have been completely rebalanced: **all crossbows now shoot Bolts instead of Arrows**!
 - **Bolt (`ItemInit.BOLT`):** The standard ammunition for crossbows. Crafted with **1x Iron Nugget + 1x Stick** (produces 4x in Crafting Table, or **6x in Fletching Table**).
@@ -337,12 +350,19 @@ Advanced tiers of crossbow weaponry offering improved stopping power, higher dur
 
 ---
 
-## 🔭 Crossbow Attachments & Optics System
+## 🔭 Weapon Attachments & Optics System
 
 ### The Viewfinder
 The **Viewfinder (`ItemInit.VIEWFINDER`)** is a precision optic device crafted from an **Amethyst Shard** mounted over a **Gold Ingot** in the center column.
 - **Handheld Spyglass:** Can be used directly from the hand via Right Mouse Button (RMB) like a compact spyglass.
 - **Magnification:** Provides an optimal **0.35x FOV multiplier** (~3x zoom) paired with an authentic purple-tinted circular scope vignette (`viewfinder_scope.png`).
+
+### Prismarine Arrow Rest
+The **Prismarine Arrow Rest (`ItemInit.PRISMARINE_ARROW_REST`)** is an exquisite golden-prismarine arrow shelf designed for bows:
+- **Bow Compatibility:** Can be installed onto any bow tier—Standard Vanilla Bow, Heavy Bow, or Heavy Hardened Bow.
+- **Mounting & Detaching:** Freely mount or unmount via the [Fletching Table](#-fletching-table-overhaul) attachment slot, or attach directly by combining the bow and arrow rest in any crafting grid.
+- **Functionality:** Stabilizes aquatic arrows, enabling the bow to shoot **Prismarine Arrows** (and **Prismarine Heavy Arrows** when mounted on Heavy Bows).
+- **Crafting Recipe:** Crafted with **6x Gold Nugget + 2x Prismarine Crystals + 1x Prismarine Shard** in a shaped 3x3 pattern.
 
 ### Crossbow Scope Attachment & Aiming
 All crossbow models—Vanilla Crossbow, Iron Crossbow, Nether Crossbow, and Oxidized Nether Crossbow—can be upgraded with a Viewfinder attachment:
@@ -357,9 +377,10 @@ All crossbow models—Vanilla Crossbow, Iron Crossbow, Nether Crossbow, and Oxid
 - While aiming through a Viewfinder (handheld or crossbow-mounted), camera rotation sensitivity is smoothly scaled down by **0.35x** (`ViewfinderItem.FOV_MULTIPLIER`). This maintains 1:1 focal length angular scaling, making precision aiming feel natural and controlled.
 
 ### Attachment Tooltip Displays
-Crossbows dynamically display their equipped attachments and modifications directly on their item tooltip:
+Weapons dynamically display their equipped attachments and modifications directly on their item tooltip:
 - **Viewfinder:** Displays a subtle gray `Attachment: Viewfinder` (`Ulepszenie: Luneta celownicza`).
 - **Pyrotechnic Tube:** Displays a gray `Attachment: Pyrotechnic Tube` (`Ulepszenie: Tuba pirotechniczna`).
+- **Prismarine Arrow Rest:** Displays a gray `Attachment: Prismarine Arrow Rest` (`Ulepszenie: Podstawka pod strzały z pryzmarynu`).
 - **Waxed State:** Displays a distinctive gold `Waxed` (`Nawoskowana`) tag when treated with honeycomb.
 
 ---
@@ -375,7 +396,7 @@ The vanilla Fletching Table has been transformed into a fully functional craftin
 ### Weapon Upgrading & Attachment Station
 The upper portion of the Fletching Table interface is dedicated to bow and crossbow modifications:
 - **Center Slot:** Weapon slot (Bow or Crossbow).
-- **Left Slot:** Attachment slot. Supports both the **Viewfinder** and the **Pyrotechnic Tube**. Inserting or removing an attachment mounts or unmounts the upgrade on the weapon.
+- **Left Slot:** Attachment slot. Supports the **Viewfinder** and **Pyrotechnic Tube** for crossbows, as well as the **Prismarine Arrow Rest** for bows. Inserting or removing an attachment mounts or unmounts the upgrade on the weapon.
   - **Item Preservation:** All existing enchantments, durability percentage, and custom anvil names are fully preserved!
 - **Right Slot:** Schematic slot. Insert an **Iron Crossbow Scheme**, **Nether Crossbow Scheme**, **Heavy Bow Scheme**, or **Heavy Hardened Bow Scheme** alongside required alloy materials in the lower slots to forge upgraded weapons:
   - **Heavy Bow Upgrade:** Bow + Heavy Bow Scheme + 2x Leather + 2x Slimeball + 2x String.
@@ -389,6 +410,8 @@ The upper portion of the Fletching Table interface is dedicated to bow and cross
 The lower slots provide quick, batch fletching for ammunition (`Slot A + Slot B + Slot C = Result`):
 - **6x Arrows:** Feather + Stick + Flint.
 - **6x Heavy Arrows:** Ostrich Feather + Stick + Iron Nugget.
+- **6x Prismarine Arrows:** Feather + Stick + Prismarine Shard.
+- **6x Prismarine Heavy Arrows:** Ostrich Feather + Stick + Prismarine Shard.
 - **6x Bolts:** (Empty) + Stick + Iron Nugget.
 - **Tipped Projectiles:** Up to 8 Arrows, Heavy Arrows, or Bolts + any Potion, Splash Potion, or Lingering Potion.
 
@@ -497,6 +520,17 @@ Backpacks feature dedicated auxiliary upgrade slots on the left side of their in
   - Attracts dropped item entities within a **3-block radius** and automatically feeds them directly into available backpack inventory slots.
   - Also functions as a versatile handheld tool! When held in either the main hand or off-hand, the **Magnet** pulls nearby dropped items within an **8-block radius** smoothly toward the player for effortless gathering.
 
+### Crafting Progression & Disassembly
+Backpacks and Quivers follow a logical vanilla crafting progression:
+- **Leather Backpack:** Crafted with **4x Leather, 2x String, 1x Rabbit Hide, and 1x Bundle** (any color).
+- **Iron Backpack:** Crafted with **4x Iron Nuggets, 2x String, 2x Rabbit Hide, 1x Iron Ingot, and 1x Leather Backpack**.
+- **Quiver:** Crafted with **1x Leather, 1x Lead, 1x Rabbit Hide, and 1x Bundle** (any color).
+- **Ender Backpack:** Crafted with **4x Gold Nuggets, 1x Gold Ingot, 1x Ender Chest, and 1x Iron Backpack**.
+- **Netherite Backpack:** Upgraded at a **Smithing Table** using a **Netherite Upgrade Smithing Template**, an **Iron Backpack**, and a **Netherite Ingot**.
+- **Modular Combination & Reversion:**
+  - Combine an **Iron Backpack** and a **Quiver** shapelessly in any crafting grid to create the **Iron Backpack with Quiver**.
+  - Need to separate them? Simply place the **Iron Backpack with Quiver** back into any crafting grid alone. The crafting table outputs the **Iron Backpack** (preserving custom names) and cleanly leaves the **Quiver** behind in the crafting slot!
+
 ### Storage Rules & Anti-Nesting
 To maintain vanilla balance and eliminate recursive storage exploit loops:
 - **No Shulker Boxes & Bundles:** Shulker Boxes, Bundles, and other Backpacks cannot be placed inside backpacks.
@@ -519,8 +553,12 @@ The mod comes bundled with an optional built-in resource pack:
 | :--- | :--- | :--- |
 | **Viewfinder** | 1x Amethyst Shard + 1x Gold Ingot | Shaped: Shard above Ingot in middle column |
 | **Pyrotechnic Tube** | 2x Iron Block + 1x Gunpowder + 1x Slimeball | Shaped: Iron Block, Gunpowder, Iron Block over Slimeball (or vice versa) |
+| **Prismarine Arrow Rest** | 6x Gold Nugget + 2x Prismarine Crystals + 1x Prismarine Shard | Shaped: `NNC` / `NSN` / `CNN` |
 | **Heavy Arrow** (x4) | 1x Iron Nugget + 1x Stick + 1x Ostrich Feather | Shaped: Vertical column (Nugget, Stick, Feather) |
+| **Prismarine Arrow** (x4) | 1x Prismarine Shard + 1x Stick + 1x Feather / Ostrich Feather | Shaped: Vertical column (Shard, Stick, Feather) |
+| **Prismarine Heavy Arrow** (x4) | 1x Prismarine Shard + 1x Stick + 1x Ostrich Feather | Shaped: Vertical column (Shard, Stick, Feather) |
 | **Bolt** (x4) | 1x Iron Nugget + 1x Stick | Shaped: Iron Nugget above Stick in column |
+| **Bow w/ Prismarine Arrow Rest** | 1x Bow (any tier) + 1x Prismarine Arrow Rest | Shapeless (or via Fletching Table) |
 | **Iron Crossbow** | 4x Iron Ingot + 2x String + 1x Slimeball | Shaped: Iron, String, Slime |
 | **Nether Crossbow** | 1x Iron Crossbow + 4x Copper Ingot + 4x Gold Ingot | Shaped: Copper, Gold, Iron Crossbow |
 | **Crossbow w/ Viewfinder** | 1x Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
@@ -533,6 +571,13 @@ The mod comes bundled with an optional built-in resource pack:
 | **Oxidized Nether Crossbow w/ Pyrotechnic Tube** | 1x Oxidized Nether Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
 | **Waxed Nether Crossbow** | 1x Nether Crossbow + 1x Honeycomb | Shapeless (or right-click with Honeycomb) |
 | **Scraped Nether Crossbow** | 1x Oxidized Nether Crossbow + 1x Any Axe | Shapeless (or right-click with Axe) |
+| **Leather Backpack** | 4x Leather + 2x String + 1x Rabbit Hide + 1x Bundle | Shaped: `SRS` / `LBL` / `_L_` (any bundle dye) |
+| **Iron Backpack** | 4x Iron Nugget + 2x String + 2x Rabbit Hide + 1x Iron Ingot + 1x Leather Backpack | Shaped: `SNS` / `RBR` / `NIN` |
+| **Quiver** | 1x Leather + 1x Lead + 1x Rabbit Hide + 1x Bundle | Shaped: `_L_` / `MB_` / `_R_` (any bundle dye) |
+| **Ender Backpack** | 4x Gold Nugget + 1x Gold Ingot + 1x Ender Chest + 1x Iron Backpack | Shaped: `_E_` / `NBN` / `NIN` |
+| **Netherite Backpack** | 1x Netherite Upgrade + 1x Iron Backpack + 1x Netherite Ingot | Smithing Table (Smithing Transform) |
+| **Iron Backpack w/ Quiver** | 1x Iron Backpack + 1x Quiver | Shapeless |
+| **Revert Backpack w/ Quiver** | 1x Iron Backpack with Quiver | Shapeless (yields Iron Backpack, Quiver remains in grid) |
 | **Mud Block** | 4x Mud Ball | 2x2 square |
 | **Feather Block** | 9x Feather / Ostrich Feather | 3x3 square |
 | **Mudstone Bricks** (x4) | 4x Mudstone | 2x2 square |
@@ -563,10 +608,10 @@ All items and blocks from the mod have been cleanly removed from the default Min
   - **Representative Icon:** Iron Crossbow (`ItemInit.IRON_CROSSBOW`)
   - **Contents:**
     - **Bows:** Heavy Bow, Heavy Hardened Bow.
-    - **Crossbows & Attachments:** Viewfinder, Pyrotechnic Tube, Iron Crossbow, Nether Crossbow, Oxidized Nether Crossbow, and attachment-mounted variants.
+    - **Weapons & Attachments:** Viewfinder, Pyrotechnic Tube, Prismarine Arrow Rest, Iron Crossbow, Nether Crossbow, Oxidized Nether Crossbow, and attachment-mounted variants.
     - **Schematics:** Heavy Bow Scheme, Heavy Hardened Bow Scheme, Iron Crossbow Scheme, Nether Crossbow Scheme.
     - **Backpacks & Storage:** Leather Backpack, Iron Backpack, Iron Backpack with Quiver, Netherite Backpack, Ender Backpack, Quiver, Magnet.
-    - **Ammunition:** Heavy Arrows, Crossbow Bolts, and tipped projectile variants.
+    - **Ammunition:** Heavy Arrows, Prismarine Arrows, Prismarine Heavy Arrows, Crossbow Bolts, and tipped projectile variants.
 
 ---
 

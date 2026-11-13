@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "#minecraft:bundles",
+    "L": "minecraft:leather",
+    "M": "minecraft:lead",
+    "R": "minecraft:rabbit_hide"
+  },
+  "pattern": [
+    " L ",
+    "MB ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "mastermaxisvanillaplus:quiver"
+  }
+}

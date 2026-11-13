@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "mastermaxisvanillaplus:leather_backpack",
+    "I": "minecraft:iron_ingot",
+    "N": "minecraft:iron_nugget",
+    "R": "minecraft:rabbit_hide",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "SNS",
+    "RBR",
+    "NIN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mastermaxisvanillaplus:iron_backpack"
+  }
+}

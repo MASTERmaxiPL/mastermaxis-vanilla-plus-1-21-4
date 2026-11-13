@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "mastermaxisvanillaplus:iron_backpack",
+    "E": "minecraft:ender_chest",
+    "I": "minecraft:gold_ingot",
+    "N": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    " E ",
+    "NBN",
+    "NIN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mastermaxisvanillaplus:ender_backpack"
+  }
+}

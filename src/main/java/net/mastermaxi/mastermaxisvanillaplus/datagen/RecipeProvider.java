@@ -336,15 +336,95 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ItemInit.OSTRICH_FEATHER), conditionsFromItem(ItemInit.OSTRICH_FEATHER))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
-                // Prismarine Arrow Rest: gold ingot + prismarine shard
+                // Prismarine Arrow Rest
                 id = MASTERmaxisVanillaPlus.id("prismarine_arrow_rest");
                 ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.PRISMARINE_ARROW_REST)
-                        .pattern(" G ")
-                        .pattern(" P ")
-                        .input('G', Items.GOLD_INGOT)
-                        .input('P', Items.PRISMARINE_SHARD)
+                        .pattern("NNC")
+                        .pattern("NSN")
+                        .pattern("CNN")
+                        .input('N', Items.GOLD_NUGGET)
+                        .input('C', Items.PRISMARINE_CRYSTALS)
+                        .input('S', Items.PRISMARINE_SHARD)
                         .criterion(hasItem(Items.PRISMARINE_SHARD), conditionsFromItem(Items.PRISMARINE_SHARD))
-                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
+                        .criterion(hasItem(Items.PRISMARINE_CRYSTALS), conditionsFromItem(Items.PRISMARINE_CRYSTALS))
+                        .criterion(hasItem(Items.GOLD_NUGGET), conditionsFromItem(Items.GOLD_NUGGET))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Leather Backpack
+                id = MASTERmaxisVanillaPlus.id("leather_backpack");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), TOOLS, ItemInit.LEATHER_BACKPACK)
+                        .pattern("SRS")
+                        .pattern("LBL")
+                        .pattern(" L ")
+                        .input('S', Items.STRING)
+                        .input('R', Items.RABBIT_HIDE)
+                        .input('L', Items.LEATHER)
+                        .input('B', net.minecraft.registry.tag.ItemTags.BUNDLES)
+                        .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                        .criterion(hasItem(Items.RABBIT_HIDE), conditionsFromItem(Items.RABBIT_HIDE))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Iron Backpack
+                id = MASTERmaxisVanillaPlus.id("iron_backpack");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), TOOLS, ItemInit.IRON_BACKPACK)
+                        .pattern("SNS")
+                        .pattern("RBR")
+                        .pattern("NIN")
+                        .input('S', Items.STRING)
+                        .input('N', Items.IRON_NUGGET)
+                        .input('R', Items.RABBIT_HIDE)
+                        .input('B', ItemInit.LEATHER_BACKPACK)
+                        .input('I', Items.IRON_INGOT)
+                        .criterion(hasItem(ItemInit.LEATHER_BACKPACK), conditionsFromItem(ItemInit.LEATHER_BACKPACK))
+                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Quiver
+                id = MASTERmaxisVanillaPlus.id("quiver");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.QUIVER)
+                        .pattern(" L ")
+                        .pattern("MB ")
+                        .pattern(" R ")
+                        .input('L', Items.LEATHER)
+                        .input('M', Items.LEAD)
+                        .input('B', net.minecraft.registry.tag.ItemTags.BUNDLES)
+                        .input('R', Items.RABBIT_HIDE)
+                        .criterion(hasItem(Items.LEAD), conditionsFromItem(Items.LEAD))
+                        .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Ender Backpack
+                id = MASTERmaxisVanillaPlus.id("ender_backpack");
+                ShapedRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), TOOLS, ItemInit.ENDER_BACKPACK)
+                        .pattern(" E ")
+                        .pattern("NBN")
+                        .pattern("NIN")
+                        .input('E', Items.ENDER_CHEST)
+                        .input('N', Items.GOLD_NUGGET)
+                        .input('B', ItemInit.IRON_BACKPACK)
+                        .input('I', Items.GOLD_INGOT)
+                        .criterion(hasItem(Items.ENDER_CHEST), conditionsFromItem(Items.ENDER_CHEST))
+                        .criterion(hasItem(ItemInit.IRON_BACKPACK), conditionsFromItem(ItemInit.IRON_BACKPACK))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Netherite Backpack (Smithing)
+                id = MASTERmaxisVanillaPlus.id("netherite_backpack");
+                net.minecraft.data.recipe.SmithingTransformRecipeJsonBuilder.create(
+                        Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                        Ingredient.ofItems(ItemInit.IRON_BACKPACK),
+                        Ingredient.ofItems(Items.NETHERITE_INGOT),
+                        COMBAT,
+                        ItemInit.NETHERITE_BACKPACK
+                ).criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
+                 .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Iron Backpack with Quiver (Shapeless)
+                id = MASTERmaxisVanillaPlus.id("iron_backpack_with_quiver");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), TOOLS, ItemInit.IRON_BACKPACK_WITH_QUIVER)
+                        .input(ItemInit.IRON_BACKPACK)
+                        .input(ItemInit.QUIVER)
+                        .criterion(hasItem(ItemInit.IRON_BACKPACK), conditionsFromItem(ItemInit.IRON_BACKPACK))
+                        .criterion(hasItem(ItemInit.QUIVER), conditionsFromItem(ItemInit.QUIVER))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };

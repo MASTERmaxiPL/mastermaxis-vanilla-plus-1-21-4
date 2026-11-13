@@ -43,6 +43,12 @@ public class ModRecipeSerializers {
             new SpecialCraftingRecipe.SpecialRecipeSerializer<>(AttachPrismarineArrowRestRecipe::new)
     );
 
+    public static final RecipeSerializer<RevertIronBackpackWithQuiverRecipe> REVERT_IRON_BACKPACK_WITH_QUIVER = Registry.register(
+            Registries.RECIPE_SERIALIZER,
+            MASTERmaxisVanillaPlus.id("crafting_special_revert_iron_backpack_with_quiver"),
+            new SpecialCraftingRecipe.SpecialRecipeSerializer<>(RevertIronBackpackWithQuiverRecipe::new)
+    );
+
     public static void initialize() {
         MASTERmaxisVanillaPlus.LOGGER.info("Registering recipe serializers for " + MASTERmaxisVanillaPlus.MOD_ID);
     }
