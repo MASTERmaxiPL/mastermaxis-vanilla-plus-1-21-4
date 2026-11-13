@@ -1,0 +1,8 @@
+{
+  "replace": true,
+  "order": 100,
+  "slots": [
+    "face"
+  ],
+  "icon": "accessories:container/slot/group/head"
+}

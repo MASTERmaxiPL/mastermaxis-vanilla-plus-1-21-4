@@ -1,0 +1,9 @@
+{
+  "replace": true,
+  "order": 80,
+  "slots": [
+    "necklace",
+    "back"
+  ],
+  "icon": "accessories:container/slot/group/chest"
+}
