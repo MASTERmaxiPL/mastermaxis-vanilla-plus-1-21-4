@@ -597,7 +597,7 @@ All items and blocks from the mod have been cleanly removed from the default Min
 - **Vanilla+ (`itemGroup.mod_item_group`):**
   - **Representative Icon:** Mudstone (`Blocks.MUDSTONE_BLOCK`)
   - **Contents:** All blocks, soils, rocks, baobab trees and wood set, leaves, fluids, foods, creature drops, and spawn eggs.
-- **Vanilla+ Combat (`itemGroup.mod_combat_group`):**
+- **Vanilla+ Combat & Utility (`itemGroup.mod_combat_group`):**
   - **Representative Icon:** Iron Crossbow (`ItemInit.IRON_CROSSBOW`)
   - **Contents:**
     - **Bows:** Heavy Bow, Heavy Hardened Bow.
