@@ -132,7 +132,16 @@ public class NetherCrossbowItem extends IronCrossbowItem {
                 nbt.remove("OxidizeTime");
                 newStack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
 
-                player.getInventory().setStack(slot, newStack);
+                if (player.getOffHandStack() == stack) {
+                    player.setStackInHand(net.minecraft.util.Hand.OFF_HAND, newStack);
+                } else if (slot >= 0 && slot < player.getInventory().size() && player.getInventory().getStack(slot) == stack) {
+                    player.getInventory().setStack(slot, newStack);
+                } else {
+                    int actualSlot = player.getInventory().getSlotWithStack(stack);
+                    if (actualSlot != -1) {
+                        player.getInventory().setStack(actualSlot, newStack);
+                    }
+                }
 
                 if (world instanceof ServerWorld serverWorld) {
                     serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),

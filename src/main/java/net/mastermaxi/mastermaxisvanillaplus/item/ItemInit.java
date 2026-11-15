@@ -125,10 +125,9 @@ public class ItemInit {
             entries.add(BAOBAB_STEW);
             entries.add(TRUFFLE);
             entries.add(TRUFFLE_PORKCHOP);
-            entries.add(MAGNET);
         });
 
-        // Combat Tab: Vanilla+ Combat (bows, crossbows, schematics, arrows)
+        // Combat & Utility Tab: Vanilla+ Combat & Utility (bows, crossbows, schematics, backpacks, quiver, magnet, arrows)
         ItemGroupEvents.modifyEntriesEvent(ItemGroupsInit.COMBAT_ITEM_GROUP_KEY).register((entries) -> {
             // Bows
             entries.add(HEAVY_BOW);

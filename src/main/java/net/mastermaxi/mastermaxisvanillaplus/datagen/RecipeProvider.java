@@ -248,32 +248,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
-                // Crossbow + viewfinder (vanilla crossbow with viewfinder)
-                id = MASTERmaxisVanillaPlus.id("crossbow_viewfinder");
-                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.CROSSBOW_VIEWFINDER)
-                        .input(Items.CROSSBOW)
-                        .input(ItemInit.VIEWFINDER)
-                        .criterion(hasItem(Items.CROSSBOW), conditionsFromItem(Items.CROSSBOW))
-                        .criterion(hasItem(ItemInit.VIEWFINDER), conditionsFromItem(ItemInit.VIEWFINDER))
-                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
-
-                // Iron Crossbow + viewfinder
-                id = MASTERmaxisVanillaPlus.id("iron_crossbow_viewfinder");
-                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.IRON_CROSSBOW_VIEWFINDER)
-                        .input(ItemInit.IRON_CROSSBOW)
-                        .input(ItemInit.VIEWFINDER)
-                        .criterion(hasItem(ItemInit.IRON_CROSSBOW), conditionsFromItem(ItemInit.IRON_CROSSBOW))
-                        .criterion(hasItem(ItemInit.VIEWFINDER), conditionsFromItem(ItemInit.VIEWFINDER))
-                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
-
-                // Nether Crossbow + viewfinder
-                id = MASTERmaxisVanillaPlus.id("nether_crossbow_viewfinder");
-                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), COMBAT, ItemInit.NETHER_CROSSBOW_VIEWFINDER)
-                        .input(ItemInit.NETHER_CROSSBOW)
-                        .input(ItemInit.VIEWFINDER)
-                        .criterion(hasItem(ItemInit.NETHER_CROSSBOW), conditionsFromItem(ItemInit.NETHER_CROSSBOW))
-                        .criterion(hasItem(ItemInit.VIEWFINDER), conditionsFromItem(ItemInit.VIEWFINDER))
-                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
 
                 // Viewfinder item: amethyst shard above gold ingot in middle column
                 id = MASTERmaxisVanillaPlus.id("viewfinder");
@@ -425,6 +399,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(ItemInit.QUIVER)
                         .criterion(hasItem(ItemInit.IRON_BACKPACK), conditionsFromItem(ItemInit.IRON_BACKPACK))
                         .criterion(hasItem(ItemInit.QUIVER), conditionsFromItem(ItemInit.QUIVER))
+                        .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
+
+                // Magnet (Shapeless: Iron Ingot + Redstone + Lapis Lazuli)
+                id = MASTERmaxisVanillaPlus.id("magnet");
+                ShapelessRecipeJsonBuilder.create(wrapperLookup.getOrThrow(RegistryKeys.ITEM), TOOLS, ItemInit.MAGNET)
+                        .input(Items.IRON_INGOT)
+                        .input(Items.REDSTONE)
+                        .input(Items.LAPIS_LAZULI)
+                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                        .criterion(hasItem(Items.REDSTONE), conditionsFromItem(Items.REDSTONE))
+                        .criterion(hasItem(Items.LAPIS_LAZULI), conditionsFromItem(Items.LAPIS_LAZULI))
                         .offerTo(recipeExporter, RegistryKey.of(RegistryKeys.RECIPE, id));
             }
         };

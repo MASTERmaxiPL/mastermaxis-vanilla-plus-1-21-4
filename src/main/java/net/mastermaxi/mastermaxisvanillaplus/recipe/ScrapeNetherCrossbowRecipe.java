@@ -72,6 +72,29 @@ public class ScrapeNetherCrossbowRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
+    public net.minecraft.util.collection.DefaultedList<ItemStack> getRecipeRemainders(CraftingRecipeInput input) {
+        net.minecraft.util.collection.DefaultedList<ItemStack> remainder = net.minecraft.util.collection.DefaultedList.ofSize(input.size(), ItemStack.EMPTY);
+        for (int i = 0; i < input.size(); i++) {
+            ItemStack stack = input.getStackInSlot(i);
+            if (stack.isIn(ItemTags.AXES)) {
+                ItemStack axe = stack.copy();
+                axe.setCount(1);
+                if (axe.isDamageable()) {
+                    int newDamage = axe.getDamage() + 1;
+                    if (newDamage < axe.getMaxDamage()) {
+                        axe.setDamage(newDamage);
+                        remainder.set(i, axe);
+                    }
+                } else {
+                    remainder.set(i, axe);
+                }
+                break;
+            }
+        }
+        return remainder;
+    }
+
+    @Override
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializers.SCRAPE_NETHER_CROSSBOW;
     }

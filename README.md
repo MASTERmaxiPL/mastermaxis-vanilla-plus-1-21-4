@@ -319,7 +319,7 @@ Crossbows have been completely rebalanced: **all crossbows now shoot Bolts inste
 ### Pyrotechnic Tube & Fireworks Ammunition
 - **Pyrotechnic Tube (`ItemInit.PYROTECHNIC_TUBE`):** A specialized military crossbow modification that unlocks the ability to load and launch **Firework Rockets**.
 - **Crossbow Compatibility:** Can be mounted onto any crossbow tier—Standard Vanilla Crossbow, Iron Crossbow, Nether Crossbow, or Oxidized Nether Crossbow.
-- **Mounting & Upgrading:** Install or remove the tube via the [Fletching Table](#-fletching-table-overhaul) attachment slot, or combine the crossbow and tube shapelessly in any crafting grid.
+- **Mounting & Upgrading:** Install or remove the tube exclusively via the [Fletching Table](#-fletching-table-overhaul) attachment slot.
 - **Dedicated Firework Visuals:** All crossbow variants feature dedicated loaded-firework models and textures (including a revamped texture for the standard crossbow), clearly displaying the loaded rocket in first- and third-person view.
 - **Crafting Recipe:** Crafted with **2x Iron Block + 1x Gunpowder + 1x Slimeball** (`Iron Block | Gunpowder | Iron Block` over `Slimeball`, or vice versa).
 
@@ -360,7 +360,7 @@ The **Viewfinder (`ItemInit.VIEWFINDER`)** is a precision optic device crafted f
 ### Prismarine Arrow Rest
 The **Prismarine Arrow Rest (`ItemInit.PRISMARINE_ARROW_REST`)** is an exquisite golden-prismarine arrow shelf designed for bows:
 - **Bow Compatibility:** Can be installed onto any bow tier—Standard Vanilla Bow, Heavy Bow, or Heavy Hardened Bow.
-- **Mounting & Detaching:** Freely mount or unmount via the [Fletching Table](#-fletching-table-overhaul) attachment slot, or attach directly by combining the bow and arrow rest in any crafting grid.
+- **Mounting & Detaching:** Freely mount or unmount exclusively via the [Fletching Table](#-fletching-table-overhaul) attachment slot.
 - **Functionality:** Stabilizes aquatic arrows, enabling the bow to shoot **Prismarine Arrows** (and **Prismarine Heavy Arrows** when mounted on Heavy Bows).
 - **Crafting Recipe:** Crafted with **6x Gold Nugget + 2x Prismarine Crystals + 1x Prismarine Shard** in a shaped 3x3 pattern.
 
@@ -519,6 +519,7 @@ Backpacks feature dedicated auxiliary upgrade slots on the left side of their in
 - **Magnet Upgrade (`mastermaxisvanillaplus:magnet`):**
   - Attracts dropped item entities within a **3-block radius** and automatically feeds them directly into available backpack inventory slots.
   - Also functions as a versatile handheld tool! When held in either the main hand or off-hand, the **Magnet** pulls nearby dropped items within an **8-block radius** smoothly toward the player for effortless gathering.
+  - **Crafting Recipe:** Crafted shapelessly with **1x Iron Ingot + 1x Redstone + 1x Lapis Lazuli**.
 
 ### Crafting Progression & Disassembly
 Backpacks and Quivers follow a logical vanilla crafting progression:
@@ -558,17 +559,8 @@ The mod comes bundled with an optional built-in resource pack:
 | **Prismarine Arrow** (x4) | 1x Prismarine Shard + 1x Stick + 1x Feather / Ostrich Feather | Shaped: Vertical column (Shard, Stick, Feather) |
 | **Prismarine Heavy Arrow** (x4) | 1x Prismarine Shard + 1x Stick + 1x Ostrich Feather | Shaped: Vertical column (Shard, Stick, Feather) |
 | **Bolt** (x4) | 1x Iron Nugget + 1x Stick | Shaped: Iron Nugget above Stick in column |
-| **Bow w/ Prismarine Arrow Rest** | 1x Bow (any tier) + 1x Prismarine Arrow Rest | Shapeless (or via Fletching Table) |
 | **Iron Crossbow** | 4x Iron Ingot + 2x String + 1x Slimeball | Shaped: Iron, String, Slime |
 | **Nether Crossbow** | 1x Iron Crossbow + 4x Copper Ingot + 4x Gold Ingot | Shaped: Copper, Gold, Iron Crossbow |
-| **Crossbow w/ Viewfinder** | 1x Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
-| **Crossbow w/ Pyrotechnic Tube** | 1x Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
-| **Iron Crossbow w/ Viewfinder** | 1x Iron Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
-| **Iron Crossbow w/ Pyrotechnic Tube** | 1x Iron Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
-| **Nether Crossbow w/ Viewfinder** | 1x Nether Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
-| **Nether Crossbow w/ Pyrotechnic Tube** | 1x Nether Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
-| **Oxidized Nether Crossbow w/ Viewfinder** | 1x Oxidized Nether Crossbow + 1x Viewfinder | Shapeless (or via Fletching Table) |
-| **Oxidized Nether Crossbow w/ Pyrotechnic Tube** | 1x Oxidized Nether Crossbow + 1x Pyrotechnic Tube | Shapeless (or via Fletching Table) |
 | **Waxed Nether Crossbow** | 1x Nether Crossbow + 1x Honeycomb | Shapeless (or right-click with Honeycomb) |
 | **Scraped Nether Crossbow** | 1x Oxidized Nether Crossbow + 1x Any Axe | Shapeless (or right-click with Axe) |
 | **Leather Backpack** | 4x Leather + 2x String + 1x Rabbit Hide + 1x Bundle | Shaped: `SRS` / `LBL` / `_L_` (any bundle dye) |
@@ -578,6 +570,7 @@ The mod comes bundled with an optional built-in resource pack:
 | **Netherite Backpack** | 1x Netherite Upgrade + 1x Iron Backpack + 1x Netherite Ingot | Smithing Table (Smithing Transform) |
 | **Iron Backpack w/ Quiver** | 1x Iron Backpack + 1x Quiver | Shapeless |
 | **Revert Backpack w/ Quiver** | 1x Iron Backpack with Quiver | Shapeless (yields Iron Backpack, Quiver remains in grid) |
+| **Magnet** | 1x Iron Ingot + 1x Redstone + 1x Lapis Lazuli | Shapeless |
 | **Mud Block** | 4x Mud Ball | 2x2 square |
 | **Feather Block** | 9x Feather / Ostrich Feather | 3x3 square |
 | **Mudstone Bricks** (x4) | 4x Mudstone | 2x2 square |
@@ -604,7 +597,7 @@ All items and blocks from the mod have been cleanly removed from the default Min
 - **Vanilla+ (`itemGroup.mod_item_group`):**
   - **Representative Icon:** Mudstone (`Blocks.MUDSTONE_BLOCK`)
   - **Contents:** All blocks, soils, rocks, baobab trees and wood set, leaves, fluids, foods, creature drops, and spawn eggs.
-- **Vanilla+ Combat (`itemGroup.mod_combat_group`):**
+- **Vanilla+ Combat & Utility (`itemGroup.mod_combat_group`):**
   - **Representative Icon:** Iron Crossbow (`ItemInit.IRON_CROSSBOW`)
   - **Contents:**
     - **Bows:** Heavy Bow, Heavy Hardened Bow.

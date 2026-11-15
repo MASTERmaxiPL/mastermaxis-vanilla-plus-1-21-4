@@ -31,17 +31,6 @@ public class ModRecipeSerializers {
             new SpecialCraftingRecipe.SpecialRecipeSerializer<>(ScrapeNetherCrossbowRecipe::new)
     );
 
-    public static final RecipeSerializer<AttachPyrotechnicTubeRecipe> ATTACH_PYROTECHNIC_TUBE = Registry.register(
-            Registries.RECIPE_SERIALIZER,
-            MASTERmaxisVanillaPlus.id("crafting_special_attach_pyrotechnic_tube"),
-            new SpecialCraftingRecipe.SpecialRecipeSerializer<>(AttachPyrotechnicTubeRecipe::new)
-    );
-
-    public static final RecipeSerializer<AttachPrismarineArrowRestRecipe> ATTACH_PRISMARINE_ARROW_REST = Registry.register(
-            Registries.RECIPE_SERIALIZER,
-            MASTERmaxisVanillaPlus.id("crafting_special_attach_prismarine_arrow_rest"),
-            new SpecialCraftingRecipe.SpecialRecipeSerializer<>(AttachPrismarineArrowRestRecipe::new)
-    );
 
     public static final RecipeSerializer<RevertIronBackpackWithQuiverRecipe> REVERT_IRON_BACKPACK_WITH_QUIVER = Registry.register(
             Registries.RECIPE_SERIALIZER,
